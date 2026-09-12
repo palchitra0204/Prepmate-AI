@@ -1,0 +1,233 @@
+/* ==============================
+   DARK THEME DOCK
+============================== */
+
+.dock-position {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    z-index: 2000;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    transform: translateX(-50%);
+}
+
+.dock-panel {
+    padding: 8px 14px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    gap: 14px;
+
+    border:
+        1px solid rgba(166, 108, 255, 0.42);
+
+    border-radius: 22px;
+
+    background:
+        rgba(13, 11, 20, 0.94);
+
+    box-shadow:
+        0 0 0 1px rgba(166, 108, 255, 0.06),
+        0 16px 45px rgba(0, 0, 0, 0.45),
+        0 0 30px rgba(133, 70, 240, 0.1);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.dock-item {
+    position: relative;
+
+    min-width: 42px;
+    min-height: 42px;
+    padding: 0;
+
+    flex-shrink: 0;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #aaa4b2;
+
+    border:
+        1px solid rgba(166, 108, 255, 0.2);
+
+    border-radius: 15px;
+
+    outline: none;
+
+    background:
+        rgba(166, 108, 255, 0.06);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.dock-item:hover,
+.dock-item:focus-visible {
+    color: #ffffff;
+
+    border-color: #a66cff;
+
+    background:
+        rgba(166, 108, 255, 0.18);
+
+    box-shadow:
+        0 0 0 3px rgba(166, 108, 255, 0.12),
+        0 8px 25px rgba(93, 42, 181, 0.22);
+}
+
+.dock-icon {
+    display: grid;
+    place-items: center;
+
+    color: inherit;
+
+    pointer-events: none;
+}
+
+.dock-icon svg {
+    width: 21px;
+    height: 21px;
+
+    color: inherit;
+}
+
+.dock-label {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 7px);
+    z-index: 10;
+
+    width: max-content;
+    padding: 6px 9px;
+
+    color: #ffffff;
+
+    border:
+        1px solid rgba(166, 108, 255, 0.4);
+
+    border-radius: 7px;
+
+    background: #120f19;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.35);
+
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+
+    transform: translateX(-50%);
+
+    pointer-events: none;
+}
+
+/* ==============================
+   LIGHT THEME DOCK
+============================== */
+
+:root[data-theme="light"] .dock-panel {
+    border-color: #a03f73;
+
+    background:
+        rgba(255, 250, 250, 0.96);
+
+    box-shadow:
+        0 0 0 1px rgba(160, 63, 115, 0.06),
+        0 16px 42px rgba(160, 63, 115, 0.14);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+:root[data-theme="light"] .dock-item {
+    color: #2d2b2e;
+
+    border-color:
+        rgba(160, 63, 115, 0.35);
+
+    background:
+        rgba(160, 63, 115, 0.05);
+
+    box-shadow: none;
+}
+
+:root[data-theme="light"] .dock-item:hover,
+:root[data-theme="light"] .dock-item:focus-visible {
+    color: #a03f73;
+
+    border-color: #a03f73;
+
+    background:
+        rgba(160, 63, 115, 0.1);
+
+    box-shadow:
+        0 0 0 4px rgba(160, 63, 115, 0.16),
+        0 8px 24px rgba(160, 63, 115, 0.12);
+}
+
+:root[data-theme="light"] .dock-label {
+    color: #2d2b2e;
+
+    border-color: #a03f73;
+
+    background: #fffafa;
+
+    box-shadow:
+        0 8px 22px rgba(160, 63, 115, 0.15);
+}
+
+/* ==============================
+   MOBILE RESPONSIVE
+============================== */
+
+@media (max-width: 600px) {
+    .dock-position {
+        bottom: 12px;
+
+        max-width:
+            calc(100vw - 20px);
+    }
+
+    .dock-panel {
+        padding: 7px 10px;
+
+        gap: 9px;
+
+        border-radius: 18px;
+    }
+
+    .dock-item {
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    .dock-icon svg {
+        width: 19px;
+        height: 19px;
+    }
+}
+
+/* Remove Dock outer border */
+
+.dock-panel,
+:root[data-theme="dark"] .dock-panel,
+:root[data-theme="light"] .dock-panel {
+    border: none !important;
+}

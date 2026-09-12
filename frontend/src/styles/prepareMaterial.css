@@ -1,0 +1,1681 @@
+/* =========================================================
+   PREPARE MATERIAL
+========================================================= */
+
+.prepare-page {
+  --prepare-bg: #05050b;
+
+  --prepare-text: #f8f5fb;
+
+  --prepare-muted: #9f97aa;
+
+  --prepare-purple: #a66cff;
+
+  --prepare-purple-light: #c797ff;
+
+  --prepare-pink: #ec5aae;
+
+  min-height: 100vh;
+
+  position: relative;
+
+  overflow: hidden;
+
+  color: var(--prepare-text);
+
+  background:
+    radial-gradient(circle at 50% 12%,
+      rgba(113, 61, 206, 0.17),
+      transparent 30%),
+    radial-gradient(circle at 18% 55%,
+      rgba(91, 43, 172, 0.08),
+      transparent 30%),
+    radial-gradient(circle at 82% 48%,
+      rgba(112, 55, 207, 0.09),
+      transparent 29%),
+    radial-gradient(circle at 50% 76%,
+      rgba(236, 90, 174, 0.065),
+      transparent 24%),
+    linear-gradient(180deg,
+      #090812 0%,
+      #06060c 48%,
+      #040409 100%);
+}
+
+
+.prepare-page *,
+.prepare-page *::before,
+.prepare-page *::after {
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   ATMOSPHERIC PAGE GLOW
+========================================================= */
+
+.prepare-page::before {
+  content: "";
+
+  width: 950px;
+  height: 650px;
+
+  position: absolute;
+
+  top: -360px;
+  left: 50%;
+
+  z-index: 0;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle,
+      rgba(132, 74, 230, 0.19),
+      rgba(83, 39, 158, 0.06) 48%,
+      transparent 72%);
+
+  filter: blur(24px);
+
+  transform:
+    translateX(-50%);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   BACKGROUND ART LAYER
+========================================================= */
+
+.prepare-background-art {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   ORBITS
+========================================================= */
+
+.prepare-orbit {
+  position: absolute;
+
+  left: 50%;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+/* top / main orbit */
+
+.prepare-orbit-one {
+  width: 1450px;
+  height: 590px;
+
+  top: 140px;
+
+  border:
+    1px solid rgba(145, 88, 241, 0.12);
+
+  transform:
+    translateX(-50%) rotate(-5deg);
+}
+
+
+/* second orbit */
+
+.prepare-orbit-two {
+  width: 1250px;
+  height: 430px;
+
+  top: 470px;
+
+  border:
+    1px solid rgba(145, 88, 241, 0.08);
+
+  transform:
+    translateX(-50%) rotate(5deg);
+}
+
+
+/* =========================================================
+   FLOATING STUDY ICONS
+========================================================= */
+
+.prepare-floating-study-icon {
+  position: absolute;
+
+  display: grid;
+
+  place-items: center;
+
+  color: #bf88ff;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.2);
+
+  border-radius: 17px;
+
+  background:
+    linear-gradient(145deg,
+      rgba(100, 49, 180, 0.3),
+      rgba(48, 24, 89, 0.2));
+
+  box-shadow:
+    0 16px 38px rgba(71, 29, 139, 0.2),
+    0 0 26px rgba(166, 108, 255, 0.12);
+
+  backdrop-filter:
+    blur(10px);
+
+  -webkit-backdrop-filter:
+    blur(10px);
+
+  opacity: 0.7;
+
+  animation:
+    prepare-background-icon-float 6s ease-in-out infinite;
+}
+
+
+/* Question */
+
+.prepare-study-icon-one {
+  width: 58px;
+  height: 58px;
+
+  top: 260px;
+  left: 2.5%;
+
+  transform:
+    rotate(7deg);
+
+  animation-delay:
+    -0.8s;
+}
+
+
+/* Graduation cap */
+
+.prepare-study-icon-two {
+  width: 68px;
+  height: 68px;
+
+  top: 125px;
+  right: 2.8%;
+
+  transform:
+    rotate(-8deg);
+
+  animation-delay:
+    -2.4s;
+}
+
+
+/* Book */
+
+.prepare-study-icon-three {
+  width: 62px;
+  height: 62px;
+
+  top: 470px;
+  left: 1%;
+
+  transform:
+    rotate(-8deg);
+
+  opacity: 0.52;
+
+  animation-delay:
+    -3.2s;
+}
+
+
+/* Chat */
+
+.prepare-study-icon-four {
+  width: 58px;
+  height: 58px;
+
+  top: 405px;
+  right: 0.8%;
+
+  transform:
+    rotate(8deg);
+
+  opacity: 0.5;
+
+  animation-delay:
+    -4.1s;
+}
+
+
+/* Smaller cap */
+
+.prepare-study-icon-five {
+  width: 48px;
+  height: 48px;
+
+  bottom: 72px;
+  right: 11%;
+
+  transform:
+    rotate(5deg);
+
+  opacity: 0.34;
+
+  animation-delay:
+    -1.5s;
+}
+
+
+@keyframes prepare-background-icon-float {
+
+  0%,
+  100% {
+    margin-top: 0;
+
+    filter:
+      drop-shadow(0 0 0 transparent);
+  }
+
+
+  50% {
+    margin-top: -18px;
+
+    filter:
+      drop-shadow(0 0 13px rgba(166, 108, 255, 0.38));
+  }
+
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.prepare-container {
+  width:
+    min(1120px,
+      calc(100% - 44px));
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  padding:
+    24px 0 105px;
+
+  position: relative;
+
+  z-index: 5;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.prepare-back-button {
+  padding: 0;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  color: #aaa2b4;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  font: inherit;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.prepare-back-button:hover {
+  color: #ffffff;
+
+  transform:
+    translateX(-3px);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.prepare-header {
+  margin-top: 34px;
+
+  position: relative;
+
+  z-index: 5;
+}
+
+
+.prepare-eyebrow {
+  display: block;
+
+  margin-left: 78px;
+
+  margin-bottom: 10px;
+
+  color:
+    var(--prepare-purple);
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+
+.prepare-material-heading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+
+.prepare-file-icon {
+  width: 60px;
+  height: 60px;
+
+  flex-shrink: 0;
+
+  display: grid;
+
+  place-items: center;
+
+  color:
+    var(--prepare-purple-light);
+
+  border:
+    1px solid rgba(166, 108, 255, 0.2);
+
+  border-radius: 17px;
+
+  background:
+    rgba(92, 43, 169, 0.25);
+
+  box-shadow:
+    0 12px 30px rgba(66, 26, 128, 0.2);
+}
+
+
+.prepare-material-info {
+  min-width: 0;
+}
+
+
+.prepare-material-info h1 {
+  max-width: 100%;
+
+  margin: 0;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  font-family:
+    "Manrope",
+    sans-serif;
+
+  font-size:
+    clamp(31px,
+      4.1vw,
+      48px);
+
+  line-height: 1.1;
+
+  letter-spacing:
+    -0.045em;
+
+  text-overflow:
+    ellipsis;
+
+  white-space:
+    nowrap;
+}
+
+
+.prepare-material-info p {
+  margin:
+    10px 0 0;
+
+  color:
+    var(--prepare-muted);
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.prepare-cards {
+  margin-top: 52px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3,
+      minmax(0, 1fr));
+
+  gap: 28px;
+
+  position: relative;
+
+  z-index: 5;
+
+  perspective:
+    1200px;
+}
+
+
+/* =========================================================
+   BOUNCE WRAPPER
+========================================================= */
+
+.prepare-card-bounce {
+  width: 100%;
+
+  min-width: 0;
+
+  position: relative;
+
+  will-change:
+    transform,
+    opacity;
+}
+
+
+/* Neon glow below cards */
+
+.prepare-card-bounce::after {
+  content: "";
+
+  width: 72%;
+  height: 18px;
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -25px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(ellipse,
+      rgba(133, 78, 255, 0.42),
+      transparent 70%);
+
+  filter:
+    blur(11px);
+
+  opacity: 0.65;
+
+  transform:
+    translateX(-50%);
+
+  pointer-events: none;
+}
+
+
+.prepare-card-bounce:nth-child(2)::after {
+  background:
+    radial-gradient(ellipse,
+      rgba(236, 90, 174, 0.55),
+      transparent 70%);
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.prepare-mode-card {
+  min-height: 390px;
+
+  padding:
+    27px 26px 25px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.4);
+
+  border-radius: 26px;
+
+  background:
+    linear-gradient(145deg,
+      rgba(24, 20, 35, 0.96),
+      rgba(11, 10, 17, 0.98));
+
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.28);
+
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+/* ==============================================
+   INDIVIDUAL FLOATING
+============================================== */
+
+.prepare-mode-card-1 {
+  transform:
+    translateY(8px) rotate(-1.4deg);
+
+  animation:
+    prepare-card-float-one 5s ease-in-out infinite;
+}
+
+
+.prepare-mode-card-2 {
+  border-color:
+    rgba(236,
+      90,
+      174,
+      0.6);
+
+  background:
+    linear-gradient(145deg,
+      rgba(48, 22, 43, 0.96),
+      rgba(18, 12, 22, 0.98));
+
+  transform:
+    translateY(-3px) rotate(0.5deg);
+
+  animation:
+    prepare-card-float-two 5.6s ease-in-out infinite;
+}
+
+
+.prepare-mode-card-3 {
+  transform:
+    translateY(9px) rotate(1.4deg);
+
+  animation:
+    prepare-card-float-three 5.2s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   CARD HOVER
+========================================================= */
+
+.prepare-card-bounce:hover .prepare-mode-card {
+  animation-play-state:
+    paused;
+
+  transform:
+    translateY(-13px) scale(1.025) rotate(0deg);
+
+  border-color:
+    var(--prepare-purple);
+
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.38),
+    0 0 34px rgba(166, 108, 255, 0.18);
+}
+
+
+.prepare-card-bounce:nth-child(2):hover .prepare-mode-card {
+  border-color:
+    var(--prepare-pink);
+
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.38),
+    0 0 38px rgba(236, 90, 174, 0.23);
+}
+
+
+/* =========================================================
+   CARD GLOW
+========================================================= */
+
+.prepare-card-glow {
+  width: 240px;
+  height: 240px;
+
+  position: absolute;
+
+  top: -150px;
+  left: 50%;
+
+  border-radius: 50%;
+
+  background:
+    var(--prepare-purple);
+
+  filter:
+    blur(80px);
+
+  opacity: 0.1;
+
+  transform:
+    translateX(-50%);
+
+  pointer-events: none;
+}
+
+
+.prepare-mode-card-2 .prepare-card-glow {
+  background:
+    var(--prepare-pink);
+
+  opacity: 0.15;
+}
+
+
+/* =========================================================
+   LARGE DECORATIVE CARD ICON
+========================================================= */
+
+.prepare-card-decoration {
+  position: absolute;
+
+  top: 65px;
+  right: 18px;
+
+  color:
+    rgba(166,
+      108,
+      255,
+      0.09);
+
+  transform:
+    rotate(8deg);
+
+  pointer-events: none;
+
+  transition:
+    color 0.3s ease,
+    transform 0.4s ease;
+}
+
+
+.prepare-mode-card-2 .prepare-card-decoration {
+  color:
+    rgba(236,
+      90,
+      174,
+      0.1);
+}
+
+
+.prepare-card-bounce:hover .prepare-card-decoration {
+  color:
+    rgba(166,
+      108,
+      255,
+      0.16);
+
+  transform:
+    rotate(4deg) scale(1.07);
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.prepare-mode-icon {
+  width: 58px;
+  height: 58px;
+
+  position: relative;
+
+  z-index: 2;
+
+  display: grid;
+
+  place-items: center;
+
+  color:
+    var(--prepare-purple-light);
+
+  border:
+    1px solid rgba(166, 108, 255, 0.35);
+
+  border-radius: 17px;
+
+  background:
+    rgba(102, 53, 177, 0.25);
+
+  box-shadow:
+    0 10px 30px rgba(88, 39, 160, 0.16);
+}
+
+
+.prepare-mode-card-2 .prepare-mode-icon {
+  color: #ff9ccc;
+
+  border-color:
+    rgba(236,
+      90,
+      174,
+      0.43);
+
+  background:
+    rgba(185,
+      54,
+      125,
+      0.24);
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.prepare-card-content {
+  margin-top: 48px;
+
+  position: relative;
+
+  z-index: 2;
+}
+
+
+.prepare-card-content h2 {
+  margin:
+    0 0 14px;
+
+  color: #ffffff;
+
+  font-family:
+    "Manrope",
+    sans-serif;
+
+  font-size: 21px;
+
+  line-height: 1.25;
+
+  letter-spacing:
+    -0.025em;
+}
+
+
+.prepare-card-content p {
+  max-width: 280px;
+
+  margin: 0;
+
+  color:
+    #aaa2b4;
+
+  font-size: 14px;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   START BUTTON
+========================================================= */
+
+.prepare-start-button,
+.prepare-start-button:hover,
+.prepare-start-button:focus,
+.prepare-start-button:active,
+.prepare-start-button:focus-visible {
+  width: 100%;
+
+  margin-top: auto;
+
+  padding:
+    24px 0 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  gap: 14px;
+
+  color:
+    var(--prepare-purple-light);
+
+  border: none !important;
+
+  outline: none !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
+
+  font: inherit;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+
+.prepare-mode-card-2 .prepare-start-button {
+  color:
+    #ff82bd;
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.prepare-start-arrow {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: grid;
+
+  place-items: center;
+
+  color:
+    var(--prepare-purple-light);
+
+  border:
+    1px solid rgba(166,
+      108,
+      255,
+      0.5);
+
+  border-radius: 50%;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.07);
+
+  opacity: 1;
+
+  visibility: visible;
+
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+
+.prepare-start-arrow svg {
+  display: block;
+
+  stroke:
+    currentColor;
+}
+
+
+.prepare-start-button:hover .prepare-start-arrow {
+  color: #ffffff;
+
+  border-color:
+    var(--prepare-purple);
+
+  background:
+    var(--prepare-purple);
+
+  transform:
+    translateX(5px);
+}
+
+
+.prepare-mode-card-2 .prepare-start-button:hover .prepare-start-arrow {
+  border-color:
+    var(--prepare-pink);
+
+  background:
+    var(--prepare-pink);
+}
+
+
+/* =========================================================
+   FLOAT ANIMATION
+========================================================= */
+
+@keyframes prepare-card-float-one {
+
+  0%,
+  100% {
+    transform:
+      translateY(8px) rotate(-1.4deg);
+  }
+
+  50% {
+    transform:
+      translateY(-3px) rotate(-0.8deg);
+  }
+
+}
+
+
+@keyframes prepare-card-float-two {
+
+  0%,
+  100% {
+    transform:
+      translateY(-3px) rotate(0.5deg);
+  }
+
+  50% {
+    transform:
+      translateY(9px) rotate(-0.2deg);
+  }
+
+}
+
+
+@keyframes prepare-card-float-three {
+
+  0%,
+  100% {
+    transform:
+      translateY(9px) rotate(1.4deg);
+  }
+
+  50% {
+    transform:
+      translateY(-4px) rotate(0.7deg);
+  }
+
+}
+
+
+/* =========================================================
+   LOADING / ERROR
+========================================================= */
+
+.prepare-state {
+  min-height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 15px;
+
+  color:
+    var(--prepare-muted);
+}
+
+
+.prepare-loader {
+  width: 38px;
+  height: 38px;
+
+  border:
+    3px solid rgba(166,
+      108,
+      255,
+      0.18);
+
+  border-top-color:
+    var(--prepare-purple);
+
+  border-radius: 50%;
+
+  animation:
+    prepare-loader-spin 0.8s linear infinite;
+}
+
+
+@keyframes prepare-loader-spin {
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+
+}
+
+
+.prepare-error {
+  color: #ff8cab;
+}
+
+
+.prepare-state button {
+  padding:
+    10px 17px;
+
+  color: #ffffff;
+
+  border:
+    1px solid rgba(166,
+      108,
+      255,
+      0.3);
+
+  border-radius: 10px;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.12);
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+:root[data-theme="light"] .prepare-page {
+  --prepare-bg: #fffafa;
+
+  --prepare-text: #2d2b2e;
+
+  --prepare-muted: #756d72;
+
+  --prepare-purple: #d85b9b;
+
+  --prepare-purple-light: #d85b9b;
+
+  --prepare-pink: #a03f73;
+
+  background:
+    radial-gradient(circle at 50% 15%,
+      rgba(216,
+        91,
+        155,
+        0.09),
+      transparent 30%),
+    linear-gradient(180deg,
+      #fffafa 0%,
+      #fff9fb 52%,
+      #fffafa 100%);
+}
+
+
+/* atmospheric glow */
+
+:root[data-theme="light"] .prepare-page::before {
+  background:
+    radial-gradient(circle,
+      rgba(216,
+        91,
+        155,
+        0.1),
+      transparent 70%);
+}
+
+
+/* orbit */
+
+:root[data-theme="light"] .prepare-orbit-one,
+:root[data-theme="light"] .prepare-orbit-two {
+  border-color:
+    rgba(160,
+      63,
+      115,
+      0.1);
+}
+
+
+/* Background icons pink */
+
+:root[data-theme="light"] .prepare-floating-study-icon {
+  color: #d85b9b;
+
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.2);
+
+  background:
+    rgba(255,
+      242,
+      248,
+      0.8);
+
+  box-shadow:
+    0 14px 35px rgba(216,
+      91,
+      155,
+      0.09);
+
+  opacity: 0.46;
+}
+
+
+/* back */
+
+:root[data-theme="light"] .prepare-back-button {
+  color: #756d72;
+}
+
+
+:root[data-theme="light"] .prepare-back-button:hover {
+  color: #a03f73;
+}
+
+
+/* header */
+
+:root[data-theme="light"] .prepare-eyebrow {
+  color: #d85b9b;
+}
+
+
+:root[data-theme="light"] .prepare-file-icon {
+  color: #d85b9b;
+
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.3);
+
+  background: #fff2f8;
+}
+
+
+:root[data-theme="light"] .prepare-material-info h1 {
+  color: #2d2b2e;
+}
+
+
+:root[data-theme="light"] .prepare-material-info p {
+  color: #756d72;
+}
+
+
+/* cards */
+
+:root[data-theme="light"] .prepare-mode-card {
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.55);
+
+  background:
+    linear-gradient(145deg,
+      #ffffff,
+      #fff9fb);
+
+  box-shadow:
+    0 22px 55px rgba(160,
+      63,
+      115,
+      0.09);
+}
+
+
+:root[data-theme="light"] .prepare-mode-card-2 {
+  border-color:
+    #d85b9b;
+
+  background:
+    linear-gradient(145deg,
+      #ffffff,
+      #fff5f9);
+}
+
+
+/* card glow */
+
+:root[data-theme="light"] .prepare-card-glow {
+  background:
+    #d85b9b;
+
+  opacity: 0.07;
+}
+
+
+/* card large faded icon */
+
+:root[data-theme="light"] .prepare-card-decoration,
+:root[data-theme="light"] .prepare-mode-card-2 .prepare-card-decoration {
+  color:
+    rgba(216,
+      91,
+      155,
+      0.09);
+}
+
+
+/* card icon */
+
+:root[data-theme="light"] .prepare-mode-icon,
+:root[data-theme="light"] .prepare-mode-card-2 .prepare-mode-icon {
+  color: #d85b9b;
+
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.33);
+
+  background:
+    #fff2f8;
+}
+
+
+/* text */
+
+:root[data-theme="light"] .prepare-card-content h2 {
+  color: #2d2b2e;
+}
+
+
+:root[data-theme="light"] .prepare-card-content p {
+  color: #756d72;
+}
+
+
+/* button */
+
+:root[data-theme="light"] .prepare-start-button,
+:root[data-theme="light"] .prepare-mode-card-2 .prepare-start-button {
+  color:
+    #d85b9b !important;
+}
+
+
+/* arrow */
+
+:root[data-theme="light"] .prepare-start-arrow {
+  color:
+    #2d2b2e !important;
+
+  border-color:
+    #d85b9b !important;
+
+  background:
+    #ffffff !important;
+}
+
+
+:root[data-theme="light"] .prepare-start-arrow svg {
+  color:
+    #2d2b2e !important;
+
+  stroke:
+    #2d2b2e !important;
+}
+
+
+/* hover arrow */
+
+:root[data-theme="light"] .prepare-card-bounce:hover .prepare-start-arrow {
+  color:
+    #ffffff !important;
+
+  border-color:
+    #d85b9b !important;
+
+  background:
+    #d85b9b !important;
+
+  transform:
+    translateX(5px);
+}
+
+
+:root[data-theme="light"] .prepare-card-bounce:hover .prepare-start-arrow svg,
+:root[data-theme="light"] .prepare-card-bounce:hover .prepare-start-arrow svg * {
+  stroke:
+    #ffffff !important;
+}
+
+
+/* floor glow pink */
+
+:root[data-theme="light"] .prepare-card-bounce::after {
+  background:
+    radial-gradient(ellipse,
+      rgba(216,
+        91,
+        155,
+        0.2),
+      transparent 70%);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .prepare-cards {
+    grid-template-columns:
+      repeat(2,
+        minmax(0, 1fr));
+  }
+
+
+  .prepare-card-bounce:last-child {
+    grid-column:
+      1 / -1;
+
+    width:
+      min(100%,
+        430px);
+
+    margin:
+      0 auto;
+  }
+
+
+  .prepare-material-info h1 {
+    white-space:
+      normal;
+  }
+
+
+  .prepare-study-icon-one,
+  .prepare-study-icon-two,
+  .prepare-study-icon-three,
+  .prepare-study-icon-four,
+  .prepare-study-icon-five {
+    opacity: 0.25;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .prepare-page {
+    overflow-y: auto;
+  }
+
+
+  .prepare-container {
+    width:
+      min(calc(100% - 28px),
+        480px);
+
+    padding-top: 20px;
+  }
+
+
+  .prepare-header {
+    margin-top: 28px;
+  }
+
+
+  .prepare-eyebrow {
+    margin-left: 0;
+
+    margin-bottom: 15px;
+  }
+
+
+  .prepare-material-heading {
+    align-items:
+      flex-start;
+  }
+
+
+  .prepare-file-icon {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 14px;
+  }
+
+
+  .prepare-material-info h1 {
+    font-size: 29px;
+
+    white-space: normal;
+
+    overflow-wrap:
+      anywhere;
+  }
+
+
+  .prepare-cards {
+    margin-top: 38px;
+
+    grid-template-columns:
+      1fr;
+
+    gap: 28px;
+  }
+
+
+  .prepare-card-bounce:last-child {
+    grid-column: auto;
+
+    width: 100%;
+  }
+
+
+  .prepare-mode-card {
+    min-height: 330px;
+  }
+
+
+  .prepare-card-content {
+    margin-top: 40px;
+  }
+
+
+  /* Background icons kam rakho mobile mein */
+
+  .prepare-study-icon-three,
+  .prepare-study-icon-four,
+  .prepare-study-icon-five {
+    display: none;
+  }
+
+
+  .prepare-study-icon-one {
+    width: 43px;
+    height: 43px;
+
+    top: 225px;
+    left: -8px;
+
+    opacity: 0.25;
+  }
+
+
+  .prepare-study-icon-two {
+    width: 47px;
+    height: 47px;
+
+    top: 115px;
+    right: -7px;
+
+    opacity: 0.25;
+  }
+
+
+  .prepare-orbit-one {
+    width: 800px;
+    height: 500px;
+  }
+
+
+  .prepare-orbit-two {
+    display: none;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .prepare-mode-card,
+  .prepare-floating-study-icon,
+  .prepare-loader {
+    animation:
+      none !important;
+  }
+
+
+  .prepare-card-bounce {
+    opacity: 1 !important;
+
+    transform:
+      none !important;
+  }
+
+}
+
+/* =========================================================
+   MY MATERIALS BACK BUTTON - REMOVE BORDER
+========================================================= */
+
+.prepare-back-button,
+.prepare-back-button:hover,
+.prepare-back-button:focus,
+.prepare-back-button:active,
+.prepare-back-button:focus-visible {
+  border: none !important;
+  outline: none !important;
+
+  background: transparent !important;
+  background-color: transparent !important;
+
+  box-shadow: none !important;
+
+  text-decoration: none !important;
+}
+
+
+/* Light theme */
+
+:root[data-theme="light"] .prepare-back-button {
+  color: #a03f73 !important;
+}
+
+
+/* Arrow same pink */
+
+:root[data-theme="light"] .prepare-back-button svg {
+  color: #a03f73 !important;
+  stroke: #a03f73 !important;
+}
+
+
+/* Hover - only slightly dark, NO box */
+
+:root[data-theme="light"] .prepare-back-button:hover {
+  color: #84315f !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="light"] .prepare-back-button:hover svg {
+  stroke: #84315f !important;
+}
+
+/* =========================================================
+   MY MATERIALS - DARK BACKGROUND VISIBILITY FIX
+   ONLY BACKGROUND / ORBITS / FLOATING ICONS
+========================================================= */
+
+:root:not([data-theme="light"]) .materials-page {
+  background:
+    radial-gradient(circle at 15% 18%,
+      rgba(126, 72, 220, 0.10),
+      transparent 30%),
+    radial-gradient(circle at 82% 28%,
+      rgba(166, 108, 255, 0.08),
+      transparent 28%),
+    radial-gradient(circle at 55% 80%,
+      rgba(109, 55, 190, 0.06),
+      transparent 32%),
+    #07060d !important;
+}
+
+
+/* Orbit lines thodi visible */
+
+:root:not([data-theme="light"]) .materials-orbit {
+  border-color:
+    rgba(166, 108, 255, 0.16) !important;
+}
+
+
+/* Floating background icons visible but still faded */
+
+:root:not([data-theme="light"]) .materials-floating-icon {
+  color:
+    rgba(166, 108, 255, 0.14) !important;
+
+  opacity: 1 !important;
+
+  filter:
+    drop-shadow(0 0 15px rgba(166, 108, 255, 0.08));
+}
+
+
+/* Main icons slightly stronger */
+
+:root:not([data-theme="light"]) .materials-float-book,
+:root:not([data-theme="light"]) .materials-float-cap,
+:root:not([data-theme="light"]) .materials-float-brain {
+  color:
+    rgba(180, 126, 255, 0.17) !important;
+}

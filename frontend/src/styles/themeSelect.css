@@ -1,0 +1,119 @@
+.theme-select {
+    position: relative;
+    width: 100%;
+}
+
+.theme-select-trigger {
+    width: 100%;
+    height: 50px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--text-primary);
+    border:
+        1px solid var(--accent);
+    border-radius: 10px;
+    outline: none;
+    background: var(--input-background);
+    font: inherit;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.theme-select-trigger:hover {
+    border-color:
+        var(--accent-hover);
+
+    box-shadow:
+        0 0 0 3px var(--focus-ring);
+}
+
+.theme-select-open .theme-select-trigger {
+    border-color: var(--accent);
+
+    box-shadow:
+        0 0 0 4px var(--focus-ring);
+}
+
+.theme-select-placeholder {
+    color: var(--text-muted);
+}
+
+.theme-select-value {
+    color: var(--text-primary);
+}
+
+.theme-select-arrow {
+    flex-shrink: 0;
+    color: var(--accent);
+    transition:
+        transform 0.2s ease;
+}
+
+.theme-select-open .theme-select-arrow {
+    transform: rotate(180deg);
+}
+
+.theme-select-menu {
+    position: absolute;
+    z-index: 1000;
+    top: calc(100% + 7px);
+    left: 0;
+    right: 0;
+    padding: 6px;
+    overflow: hidden;
+    border:
+        1px solid var(--accent);
+    border-radius: 11px;
+    background: var(--surface);
+    box-shadow:
+        0 0 0 3px var(--focus-ring),
+        0 15px 35px rgba(0, 0, 0, 0.14);
+}
+
+.theme-select-option {
+    width: 100%;
+    min-height: 43px;
+    padding: 9px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--text-primary);
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    font: inherit;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.theme-select-option:hover {
+    color: var(--button-text);
+    background: var(--accent);
+
+    box-shadow:
+        0 0 0 2px var(--focus-ring);
+}
+
+.theme-select-option-selected {
+    color: var(--button-text);
+    background: var(--accent);
+}
+
+.theme-select-option svg {
+    flex-shrink: 0;
+}
+
+.theme-select-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}

@@ -1,0 +1,616 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap");
+
+/* Dark theme: black + purple */
+
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --page-background: #09080e;
+  --page-glow: rgba(139, 82, 255, 0.1);
+
+  --surface: #100e16;
+  --surface-soft: rgba(255,
+      255,
+      255,
+      0.025);
+  --surface-elevated: #17131f;
+
+  --text-primary: #ffffff;
+  --text-secondary: #938d9a;
+  --text-muted: #77717e;
+
+  --accent: #a66cff;
+  --accent-hover: #b889ff;
+  --accent-soft: rgba(166,
+      108,
+      255,
+      0.12);
+  --accent-border: rgba(166,
+      108,
+      255,
+      0.35);
+  --accent-gradient:
+    linear-gradient(135deg,
+      #bd91ff,
+      #8d61ff);
+
+  --border: rgba(255,
+      255,
+      255,
+      0.085);
+
+  --input-background: #0b0a10;
+  --input-border: rgba(255,
+      255,
+      255,
+      0.11);
+
+  --focus-ring: rgba(166,
+      108,
+      255,
+      0.16);
+
+  --toggle-background: #29252f;
+  --toggle-circle: #8b8592;
+
+  --button-text: #0b0810;
+
+  --error-text: #ffaaaa;
+  --error-border: rgba(255,
+      91,
+      91,
+      0.2);
+  --error-background: rgba(255,
+      72,
+      72,
+      0.07);
+
+  --card-shadow: none;
+  --scroll-track: #09080e;
+  --scroll-thumb: #39313f;
+}
+
+/* Light theme: soft white + light maroon */
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* Soft-white backgrounds */
+  --page-background: #fffafa;
+  --page-glow: rgba(160,
+      63,
+      115,
+      0.1);
+
+  --surface: #fffafa;
+  --surface-soft: #fff7f9;
+  --surface-elevated: #ffffff;
+
+  /* Text */
+  --text-primary: #33242c;
+  --text-secondary: #765f6b;
+  --text-muted: #96818b;
+
+  /* Maroon accent */
+  --accent: #a03f73;
+  --accent-hover: #8d3263;
+
+  --accent-soft: rgba(160,
+      63,
+      115,
+      0.09);
+
+  --accent-border: #a03f73;
+
+  --accent-gradient:
+    linear-gradient(135deg,
+      #bd6c97,
+      #a03f73);
+
+  /* All borders */
+  --border: #a03f73;
+
+  /* Form backgrounds */
+  --input-background: #fffafa;
+  --input-border: #a03f73;
+
+  /* Outside hover glow */
+  --focus-ring: rgba(160,
+      63,
+      115,
+      0.2);
+
+  --toggle-background: #ead5e0;
+  --toggle-circle: #a03f73;
+
+  --button-text: #ffffff;
+
+  --error-text: #a03f73;
+  --error-border: #a03f73;
+
+  --error-background: rgba(160,
+      63,
+      115,
+      0.07);
+
+  --card-shadow:
+    0 10px 35px rgba(160, 63, 115, 0.07);
+
+  --scroll-track: #fffafa;
+  --scroll-thumb: #a03f73;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text-primary);
+  background: var(--page-background);
+  font-family: "Inter", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing:
+    grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color:
+    transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline:
+    2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  color: var(--button-text);
+  background: var(--accent);
+}
+
+/* Dropdown styling */
+
+select {
+  color-scheme: inherit;
+  color:
+    var(--text-primary) !important;
+  border:
+    1px solid var(--accent) !important;
+  background-color:
+    var(--input-background) !important;
+  accent-color:
+    var(--accent) !important;
+  cursor: pointer;
+}
+
+select:hover {
+  border-color:
+    var(--accent-hover) !important;
+}
+
+select:focus,
+select:focus-visible {
+  border-color:
+    var(--accent) !important;
+  outline: none !important;
+  box-shadow:
+    0 0 0 4px var(--focus-ring) !important;
+}
+
+select option {
+  padding: 12px;
+  color:
+    var(--text-primary) !important;
+  background-color:
+    var(--surface) !important;
+}
+
+select option:checked {
+  color:
+    var(--button-text) !important;
+  background:
+    var(--accent) !important;
+  box-shadow:
+    0 0 0 100px var(--accent) inset !important;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background:
+    var(--scroll-track);
+}
+
+::-webkit-scrollbar-thumb {
+  border:
+    2px solid var(--scroll-track);
+  border-radius: 999px;
+  background:
+    var(--scroll-thumb);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+button:disabled,
+input:disabled,
+select:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/*
+ * Light theme global overrides.
+ * Existing pages mein hardcoded dark
+ * backgrounds ko light banata hai.
+ */
+
+:root[data-theme="light"] body,
+:root[data-theme="light"] #root,
+:root[data-theme="light"] .dashboard-page,
+:root[data-theme="light"] .materials-page,
+:root[data-theme="light"] .upload-page,
+:root[data-theme="light"] .prepare-page,
+:root[data-theme="light"] .preparation-page,
+:root[data-theme="light"] .qa-page,
+:root[data-theme="light"] .interview-page,
+:root[data-theme="light"] .history-page,
+:root[data-theme="light"] .result-page,
+:root[data-theme="light"] .settings-page,
+:root[data-theme="light"] .admin-page {
+  color:
+    var(--text-primary) !important;
+  background:
+    radial-gradient(circle at 85% 10%,
+      var(--page-glow),
+      transparent 30%),
+    var(--page-background) !important;
+}
+
+:root[data-theme="light"] .sidebar {
+  color:
+    var(--text-primary) !important;
+  border-color:
+    var(--border) !important;
+  background:
+    #fffaf8 !important;
+}
+
+:root[data-theme="light"] h1,
+:root[data-theme="light"] h2,
+:root[data-theme="light"] h3,
+:root[data-theme="light"] strong,
+:root[data-theme="light"] label {
+  color:
+    var(--text-primary);
+}
+
+:root[data-theme="light"] input,
+:root[data-theme="light"] textarea {
+  color:
+    var(--text-primary) !important;
+  border-color:
+    var(--input-border) !important;
+  background:
+    var(--input-background) !important;
+}
+
+:root[data-theme="light"] input::placeholder,
+:root[data-theme="light"] textarea::placeholder {
+  color:
+    var(--text-muted) !important;
+}
+
+/*
+ * Complete light-theme styling
+ */
+
+:root[data-theme="light"] body,
+:root[data-theme="light"] #root {
+  color: var(--text-primary);
+  background: #fffafa !important;
+}
+
+/* All page backgrounds */
+
+:root[data-theme="light"] .landing-page,
+:root[data-theme="light"] .login-page,
+:root[data-theme="light"] .register-page,
+:root[data-theme="light"] .dashboard-page,
+:root[data-theme="light"] .materials-page,
+:root[data-theme="light"] .upload-page,
+:root[data-theme="light"] .prepare-page,
+:root[data-theme="light"] .preparation-page,
+:root[data-theme="light"] .qa-page,
+:root[data-theme="light"] .interview-page,
+:root[data-theme="light"] .history-page,
+:root[data-theme="light"] .result-page,
+:root[data-theme="light"] .settings-page,
+:root[data-theme="light"] .admin-page {
+  color: var(--text-primary) !important;
+
+  background:
+    radial-gradient(circle at 85% 10%,
+      rgba(160, 63, 115, 0.1),
+      transparent 32%),
+    #fffafa !important;
+}
+
+/* Sidebar */
+
+:root[data-theme="light"] .sidebar,
+:root[data-theme="light"] .admin-sidebar {
+  color: var(--text-primary) !important;
+  border-color: #a03f73 !important;
+  background: #fffafa !important;
+}
+
+/*
+ * Cards and internal containers
+ */
+
+:root[data-theme="light"] [class*="card"],
+:root[data-theme="light"] [class*="settings"],
+:root[data-theme="light"] [class*="option"],
+:root[data-theme="light"] [class*="panel"],
+:root[data-theme="light"] [class*="modal"],
+:root[data-theme="light"] [class*="result-answer"],
+:root[data-theme="light"] [class*="generation-settings"] {
+  border-color: #a03f73 !important;
+}
+
+/*
+ * Main cards remain soft white.
+ * Icon containers are excluded so
+ * their accent background remains visible.
+ */
+
+:root[data-theme="light"] .settings-card,
+:root[data-theme="light"] .material-card,
+:root[data-theme="light"] .question-card,
+:root[data-theme="light"] .qa-card,
+:root[data-theme="light"] .interview-card,
+:root[data-theme="light"] .result-card,
+:root[data-theme="light"] .history-card,
+:root[data-theme="light"] .preparation-option,
+:root[data-theme="light"] .generation-settings,
+:root[data-theme="light"] .qa-settings,
+:root[data-theme="light"] .interview-settings,
+:root[data-theme="light"] .result-rag-sources {
+  color: var(--text-primary) !important;
+  border:
+    1px solid #a03f73 !important;
+  background: #fffafa !important;
+}
+
+/* Inputs and dropdowns */
+
+:root[data-theme="light"] input,
+:root[data-theme="light"] textarea,
+:root[data-theme="light"] select {
+  color: var(--text-primary) !important;
+  border:
+    1px solid #a03f73 !important;
+  background: #fffafa !important;
+}
+
+:root[data-theme="light"] select option {
+  color: var(--text-primary) !important;
+  background: #fffafa !important;
+}
+
+:root[data-theme="light"] select option:checked {
+  color: #ffffff !important;
+  background: #a03f73 !important;
+
+  box-shadow:
+    0 0 0 100px #a03f73 inset !important;
+}
+
+/* Text colours */
+
+:root[data-theme="light"] h1,
+:root[data-theme="light"] h2,
+:root[data-theme="light"] h3,
+:root[data-theme="light"] h4,
+:root[data-theme="light"] strong,
+:root[data-theme="light"] label {
+  color: var(--text-primary);
+}
+
+:root[data-theme="light"] p,
+:root[data-theme="light"] small {
+  color: var(--text-secondary);
+}
+
+:root[data-theme="light"] input::placeholder,
+:root[data-theme="light"] textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Accent buttons */
+
+:root[data-theme="light"] .settings-save-button,
+:root[data-theme="light"] [class*="generate-button"],
+:root[data-theme="light"] [class*="upload-button"],
+:root[data-theme="light"] [class*="primary-button"] {
+  color: #ffffff !important;
+  border-color: #a03f73 !important;
+  background: #a03f73 !important;
+}
+
+/*
+ * Maroon outside-border hover effect
+ */
+
+:root[data-theme="light"] .settings-card,
+:root[data-theme="light"] .material-card,
+:root[data-theme="light"] .question-card,
+:root[data-theme="light"] .qa-card,
+:root[data-theme="light"] .interview-card,
+:root[data-theme="light"] .result-card,
+:root[data-theme="light"] .history-card,
+:root[data-theme="light"] .preparation-option,
+:root[data-theme="light"] .theme-option,
+:root[data-theme="light"] .settings-toggle,
+:root[data-theme="light"] input,
+:root[data-theme="light"] textarea,
+:root[data-theme="light"] select,
+:root[data-theme="light"] button {
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+:root[data-theme="light"] .settings-card:hover,
+:root[data-theme="light"] .material-card:hover,
+:root[data-theme="light"] .question-card:hover,
+:root[data-theme="light"] .qa-card:hover,
+:root[data-theme="light"] .interview-card:hover,
+:root[data-theme="light"] .result-card:hover,
+:root[data-theme="light"] .history-card:hover,
+:root[data-theme="light"] .preparation-option:hover,
+:root[data-theme="light"] .theme-option:hover,
+:root[data-theme="light"] .settings-toggle:hover,
+:root[data-theme="light"] input:hover,
+:root[data-theme="light"] textarea:hover,
+:root[data-theme="light"] select:hover {
+  border-color: #a03f73 !important;
+
+  box-shadow:
+    0 0 0 3px rgba(160, 63, 115, 0.18),
+    0 10px 28px rgba(160, 63, 115, 0.1) !important;
+}
+
+/* Button hover */
+
+:root[data-theme="light"] button:hover {
+  border-color: #a03f73;
+
+  box-shadow:
+    0 0 0 3px rgba(160, 63, 115, 0.18),
+    0 8px 22px rgba(160, 63, 115, 0.12);
+}
+
+/* Keyboard/input focus */
+
+:root[data-theme="light"] input:focus,
+:root[data-theme="light"] textarea:focus,
+:root[data-theme="light"] select:focus {
+  border-color: #a03f73 !important;
+
+  outline: none !important;
+
+  box-shadow:
+    0 0 0 4px rgba(160, 63, 115, 0.2) !important;
+}
+
+/* Links and icons */
+
+:root[data-theme="light"] a:hover,
+:root[data-theme="light"] button:hover svg {
+  color: #a03f73;
+}
+
+/*
+ * Dashboard top upload button:
+ * same as lower upload button
+ */
+
+:root[data-theme="light"]
+  a.dashboard-upload-button,
+:root[data-theme="light"]
+  a.dashboard-upload-button:link,
+:root[data-theme="light"]
+  a.dashboard-upload-button:visited {
+  color: #2d2b2e !important;
+
+  border:
+    1px solid #a03f73 !important;
+
+  background: #fffafa !important;
+  background-color: #fffafa !important;
+  background-image: none !important;
+
+  box-shadow: none !important;
+}
+
+:root[data-theme="light"]
+  a.dashboard-upload-button span,
+:root[data-theme="light"]
+  a.dashboard-upload-button svg {
+  color: #2d2b2e !important;
+}
+
+/* Maroon border glow only on hover */
+
+:root[data-theme="light"]
+  a.dashboard-upload-button:hover {
+  color: #2d2b2e !important;
+
+  border-color: #a03f73 !important;
+
+  background: #fffafa !important;
+  background-color: #fffafa !important;
+  background-image: none !important;
+
+  box-shadow:
+    0 0 0 4px
+      rgba(160, 63, 115, 0.22),
+    0 10px 26px
+      rgba(160, 63, 115, 0.12) !important;
+
+  transform: translateY(-2px);
+}
+
+:root[data-theme="light"]
+  a.dashboard-upload-button:hover span,
+:root[data-theme="light"]
+  a.dashboard-upload-button:hover svg {
+  color: #2d2b2e !important;
+}

@@ -1,0 +1,610 @@
+/* =========================================================
+   THINKING ORB
+========================================================= */
+
+.thinking-orb-wrapper {
+    --thinking-orb-size: 260px;
+
+    --orb-purple: #a66cff;
+    --orb-purple-light: #d198ff;
+    --orb-pink: #ec6ddd;
+
+    --orb-text: #ffffff;
+    --orb-muted: #a58daf;
+
+    position: relative;
+
+    width: var(--thinking-orb-size);
+    height: var(--thinking-orb-size);
+
+    margin: 20px auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: var(--orb-text);
+
+    isolation: isolate;
+}
+
+
+/* =========================================================
+   MAIN ORB
+========================================================= */
+
+.thinking-orb {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+
+    place-items: center;
+}
+
+
+/* =========================================================
+   BACKGROUND GLOW
+========================================================= */
+
+.thinking-orb-glow {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    z-index: -2;
+
+    width: 84%;
+    height: 84%;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle,
+            rgba(166, 108, 255, 0.32),
+            rgba(113, 47, 207, 0.13) 45%,
+            transparent 72%);
+
+    filter: blur(25px);
+
+    transform:
+        translate(-50%, -50%);
+
+    animation:
+        thinking-orb-breathe 2.7s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   ROTATING RINGS
+========================================================= */
+
+.thinking-orb-ring {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    border-radius: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    pointer-events: none;
+}
+
+
+/* Ring 1 */
+
+.thinking-orb-ring-one {
+    width: 77%;
+    height: 77%;
+
+    border:
+        1px solid rgba(166, 108, 255, 0.58);
+
+    border-top-color:
+        rgba(220, 155, 255, 0.95);
+
+    border-right-color:
+        transparent;
+
+    box-shadow:
+        0 0 14px rgba(166, 108, 255, 0.25);
+
+    animation:
+        thinking-ring-clockwise 7s linear infinite;
+}
+
+
+/* Ring 2 */
+
+.thinking-orb-ring-two {
+    width: 70%;
+    height: 70%;
+
+    border:
+        1px solid rgba(236, 109, 221, 0.42);
+
+    border-bottom-color:
+        rgba(236, 109, 221, 0.9);
+
+    border-left-color:
+        transparent;
+
+    animation:
+        thinking-ring-counter 5.5s linear infinite;
+}
+
+
+/* Ring 3 */
+
+.thinking-orb-ring-three {
+    width: 63%;
+    height: 63%;
+
+    border:
+        1px dashed rgba(178, 111, 255, 0.33);
+
+    animation:
+        thinking-ring-clockwise 11s linear infinite;
+}
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.thinking-orb-particles {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 1px;
+    height: 1px;
+
+    transform:
+        translate(-50%, -50%);
+
+    animation:
+        thinking-particle-container 18s linear infinite;
+
+    pointer-events: none;
+}
+
+
+.thinking-orb-particle {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width:
+        var(--particle-size);
+
+    height:
+        var(--particle-size);
+
+    border-radius: 50%;
+
+    background:
+        var(--orb-purple-light);
+
+    box-shadow:
+        0 0 6px rgba(209, 152, 255, 0.9),
+        0 0 12px rgba(166, 108, 255, 0.55);
+
+    transform-origin: 0 0;
+
+    transform:
+        rotate(var(--particle-angle)) translateX(var(--particle-distance));
+
+    animation:
+        thinking-particle-pulse var(--particle-duration) ease-in-out var(--particle-delay) infinite;
+}
+
+
+.thinking-orb-particle:nth-child(3n) {
+    background:
+        var(--orb-pink);
+
+    box-shadow:
+        0 0 7px rgba(236, 109, 221, 0.8);
+}
+
+
+.thinking-orb-particle:nth-child(4n) {
+    background:
+        #7545e8;
+}
+
+
+.thinking-orb-particle:nth-child(5n) {
+    opacity: 0.45;
+}
+
+
+/* =========================================================
+   CENTRE
+========================================================= */
+
+.thinking-orb-centre {
+    position: relative;
+
+    z-index: 5;
+
+    width: 56%;
+    height: 56%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle,
+            rgba(83, 35, 139, 0.28),
+            rgba(25, 12, 41, 0.14) 55%,
+            transparent 74%);
+
+    text-align: center;
+
+    animation:
+        thinking-centre-pulse 2.7s ease-in-out infinite;
+}
+
+
+/* PrepMate AI */
+
+.thinking-orb-centre strong {
+    margin: 0;
+
+    color:
+        var(--orb-text);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    line-height: 1.2;
+}
+
+
+/* Thinking */
+
+.thinking-orb-thinking {
+    margin-top: 8px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    color:
+        var(--orb-muted);
+
+    font-size: 13px;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   DOTS
+========================================================= */
+
+.thinking-dots {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 3px;
+}
+
+
+.thinking-dots i {
+    width: 4px;
+    height: 4px;
+
+    display: block;
+
+    border-radius: 50%;
+
+    background:
+        var(--orb-purple-light);
+
+    animation:
+        thinking-dot 1.2s ease-in-out infinite;
+}
+
+
+.thinking-dots i:nth-child(2) {
+    animation-delay: 0.16s;
+}
+
+
+.thinking-dots i:nth-child(3) {
+    animation-delay: 0.32s;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes thinking-ring-clockwise {
+
+    from {
+        transform:
+            translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%) rotate(360deg);
+    }
+
+}
+
+
+@keyframes thinking-ring-counter {
+
+    from {
+        transform:
+            translate(-50%, -50%) rotate(360deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%) rotate(0deg);
+    }
+
+}
+
+
+@keyframes thinking-particle-container {
+
+    from {
+        transform:
+            translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%) rotate(360deg);
+    }
+
+}
+
+
+@keyframes thinking-particle-pulse {
+
+    0%,
+    100% {
+
+        opacity: 0.25;
+
+        transform:
+            rotate(var(--particle-angle)) translateX(var(--particle-distance)) scale(0.65);
+    }
+
+
+    50% {
+
+        opacity: 1;
+
+        transform:
+            rotate(var(--particle-angle)) translateX(calc(var(--particle-distance) + 8px)) scale(1.25);
+    }
+
+}
+
+
+@keyframes thinking-orb-breathe {
+
+    0%,
+    100% {
+
+        opacity: 0.65;
+
+        transform:
+            translate(-50%, -50%) scale(0.92);
+    }
+
+
+    50% {
+
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%) scale(1.08);
+    }
+
+}
+
+
+@keyframes thinking-centre-pulse {
+
+    0%,
+    100% {
+        transform:
+            scale(0.97);
+    }
+
+    50% {
+        transform:
+            scale(1.03);
+    }
+
+}
+
+
+@keyframes thinking-dot {
+
+    0%,
+    60%,
+    100% {
+
+        opacity: 0.3;
+
+        transform:
+            translateY(0);
+    }
+
+
+    30% {
+
+        opacity: 1;
+
+        transform:
+            translateY(-4px);
+    }
+
+}
+
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+:root[data-theme="light"] .thinking-orb-wrapper {
+
+    --orb-purple:
+        #a03f73;
+
+    --orb-purple-light:
+        #d85b9b;
+
+    --orb-pink:
+        #e16aa5;
+
+    --orb-text:
+        #2d2b2e;
+
+    --orb-muted:
+        #716a6f;
+}
+
+
+/* Glow */
+
+:root[data-theme="light"] .thinking-orb-glow {
+
+    background:
+        radial-gradient(circle,
+            rgba(216, 91, 155, 0.22),
+            rgba(160, 63, 115, 0.07) 45%,
+            transparent 72%);
+}
+
+
+/* Centre */
+
+:root[data-theme="light"] .thinking-orb-centre {
+
+    background:
+        radial-gradient(circle,
+            rgba(216, 91, 155, 0.13),
+            rgba(160, 63, 115, 0.04) 55%,
+            transparent 74%);
+}
+
+
+/* Ring 1 */
+
+:root[data-theme="light"] .thinking-orb-ring-one {
+
+    border-color:
+        rgba(216, 91, 155, 0.5);
+
+    border-top-color:
+        #d85b9b;
+
+    border-right-color:
+        transparent;
+
+    box-shadow:
+        0 0 14px rgba(216, 91, 155, 0.18);
+}
+
+
+/* Ring 2 */
+
+:root[data-theme="light"] .thinking-orb-ring-two {
+
+    border-color:
+        rgba(160, 63, 115, 0.38);
+
+    border-bottom-color:
+        #a03f73;
+
+    border-left-color:
+        transparent;
+}
+
+
+/* Ring 3 */
+
+:root[data-theme="light"] .thinking-orb-ring-three {
+
+    border-color:
+        rgba(216, 91, 155, 0.32);
+}
+
+
+/* Particles */
+
+:root[data-theme="light"] .thinking-orb-particle {
+
+    box-shadow:
+        0 0 6px rgba(216, 91, 155, 0.65),
+        0 0 12px rgba(160, 63, 115, 0.28);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .thinking-orb-wrapper {
+        --thinking-orb-size:
+            220px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .thinking-orb-wrapper * {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+    }
+
+}

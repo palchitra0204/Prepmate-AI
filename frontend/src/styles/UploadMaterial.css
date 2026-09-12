@@ -1,0 +1,2031 @@
+/* =========================================================
+   UPLOAD MATERIAL PAGE
+========================================================= */
+
+.upload-page {
+  --upload-background:
+    #07070d;
+
+  --upload-panel:
+    rgba(17, 15, 27, 0.96);
+
+  --upload-surface:
+    #0e0d16;
+
+  --upload-surface-hover:
+    #151124;
+
+  --upload-text:
+    #f5f3fa;
+
+  --upload-muted:
+    #918b9e;
+
+  --upload-accent:
+    #985cff;
+
+  --upload-accent-light:
+    #bc91ff;
+
+  --upload-border:
+    rgba(152, 92, 255, 0.32);
+
+  --upload-soft-border:
+    rgba(255, 255, 255, 0.1);
+
+  --upload-error:
+    #ff9aab;
+
+
+  min-height: 100vh;
+
+  position: relative;
+
+  overflow: hidden;
+
+  color:
+    var(--upload-text);
+
+  background:
+    radial-gradient(circle at 50% 10%,
+      rgba(120, 65, 255, 0.18),
+      transparent 34%),
+
+    radial-gradient(circle at 88% 70%,
+      rgba(92, 41, 198, 0.11),
+      transparent 30%),
+
+    #07070d;
+}
+
+
+.upload-page *,
+.upload-page *::before,
+.upload-page *::after {
+  box-sizing:
+    border-box;
+}
+
+
+/* =========================================================
+   BACKGROUND ART
+========================================================= */
+
+.upload-background-art {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   ORBITS
+========================================================= */
+
+.upload-background-orbit {
+  position: absolute;
+
+  left: 50%;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.1);
+
+  border-radius: 50%;
+}
+
+
+.upload-background-orbit-one {
+  width: 1450px;
+  height: 620px;
+
+  top: 20px;
+
+  transform:
+    translateX(-50%) rotate(-5deg);
+}
+
+
+.upload-background-orbit-two {
+  width: 1270px;
+  height: 440px;
+
+  top: 570px;
+
+  transform:
+    translateX(-50%) rotate(4deg);
+}
+
+
+/* =========================================================
+   FLOATING STUDY ICONS
+========================================================= */
+
+.upload-floating-study-icon {
+  position: absolute;
+
+  display: grid;
+
+  place-items: center;
+
+  color:
+    #b987ff;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.18);
+
+  border-radius: 18px;
+
+  background:
+    rgba(83, 39, 151, 0.22);
+
+  box-shadow:
+    0 14px 36px rgba(59, 23, 117, 0.16);
+
+  backdrop-filter:
+    blur(10px);
+
+  opacity: 0.55;
+
+  animation:
+    upload-background-float 6s ease-in-out infinite;
+}
+
+
+.upload-floating-book {
+  width: 62px;
+  height: 62px;
+
+  top: 95px;
+  left: 5%;
+
+  transform:
+    rotate(-8deg);
+
+  animation-delay:
+    -1.2s;
+}
+
+
+.upload-floating-cap {
+  width: 70px;
+  height: 70px;
+
+  top: 85px;
+  right: 5%;
+
+  transform:
+    rotate(9deg);
+
+  animation-delay:
+    -2.5s;
+}
+
+
+.upload-floating-question {
+  width: 60px;
+  height: 60px;
+
+  top: 540px;
+  left: 4%;
+
+  transform:
+    rotate(-9deg);
+
+  animation-delay:
+    -3.3s;
+}
+
+
+.upload-floating-brain {
+  width: 60px;
+  height: 60px;
+
+  top: 520px;
+  right: 4%;
+
+  transform:
+    rotate(8deg);
+
+  animation-delay:
+    -4.1s;
+}
+
+
+.upload-floating-book-two {
+  width: 55px;
+  height: 55px;
+
+  bottom: 62px;
+  right: 8%;
+
+  transform:
+    rotate(-7deg);
+
+  opacity: 0.34;
+
+  animation-delay:
+    -2s;
+}
+
+
+@keyframes upload-background-float {
+
+  0%,
+  100% {
+    margin-top: 0;
+  }
+
+  50% {
+    margin-top:
+      -17px;
+  }
+
+}
+
+
+/* =========================================================
+   BACKGROUND SPARKLES
+========================================================= */
+
+.upload-background-sparkle {
+  position: absolute;
+
+  color:
+    rgba(166, 108, 255, 0.25);
+
+  animation:
+    upload-sparkle-float 5s ease-in-out infinite;
+}
+
+
+.upload-sparkle-one {
+  top: 245px;
+  left: 16%;
+}
+
+
+.upload-sparkle-two {
+  top: 305px;
+  right: 15%;
+
+  animation-delay:
+    -2.4s;
+}
+
+
+@keyframes upload-sparkle-float {
+
+  0%,
+  100% {
+    opacity: 0.3;
+
+    transform:
+      translateY(0) rotate(0);
+  }
+
+  50% {
+    opacity: 0.8;
+
+    transform:
+      translateY(-10px) rotate(8deg);
+  }
+
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.upload-back-button {
+  position: relative;
+
+  z-index: 10;
+
+  margin:
+    24px 0 0 42px;
+
+  padding: 0;
+
+  display:
+    inline-flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  color:
+    var(--upload-muted);
+
+  border: none;
+
+  outline: none;
+
+  background:
+    transparent;
+
+  box-shadow:
+    none;
+
+  font: inherit;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.upload-back-button:hover {
+  color:
+    var(--upload-accent-light);
+
+  transform:
+    translateX(-3px);
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.upload-content {
+  width: 100%;
+
+  min-height:
+    calc(100vh - 50px);
+
+  padding:
+    22px 30px 140px;
+
+  position: relative;
+
+  z-index: 5;
+}
+
+
+.upload-page-inner {
+  width:
+    min(1100px,
+      100%);
+
+  margin:
+    0 auto;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.upload-page-header {
+  margin-bottom:
+    26px;
+}
+
+
+.upload-page-eyebrow {
+  display:
+    block;
+
+  margin-bottom:
+    9px;
+
+  color:
+    var(--upload-accent-light);
+
+  font-size:
+    12px;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.1em;
+
+  text-transform:
+    uppercase;
+}
+
+
+.upload-page-header h1 {
+  margin: 0;
+
+  color:
+    var(--upload-text);
+
+  font-family:
+    "Manrope",
+    sans-serif;
+
+  font-size:
+    clamp(38px,
+      5vw,
+      58px);
+
+  line-height:
+    1.05;
+
+  letter-spacing:
+    -0.05em;
+}
+
+
+.upload-page-header h1 span {
+  color:
+    var(--upload-accent-light);
+}
+
+
+.upload-page-header p {
+  margin:
+    10px 0 0;
+
+  color:
+    var(--upload-muted);
+
+  font-size:
+    14px;
+
+  line-height:
+    1.6;
+}
+
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.upload-panel {
+  width: 100%;
+
+  padding:
+    22px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  border:
+    1px solid var(--upload-border);
+
+  border-radius:
+    23px;
+
+  background:
+    var(--upload-panel);
+
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, 0.34);
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.upload-message {
+  margin-bottom:
+    15px;
+
+  padding:
+    12px 14px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  border-radius:
+    11px;
+
+  font-size:
+    13px;
+}
+
+
+.upload-error {
+  color:
+    var(--upload-error);
+
+  border:
+    1px solid rgba(255, 100, 125, 0.25);
+
+  background:
+    rgba(255, 74, 104, 0.08);
+}
+
+
+.upload-success {
+  color:
+    var(--upload-accent-light);
+
+  border:
+    1px solid var(--upload-border);
+
+  background:
+    rgba(152, 92, 255, 0.09);
+}
+
+
+/* =========================================================
+   DROPZONE
+========================================================= */
+
+.upload-dropzone {
+  min-height:
+    465px;
+
+  padding:
+    30px 25px;
+
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color:
+    var(--upload-text);
+
+  border:
+    1px dashed rgba(179, 145, 255, 0.52);
+
+  border-radius:
+    19px;
+
+  background:
+    radial-gradient(circle at 50% 40%,
+      rgba(152, 92, 255, 0.08),
+      transparent 45%),
+
+    rgba(7,
+      7,
+      14,
+      0.4);
+
+  cursor: pointer;
+
+  outline: none;
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.upload-dropzone:hover,
+.upload-dropzone:focus-visible,
+.upload-dropzone-active {
+  border-color:
+    var(--upload-accent-light);
+
+  box-shadow:
+    inset 0 0 35px rgba(152, 92, 255, 0.06),
+
+    0 0 0 4px rgba(152, 92, 255, 0.07);
+}
+
+
+/* =========================================================
+   FILE BOX ILLUSTRATION
+========================================================= */
+
+.upload-box-illustration {
+  width: 245px;
+  height: 145px;
+
+  margin-bottom:
+    12px;
+
+  position:
+    relative;
+}
+
+
+.upload-box-back {
+  width: 105px;
+  height: 58px;
+
+  position: absolute;
+
+  left: 70px;
+  bottom: 20px;
+
+  border-radius:
+    8px 8px 18px 18px;
+
+  background:
+    linear-gradient(145deg,
+      #c95791,
+      #93325f);
+
+  box-shadow:
+    0 14px 26px rgba(160, 63, 115, 0.18);
+}
+
+
+/* demo file common */
+
+.upload-demo-file {
+  width: 50px;
+  height: 68px;
+
+  position:
+    absolute;
+
+  z-index: 3;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 4px;
+
+  color: #ffffff;
+
+  border:
+    4px solid #ffffff;
+
+  border-radius:
+    9px;
+
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+
+.upload-demo-file span {
+  font-size: 8px;
+
+  font-weight:
+    800;
+}
+
+
+.upload-demo-pdf {
+  top: 9px;
+  left: 29px;
+
+  background:
+    #e75478;
+
+  transform:
+    rotate(-10deg);
+}
+
+
+.upload-demo-docx {
+  top: 0;
+  left: 81px;
+
+  background:
+    #685bd9;
+
+  transform:
+    rotate(-2deg);
+}
+
+
+.upload-demo-txt {
+  top: 13px;
+  right: 57px;
+
+  background:
+    #8866dc;
+
+  transform:
+    rotate(8deg);
+}
+
+
+.upload-demo-pptx {
+  top: 29px;
+  right: 11px;
+
+  background:
+    #ef785b;
+
+  transform:
+    rotate(12deg);
+}
+
+
+.upload-box-front-left,
+.upload-box-front-right {
+  width: 78px;
+  height: 55px;
+
+  position:
+    absolute;
+
+  bottom: 2px;
+
+  z-index: 5;
+
+  background:
+    linear-gradient(145deg,
+      #e77caf,
+      #c84f8d);
+}
+
+
+.upload-box-front-left {
+  left: 46px;
+
+  clip-path:
+    polygon(0 0,
+      100% 17%,
+      83% 100%,
+      12% 77%);
+}
+
+
+.upload-box-front-right {
+  right: 43px;
+
+  clip-path:
+    polygon(0 17%,
+      100% 0,
+      88% 77%,
+      17% 100%);
+}
+
+
+/* illustration sparkle */
+
+.upload-illustration-sparkle {
+  position: absolute;
+
+  z-index: 7;
+
+  color:
+    #d85b9b;
+}
+
+
+.upload-illustration-sparkle-one {
+  top: 22px;
+  left: 3px;
+}
+
+
+.upload-illustration-sparkle-two {
+  top: 4px;
+  right: 19px;
+}
+
+
+/* =========================================================
+   DROP TEXT
+========================================================= */
+
+.upload-dropzone h2 {
+  margin:
+    3px 0 6px;
+
+  color:
+    var(--upload-text);
+
+  font-size:
+    22px;
+
+  font-weight:
+    800;
+}
+
+
+.upload-dropzone-description {
+  margin: 0;
+
+  color:
+    var(--upload-muted);
+
+  font-size:
+    13px;
+
+  text-align:
+    center;
+}
+
+
+/* =========================================================
+   FORMAT PILLS
+========================================================= */
+
+.upload-format-list {
+  margin-top:
+    17px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+}
+
+
+.upload-format-list span {
+  padding:
+    5px 11px;
+
+  color:
+    var(--upload-accent-light);
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(152,
+      92,
+      255,
+      0.08);
+
+  font-size:
+    11px;
+
+  font-weight:
+    750;
+}
+
+
+.upload-format-list .upload-size-pill {
+  color:
+    var(--upload-muted);
+
+  background:
+    rgba(255,
+      255,
+      255,
+      0.05);
+}
+
+
+/* =========================================================
+   CHOOSE FILE
+========================================================= */
+
+.upload-choose-file-button {
+  min-width:
+    245px;
+
+  min-height:
+    52px;
+
+  margin-top:
+    19px;
+
+  padding:
+    0 24px;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap: 9px;
+
+  color:
+    #ffffff;
+
+  border:
+    1px solid var(--upload-accent);
+
+  border-radius:
+    12px;
+
+  background:
+    linear-gradient(135deg,
+      #a96cff,
+      #722bea);
+
+  box-shadow:
+    0 10px 28px rgba(126,
+      44,
+      232,
+      0.28);
+
+  font: inherit;
+
+  font-size:
+    14px;
+
+  font-weight:
+    750;
+
+  cursor:
+    pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.upload-choose-file-button:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 0 0 4px rgba(152, 92, 255, 0.1),
+
+    0 13px 30px rgba(126, 44, 232, 0.34);
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+.upload-security {
+  margin-top:
+    15px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    center;
+
+  gap: 7px;
+
+  color:
+    var(--upload-muted);
+
+  font-size:
+    11px;
+}
+
+
+.upload-security svg {
+  color:
+    var(--upload-accent-light);
+}
+
+
+/* =========================================================
+   REQUIREMENTS
+========================================================= */
+
+.upload-requirements {
+  margin:
+    10px 2px 18px;
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  gap: 20px;
+
+  color:
+    var(--upload-muted);
+
+  font-size:
+    11px;
+}
+
+
+/* =========================================================
+   SELECTED FILES
+========================================================= */
+
+.selected-files-list {
+  margin-top:
+    10px;
+
+  display: grid;
+
+  gap: 10px;
+}
+
+
+.selected-upload-file {
+  min-height:
+    72px;
+
+  padding:
+    10px 12px;
+
+  display: grid;
+
+  grid-template-columns:
+    48px minmax(0, 1fr) 38px;
+
+  align-items:
+    center;
+
+  gap: 12px;
+
+  border:
+    1px solid var(--upload-soft-border);
+
+  border-radius:
+    13px;
+
+  background:
+    var(--upload-surface);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.selected-upload-file:hover {
+  border-color:
+    var(--upload-border);
+
+  transform:
+    translateY(-1px);
+}
+
+
+.selected-file-uploaded {
+  border-color:
+    var(--upload-border);
+}
+
+
+.selected-file-failed {
+  border-color:
+    rgba(255,
+      100,
+      125,
+      0.35);
+}
+
+
+/* file badge */
+
+.selected-file-icon {
+  width: 44px;
+  height: 50px;
+
+  position: relative;
+
+  display: grid;
+
+  place-items: center;
+
+  color:
+    #ffffff;
+
+  border-radius:
+    9px;
+
+  background:
+    linear-gradient(145deg,
+      #325cff,
+      #15358c);
+}
+
+
+.selected-file-icon small {
+  padding:
+    2px 4px;
+
+  position:
+    absolute;
+
+  right: -4px;
+  bottom: -3px;
+
+  color:
+    white;
+
+  border-radius:
+    4px;
+
+  background:
+    #315bff;
+
+  font-size:
+    7px;
+
+  font-weight:
+    800;
+}
+
+
+.file-type-pdf {
+  background:
+    linear-gradient(145deg,
+      #f14d70,
+      #9e173b);
+}
+
+
+.file-type-pdf small {
+  background:
+    #d62c54;
+}
+
+
+.file-type-ppt,
+.file-type-pptx {
+  background:
+    linear-gradient(145deg,
+      #ff835f,
+      #b83f27);
+}
+
+
+.file-type-ppt small,
+.file-type-pptx small {
+  background:
+    #e15b3f;
+}
+
+
+.file-type-txt {
+  background:
+    linear-gradient(145deg,
+      #8c65db,
+      #4d2f94);
+}
+
+
+/* =========================================================
+   SELECTED FILE DETAILS
+========================================================= */
+
+.selected-file-details {
+  min-width: 0;
+}
+
+
+.selected-file-heading {
+  display: flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap: 15px;
+}
+
+
+.selected-file-heading strong {
+  min-width: 0;
+
+  overflow:
+    hidden;
+
+  color:
+    var(--upload-text);
+
+  font-size:
+    13px;
+
+  font-weight:
+    650;
+
+  text-overflow:
+    ellipsis;
+
+  white-space:
+    nowrap;
+}
+
+
+.selected-file-heading span {
+  flex:
+    0 0 auto;
+
+  color:
+    var(--upload-accent-light);
+
+  font-size:
+    10px;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.file-progress-track {
+  width: 100%;
+
+  height: 5px;
+
+  margin-top:
+    10px;
+
+  overflow:
+    hidden;
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(255,
+      255,
+      255,
+      0.08);
+}
+
+
+.file-progress-track span {
+  height: 100%;
+
+  display: block;
+
+  border-radius:
+    inherit;
+
+  background:
+    linear-gradient(90deg,
+      #7133e6,
+      #b16cff);
+
+  transition:
+    width 0.2s ease;
+}
+
+
+.selected-file-error {
+  margin-top:
+    6px;
+
+  display: block;
+
+  color:
+    var(--upload-error);
+
+  font-size:
+    10px;
+}
+
+
+/* =========================================================
+   REMOVE FILE
+========================================================= */
+
+.remove-upload-file {
+  width: 36px;
+  height: 36px;
+
+  padding: 0;
+
+  display: grid;
+
+  place-items:
+    center;
+
+  color:
+    var(--upload-muted);
+
+  border:
+    1px solid var(--upload-soft-border);
+
+  border-radius:
+    9px;
+
+  background:
+    transparent;
+
+  cursor:
+    pointer;
+}
+
+
+.remove-upload-file:hover:not(:disabled) {
+  color:
+    #ff91a4;
+
+  border-color:
+    rgba(255,
+      100,
+      125,
+      0.4);
+
+  background:
+    rgba(255,
+      79,
+      109,
+      0.09);
+}
+
+
+/* =========================================================
+   BOTTOM ACTIONS
+========================================================= */
+
+.upload-panel-actions {
+  margin-top:
+    20px;
+
+  padding-top:
+    18px;
+
+  display: flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap: 20px;
+
+  border-top:
+    1px solid var(--upload-soft-border);
+}
+
+
+.upload-main-actions {
+  display: flex;
+
+  align-items:
+    center;
+
+  gap: 12px;
+}
+
+
+.upload-submit-button,
+.upload-cancel-button,
+.upload-help-button {
+  font: inherit;
+
+  cursor: pointer;
+}
+
+
+/* Submit */
+
+.upload-submit-button {
+  min-height:
+    47px;
+
+  padding:
+    0 24px;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap: 9px;
+
+  color:
+    #ffffff;
+
+  border:
+    1px solid var(--upload-accent);
+
+  border-radius:
+    11px;
+
+  background:
+    linear-gradient(135deg,
+      #a96cff,
+      #722bea);
+
+  font-size:
+    13px;
+
+  font-weight:
+    750;
+}
+
+
+.upload-submit-button:disabled {
+  opacity: 0.48;
+
+  cursor:
+    not-allowed;
+}
+
+
+/* Cancel */
+
+.upload-cancel-button {
+  min-height:
+    47px;
+
+  padding:
+    0 20px;
+
+  color:
+    var(--upload-muted);
+
+  border:
+    1px solid var(--upload-soft-border);
+
+  border-radius:
+    11px;
+
+  background:
+    transparent;
+
+  font-size:
+    13px;
+
+  font-weight:
+    650;
+}
+
+
+/* Help */
+
+.upload-help-button {
+  padding:
+    8px 0;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  gap: 7px;
+
+  color:
+    var(--upload-accent-light);
+
+  border: 0;
+
+  background:
+    transparent;
+
+  font-size:
+    12px;
+}
+
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+:root[data-theme="light"] .upload-page {
+
+  --upload-background:
+    #fffafa;
+
+  --upload-panel:
+    rgba(255,
+      250,
+      250,
+      0.95);
+
+  --upload-surface:
+    #fffafa;
+
+  --upload-surface-hover:
+    #fff4f7;
+
+  --upload-text:
+    #2d2b2e;
+
+  --upload-muted:
+    #776d73;
+
+  --upload-accent:
+    #a03f73;
+
+  --upload-accent-light:
+    #a03f73;
+
+  --upload-border:
+    rgba(160,
+      63,
+      115,
+      0.3);
+
+  --upload-soft-border:
+    rgba(160,
+      63,
+      115,
+      0.16);
+
+  --upload-error:
+    #9b2548;
+
+
+  background:
+    radial-gradient(circle at 13% 12%,
+      rgba(216,
+        91,
+        155,
+        0.065),
+      transparent 28%),
+
+    radial-gradient(circle at 88% 25%,
+      rgba(160,
+        63,
+        115,
+        0.05),
+      transparent 28%),
+
+    radial-gradient(circle at 50% 80%,
+      rgba(216,
+        91,
+        155,
+        0.035),
+      transparent 34%),
+
+    #fffafa;
+}
+
+
+/* Orbit pink */
+
+:root[data-theme="light"] .upload-background-orbit {
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.18);
+}
+
+
+/* Floating icons pink */
+
+:root[data-theme="light"] .upload-floating-study-icon {
+  color:
+    #d85b9b;
+
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.2);
+
+  background:
+    rgba(255,
+      242,
+      248,
+      0.76);
+
+  box-shadow:
+    0 14px 35px rgba(216,
+      91,
+      155,
+      0.08);
+
+  opacity: 0.5;
+}
+
+
+:root[data-theme="light"] .upload-background-sparkle {
+  color:
+    rgba(216,
+      91,
+      155,
+      0.32);
+}
+
+
+/* back button */
+
+:root[data-theme="light"] .upload-back-button {
+  color:
+    #a03f73;
+}
+
+
+/* header */
+
+:root[data-theme="light"] .upload-page-eyebrow {
+  color:
+    #d85b9b;
+}
+
+
+:root[data-theme="light"] .upload-page-header h1 {
+  color:
+    #2d2b2e;
+}
+
+
+:root[data-theme="light"] .upload-page-header h1 span {
+  color:
+    #d85b9b;
+}
+
+
+:root[data-theme="light"] .upload-page-header p {
+  color:
+    #776d73;
+}
+
+
+/* panel */
+
+:root[data-theme="light"] .upload-panel {
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.22);
+
+  background:
+    rgba(255,
+      250,
+      250,
+      0.88);
+
+  box-shadow:
+    0 22px 60px rgba(160,
+      63,
+      115,
+      0.07);
+}
+
+
+/* dropzone */
+
+:root[data-theme="light"] .upload-dropzone {
+  color:
+    #2d2b2e;
+
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.46);
+
+  background:
+    radial-gradient(circle at 50% 36%,
+      rgba(216,
+        91,
+        155,
+        0.055),
+      transparent 38%),
+
+    #fffafa;
+}
+
+
+:root[data-theme="light"] .upload-dropzone:hover,
+:root[data-theme="light"] .upload-dropzone:focus-visible,
+:root[data-theme="light"] .upload-dropzone-active {
+  border-color:
+    #d85b9b;
+
+  background:
+    #fff7fa;
+
+  box-shadow:
+    0 0 0 4px rgba(216,
+      91,
+      155,
+      0.07);
+}
+
+
+:root[data-theme="light"] .upload-dropzone h2 {
+  color:
+    #2d2b2e;
+}
+
+
+:root[data-theme="light"] .upload-dropzone-description {
+  color:
+    #776d73;
+}
+
+
+/* Pills */
+
+:root[data-theme="light"] .upload-format-list span {
+  color:
+    #a03f73;
+
+  background:
+    #fff0f6;
+}
+
+
+:root[data-theme="light"] .upload-format-list .upload-size-pill {
+  color:
+    #887a82;
+
+  background:
+    #f8edf2;
+}
+
+
+/* Choose file */
+
+:root[data-theme="light"] .upload-choose-file-button {
+  color:
+    #ffffff;
+
+  border-color:
+    #a03f73;
+
+  background:
+    linear-gradient(135deg,
+      #bd4f88,
+      #a03f73);
+
+  box-shadow:
+    0 10px 24px rgba(160,
+      63,
+      115,
+      0.18);
+}
+
+
+/* Security */
+
+:root[data-theme="light"] .upload-security {
+  color:
+    #776d73;
+}
+
+
+:root[data-theme="light"] .upload-security svg {
+  color:
+    #d85b9b;
+}
+
+
+/* selected files */
+
+:root[data-theme="light"] .selected-upload-file {
+  border-color:
+    rgba(160,
+      63,
+      115,
+      0.18);
+
+  background:
+    #fffafa;
+}
+
+
+:root[data-theme="light"] .selected-file-heading strong {
+  color:
+    #2d2b2e;
+}
+
+
+:root[data-theme="light"] .selected-file-heading span {
+  color:
+    #a03f73;
+}
+
+
+/* progress */
+
+:root[data-theme="light"] .file-progress-track {
+  background:
+    rgba(160,
+      63,
+      115,
+      0.12);
+}
+
+
+:root[data-theme="light"] .file-progress-track span {
+  background:
+    linear-gradient(90deg,
+      #a03f73,
+      #d85b9b);
+}
+
+
+/* Submit */
+
+:root[data-theme="light"] .upload-submit-button {
+  color:
+    #ffffff;
+
+  border-color:
+    #a03f73;
+
+  background:
+    #a03f73;
+}
+
+
+/* Cancel */
+
+:root[data-theme="light"] .upload-cancel-button {
+  color:
+    #756d72;
+
+  border-color:
+    rgba(160,
+      63,
+      115,
+      0.25);
+
+  background:
+    #fffafa;
+}
+
+
+/* Help */
+
+:root[data-theme="light"] .upload-help-button {
+  color:
+    #a03f73;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .upload-background-orbit-one {
+    width:
+      1000px;
+  }
+
+
+  .upload-floating-study-icon {
+    opacity: 0.3;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .upload-page {
+    overflow-y: auto;
+  }
+
+
+  .upload-back-button {
+    margin:
+      20px 0 0 18px;
+  }
+
+
+  .upload-content {
+    padding:
+      22px 14px 125px;
+  }
+
+
+  .upload-page-header h1 {
+    font-size:
+      36px;
+  }
+
+
+  .upload-panel {
+    padding:
+      14px;
+
+    border-radius:
+      18px;
+  }
+
+
+  .upload-dropzone {
+    min-height:
+      430px;
+
+    padding:
+      25px 14px;
+  }
+
+
+  .upload-box-illustration {
+    transform:
+      scale(0.88);
+
+    margin-bottom:
+      0;
+  }
+
+
+  .upload-requirements {
+    flex-direction:
+      column;
+
+    gap: 5px;
+  }
+
+
+  .selected-file-heading {
+    align-items:
+      flex-start;
+
+    flex-direction:
+      column;
+
+    gap: 4px;
+  }
+
+
+  .upload-panel-actions {
+    align-items:
+      stretch;
+
+    flex-direction:
+      column;
+  }
+
+
+  .upload-main-actions {
+    display: grid;
+
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+
+  .upload-help-button {
+    justify-content:
+      center;
+  }
+
+
+  .upload-floating-question,
+  .upload-floating-brain,
+  .upload-floating-book-two {
+    display: none;
+  }
+
+}
+
+
+@media (max-width: 430px) {
+
+  .upload-page-header h1 {
+    font-size:
+      32px;
+  }
+
+
+  .upload-choose-file-button {
+    min-width:
+      215px;
+  }
+
+
+  .selected-upload-file {
+    grid-template-columns:
+      44px minmax(0, 1fr) 34px;
+
+    gap: 9px;
+  }
+
+
+  .upload-main-actions {
+    grid-template-columns:
+      1fr;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .upload-floating-study-icon,
+  .upload-background-sparkle {
+    animation:
+      none !important;
+  }
+
+}

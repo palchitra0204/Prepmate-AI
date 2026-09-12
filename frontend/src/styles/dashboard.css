@@ -1,0 +1,1414 @@
+.dashboard-page {
+  --bg: #07070d;
+  --surface: #11101a;
+  --text: #f7f4fb;
+  --muted: #928b9d;
+  --accent: #9d5cff;
+  --accent-soft: #c39aff;
+  --border: rgba(157, 92, 255, 0.3);
+  --soft-border: rgba(255, 255, 255, 0.09);
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 52% -10%, rgba(104, 53, 221, 0.22), transparent 36%),
+    radial-gradient(circle at 90% 65%, rgba(89, 36, 184, 0.1), transparent 28%),
+    var(--bg);
+}
+
+.dashboard-page *,
+.dashboard-page *::before,
+.dashboard-page *::after {
+  box-sizing: border-box;
+}
+
+.dashboard-content {
+  width: 100%;
+  min-height: 100vh;
+
+  margin-left: 0;
+  padding:
+    72px 42px 145px;
+}
+
+.dashboard-error {
+  width: min(1120px, 100%);
+  margin: 0 auto 18px;
+  padding: 12px 15px;
+  color: #ff9aad;
+  border: 1px solid rgba(255, 99, 126, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 69, 101, 0.08);
+}
+
+.dashboard-hero {
+  width: min(1120px, 100%);
+  margin: 0 auto 38px;
+  position: relative;
+  text-align: center;
+}
+
+.dashboard-glow {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(75px);
+  pointer-events: none;
+}
+
+.dashboard-glow-one {
+  width: 360px;
+  height: 160px;
+  top: -80px;
+  left: 50%;
+  background: rgba(128, 64, 255, 0.18);
+  transform: translateX(-50%);
+}
+
+.dashboard-glow-two {
+  width: 200px;
+  height: 200px;
+  right: 8%;
+  bottom: -90px;
+  background: rgba(66, 58, 205, 0.1);
+}
+
+.dashboard-badge {
+  width: fit-content;
+  min-height: 30px;
+  margin: 0 auto 18px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--accent-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(157, 92, 255, 0.08);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.dashboard-hero h1 {
+  margin: 0;
+  color: var(--text);
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(38px, 5vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.dashboard-hero h1 span {
+  background: linear-gradient(135deg, #d8b9ff, #8d3cf0);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dashboard-hero>p {
+  max-width: 760px;
+  margin: 15px auto 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.dashboard-mode-grid {
+  width: min(1120px, 100%);
+  margin: 0 auto 26px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.dashboard-mode-card {
+  min-width: 0;
+  min-height: 245px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--text);
+  border: 1px solid var(--soft-border);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(27, 19, 45, 0.96), rgba(12, 11, 18, 0.98));
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+}
+
+.dashboard-mode-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 5%, rgba(151, 75, 255, 0.34), transparent 48%);
+  pointer-events: none;
+}
+
+.mode-blue::before,
+.mode-indigo::before {
+  background: radial-gradient(circle at 20% 5%, rgba(47, 108, 255, 0.4), transparent 48%);
+}
+
+.dashboard-mode-card:hover,
+.dashboard-mode-card:focus-visible {
+  outline: none;
+  border-color: rgba(175, 112, 255, 0.72);
+  box-shadow: 0 0 0 3px rgba(157, 92, 255, 0.1), 0 18px 45px rgba(73, 27, 139, 0.28);
+  transform: translateY(-5px);
+}
+
+.mode-card-decoration {
+  position: absolute;
+  right: -13px;
+  bottom: 12px;
+  color: rgba(161, 102, 255, 0.1);
+  transform: rotate(12deg);
+  pointer-events: none;
+}
+
+.mode-card-icon {
+  width: 47px;
+  height: 47px;
+  margin-bottom: 23px;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  border: 1px solid rgba(210, 177, 255, 0.48);
+  border-radius: 13px;
+  background: linear-gradient(145deg, #9f5cff, #5525b9);
+  box-shadow: 0 8px 22px rgba(93, 38, 183, 0.35);
+}
+
+.mode-blue .mode-card-icon,
+.mode-indigo .mode-card-icon {
+  background: linear-gradient(145deg, #4878ff, #2539a7);
+}
+
+.mode-card-content {
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.mode-card-content h2 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.mode-card-content p {
+  min-height: 57px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.mode-card-stat {
+  margin-top: 15px;
+  display: block;
+  color: #b9b2c3;
+  font-size: 11px;
+}
+
+.mode-card-arrow {
+  width: 37px;
+  height: 37px;
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  background: rgba(157, 92, 255, 0.12);
+}
+
+.dashboard-mode-card:hover .mode-card-arrow {
+  background: var(--accent);
+  transform: translateX(3px);
+}
+
+.dashboard-suggestions {
+  width: min(900px, 100%);
+  margin: 0 auto 18px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.dashboard-suggestions button,
+.chat-tools button {
+  min-height: 34px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  border: 1px solid var(--soft-border);
+  border-radius: 999px;
+  background: rgba(15, 14, 23, 0.85);
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.dashboard-suggestions button:hover,
+.chat-tools button:hover {
+  color: var(--accent-soft);
+  border-color: var(--border);
+  box-shadow: 0 0 18px rgba(157, 92, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.dashboard-chat-section {
+  width: min(980px, 100%);
+  margin: 0 auto;
+  scroll-margin-top: 80px;
+}
+
+.dashboard-conversation {
+  margin: 0 auto 18px;
+  display: grid;
+  gap: 16px;
+}
+
+.dashboard-user-message {
+  width: fit-content;
+  max-width: min(680px, 88%);
+  margin-left: auto;
+  padding: 14px 17px;
+  color: #fff;
+  border: 1px solid rgba(166, 108, 255, 0.42);
+  border-radius: 17px 17px 5px 17px;
+  background: linear-gradient(145deg, rgba(103, 49, 187, 0.75), rgba(62, 27, 116, 0.75));
+}
+
+.dashboard-user-message span,
+.dashboard-ai-message span {
+  display: block;
+  margin-bottom: 6px;
+  color: #d9bcff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.dashboard-user-message p,
+.dashboard-ai-message p {
+  margin: 0;
+  color: inherit;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.dashboard-thinking-area {
+  min-height: 300px;
+  display: grid;
+  place-items: center;
+}
+
+.dashboard-ai-message {
+  max-width: 820px;
+  padding: 18px;
+  display: flex;
+  gap: 14px;
+  color: #bab4c1;
+  border: 1px solid rgba(166, 108, 255, 0.38);
+  border-radius: 17px 17px 17px 5px;
+  background: linear-gradient(145deg, #15121e, #0c0b11);
+}
+
+.dashboard-ai-icon {
+  width: 39px;
+  height: 39px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: #c293ff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(166, 108, 255, 0.13);
+}
+
+.dashboard-ai-message>div:last-child {
+  min-width: 0;
+  flex: 1;
+}
+
+.dashboard-ai-message button {
+  margin-top: 12px;
+  color: var(--accent-soft);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dashboard-chat {
+  padding: 2px;
+  border-radius: 18px;
+  background: linear-gradient(115deg, rgba(157, 92, 255, 0.78), rgba(157, 92, 255, 0.12), rgba(157, 92, 255, 0.72));
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+}
+
+.dashboard-chat:hover,
+.dashboard-chat:focus-within {
+  box-shadow: 0 0 0 3px rgba(157, 92, 255, 0.1), 0 0 36px rgba(157, 92, 255, 0.28);
+}
+
+.dashboard-chat form {
+  min-height: 128px;
+  padding: 14px 15px 12px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  background: rgba(14, 13, 22, 0.98);
+}
+
+.dashboard-chat textarea {
+  width: 100%;
+  min-height: 62px;
+  padding: 3px 5px;
+  resize: none;
+  color: var(--text);
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+}
+
+.dashboard-chat-actions {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.chat-tools,
+.chat-submit-area {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.chat-submit-area>span {
+  color: #716b78;
+  font-size: 10px;
+}
+
+.chat-send-button {
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #aa68ff, #6d28df);
+  cursor: pointer;
+}
+
+.chat-send-button:hover:not(:disabled) {
+  box-shadow: 0 0 0 4px rgba(157, 92, 255, 0.13);
+  transform: translateY(-2px);
+}
+
+.chat-send-button:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.sr-only {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:root[data-theme="light"] .dashboard-page {
+  --bg: #fffafa;
+  --surface: #fffafa;
+  --text: #2d2b2e;
+  --muted: #756d72;
+  --accent: #a03f73;
+  --accent-soft: #a03f73;
+  --border: rgba(160, 63, 115, 0.48);
+  --soft-border: rgba(160, 63, 115, 0.18);
+  background: radial-gradient(circle at 52% -10%, rgba(160, 63, 115, 0.1), transparent 36%), #fffafa;
+}
+
+:root[data-theme="light"] .dashboard-hero h1 span {
+  background: linear-gradient(135deg, #bd678f, #8f2f61);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:root[data-theme="light"] .dashboard-mode-card {
+  color: #2d2b2e;
+  border-color: rgba(160, 63, 115, 0.22);
+  background: linear-gradient(145deg, #fffafa, #fff3f6);
+  box-shadow: 0 14px 34px rgba(160, 63, 115, 0.08);
+}
+
+:root[data-theme="light"] .dashboard-mode-card::before {
+  background: radial-gradient(circle at 20% 5%, rgba(160, 63, 115, 0.13), transparent 48%);
+}
+
+:root[data-theme="light"] .mode-card-content h2,
+:root[data-theme="light"] .mode-card-stat {
+  color: #2d2b2e;
+}
+
+:root[data-theme="light"] .dashboard-suggestions button,
+:root[data-theme="light"] .dashboard-chat form,
+:root[data-theme="light"] .dashboard-ai-message {
+  color: #2d2b2e;
+  background: #fffafa;
+}
+
+:root[data-theme="light"] .dashboard-chat {
+  background: linear-gradient(115deg, #a03f73, rgba(160, 63, 115, 0.15), #a03f73);
+}
+
+:root[data-theme="light"] .dashboard-chat textarea {
+  color: #2d2b2e;
+}
+
+:root[data-theme="light"] .dashboard-user-message {
+  color: #2d2b2e;
+  border-color: #a03f73;
+  background: rgba(160, 63, 115, 0.08);
+}
+
+@media (max-width: 1200px) {
+  .dashboard-mode-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1000px) {
+  .dashboard-content {
+    margin-left: 0;
+    padding: 105px 24px 140px;
+  }
+}
+
+@media (max-width: 650px) {
+  .dashboard-content {
+    padding: 98px 14px 125px;
+  }
+
+  .dashboard-hero h1 {
+    font-size: clamp(34px, 11vw, 48px);
+  }
+
+  .dashboard-mode-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-mode-card {
+    min-height: 210px;
+  }
+
+  .dashboard-chat-actions {
+    align-items: flex-end;
+  }
+
+  .chat-tools {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .chat-submit-area>span {
+    display: none;
+  }
+}
+
+/* Remove inner textarea box */
+
+.dashboard-chat textarea,
+.dashboard-chat textarea:hover,
+.dashboard-chat textarea:focus,
+.dashboard-chat textarea:focus-visible,
+.dashboard-chat textarea:active {
+  width: 100%;
+
+  padding: 6px 8px;
+
+  color: var(--dashboard-text);
+
+  border: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+
+  box-shadow: none !important;
+
+  resize: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Outer chat box shine */
+
+.dashboard-chat:hover,
+.dashboard-chat:focus-within {
+  box-shadow:
+    0 0 0 3px rgba(157, 92, 255, 0.1),
+    0 0 35px rgba(157, 92, 255, 0.28),
+    0 16px 42px rgba(0, 0, 0, 0.3);
+}
+
+/* Light theme */
+
+:root[data-theme="light"] .dashboard-chat textarea,
+:root[data-theme="light"] .dashboard-chat textarea:hover,
+:root[data-theme="light"] .dashboard-chat textarea:focus {
+  color: #2d2b2e !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="light"] .dashboard-chat:hover,
+:root[data-theme="light"] .dashboard-chat:focus-within {
+  box-shadow:
+    0 0 0 4px rgba(160, 63, 115, 0.1),
+    0 0 30px rgba(160, 63, 115, 0.2),
+    0 14px 35px rgba(160, 63, 115, 0.12);
+}
+
+/* =========================================
+   LIGHT THEME CHAT BUTTON FIX
+========================================= */
+
+/* Attach File + Search Materials */
+
+:root[data-theme="light"] .dashboard-chat .chat-tools button {
+  color: #2d2b2e !important;
+
+  border:
+    1px solid rgba(160,
+      63,
+      115,
+      0.45) !important;
+
+  background: #fffafa !important;
+  background-color:
+    #fffafa !important;
+  background-image:
+    none !important;
+
+  box-shadow: none !important;
+}
+
+/* Icons black */
+
+:root[data-theme="light"] .dashboard-chat .chat-tools button svg {
+  color: #2d2b2e !important;
+  stroke: #2d2b2e !important;
+}
+
+/* Hover: maroon background + white text */
+
+:root[data-theme="light"] .dashboard-chat .chat-tools button:hover,
+:root[data-theme="light"] .dashboard-chat .chat-tools button:focus-visible {
+  color: #ffffff !important;
+
+  border-color:
+    #a03f73 !important;
+
+  outline: none !important;
+
+  background:
+    #a03f73 !important;
+  background-color:
+    #a03f73 !important;
+
+  box-shadow:
+    0 0 0 4px rgba(160,
+      63,
+      115,
+      0.12),
+    0 8px 22px rgba(160,
+      63,
+      115,
+      0.18) !important;
+
+  transform:
+    translateY(-2px);
+}
+
+:root[data-theme="light"] .dashboard-chat .chat-tools button:hover svg,
+:root[data-theme="light"] .dashboard-chat .chat-tools button:focus-visible svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* Send button: maroon */
+
+:root[data-theme="light"] .dashboard-chat .chat-send-button {
+  color: #ffffff !important;
+
+  border:
+    1px solid #a03f73 !important;
+
+  background:
+    #a03f73 !important;
+  background-color:
+    #a03f73 !important;
+  background-image:
+    none !important;
+
+  box-shadow:
+    0 8px 22px rgba(160,
+      63,
+      115,
+      0.22) !important;
+}
+
+/* Send arrow always white */
+
+:root[data-theme="light"] .dashboard-chat .chat-send-button svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+
+  opacity: 1 !important;
+}
+
+/* Send button hover */
+
+:root[data-theme="light"] .dashboard-chat .chat-send-button:hover:not( :disabled),
+:root[data-theme="light"] .dashboard-chat .chat-send-button:focus-visible:not( :disabled) {
+  color: #ffffff !important;
+
+  border-color:
+    #a03f73 !important;
+
+  background:
+    #8f315f !important;
+  background-color:
+    #8f315f !important;
+
+  box-shadow:
+    0 0 0 4px rgba(160,
+      63,
+      115,
+      0.14),
+    0 10px 26px rgba(160,
+      63,
+      115,
+      0.25) !important;
+
+  transform:
+    translateY(-2px);
+}
+
+/* Disabled send button remains visible */
+
+:root[data-theme="light"] .dashboard-chat .chat-send-button:disabled {
+  color: #ffffff !important;
+
+  border-color:
+    #a03f73 !important;
+
+  background:
+    #a03f73 !important;
+
+  opacity: 0.62 !important;
+  cursor: not-allowed;
+}
+
+:root[data-theme="light"] .dashboard-chat .chat-send-button:disabled svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* =========================================
+   LIGHT THEME CARD ARROW
+   Normal: black
+   Card hover: white
+========================================= */
+
+/* Normal arrow circle */
+
+:root[data-theme="light"] .dashboard-mode-card .mode-card-arrow {
+  color: #2d2b2e !important;
+
+  border:
+    1px solid rgba(160,
+      63,
+      115,
+      0.5) !important;
+
+  background:
+    #fffafa !important;
+
+  box-shadow: none !important;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Normal arrow icon black */
+
+:root[data-theme="light"] .dashboard-mode-card .mode-card-arrow svg {
+  color: #2d2b2e !important;
+  stroke: #2d2b2e !important;
+}
+
+/* Entire card hover */
+
+:root[data-theme="light"] .dashboard-mode-card:hover .mode-card-arrow,
+:root[data-theme="light"] .dashboard-mode-card:focus-visible .mode-card-arrow {
+  color: #ffffff !important;
+
+  border-color:
+    #a03f73 !important;
+
+  background:
+    #a03f73 !important;
+
+  box-shadow:
+    0 0 0 4px rgba(160,
+      63,
+      115,
+      0.12),
+    0 8px 20px rgba(160,
+      63,
+      115,
+      0.2) !important;
+
+  transform:
+    translateX(3px);
+}
+
+/* Hover arrow icon white */
+
+:root[data-theme="light"] .dashboard-mode-card:hover .mode-card-arrow svg,
+:root[data-theme="light"] .dashboard-mode-card:focus-visible .mode-card-arrow svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* Force all dashboard icons to pink/maroon */
+:root[data-theme="light"] .dashboard-mode-card .mode-card-icon,
+:root[data-theme="light"] .mode-purple .mode-card-icon,
+:root[data-theme="light"] .mode-blue .mode-card-icon,
+:root[data-theme="light"] .mode-violet .mode-card-icon,
+:root[data-theme="light"] .mode-indigo .mode-card-icon {
+  color: #ffffff !important;
+  border-color: #d45a94 !important;
+  background: linear-gradient(145deg,
+      #e16aa5,
+      #a03f73) !important;
+  box-shadow:
+    0 8px 20px rgba(160, 63, 115, 0.28),
+    0 0 15px rgba(225, 106, 165, 0.2) !important;
+}
+
+:root[data-theme="light"] .dashboard-mode-card .mode-card-icon svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* =========================================
+   LIGHT THEME CHAT CARD FINAL
+========================================= */
+
+.landing-page.landing-light .chat-message,
+.landing-page.landing-light .ai-message,
+.landing-page.landing-light .assistant-message {
+  color: #1f1f1f !important;
+
+  border: 1px solid #d85b9b !important;
+
+  background: #ffffff !important;
+
+  box-shadow:
+    0 10px 24px rgba(216, 91, 155, 0.08) !important;
+}
+
+
+/* PrepMate AI name */
+
+.landing-page.landing-light .chat-message-name,
+.landing-page.landing-light .ai-name,
+.landing-page.landing-light .assistant-name {
+  color: #d85b9b !important;
+
+  font-weight: 700 !important;
+}
+
+
+/* PrepMate AI icon */
+
+.landing-page.landing-light .chat-message-icon,
+.landing-page.landing-light .ai-message-icon,
+.landing-page.landing-light .assistant-avatar {
+  color: #d85b9b !important;
+
+  border: 1px solid #f0a5c8 !important;
+
+  background: #fff4f9 !important;
+}
+
+
+.landing-page.landing-light .chat-message-icon svg,
+.landing-page.landing-light .ai-message-icon svg,
+.landing-page.landing-light .assistant-avatar svg {
+  color: #d85b9b !important;
+
+  stroke: #d85b9b !important;
+}
+
+
+/* Main AI response text */
+
+.landing-page.landing-light .chat-message p,
+.landing-page.landing-light .ai-message p,
+.landing-page.landing-light .assistant-message p {
+  color: #1f1f1f !important;
+}
+
+
+/* Select material link */
+
+.landing-page.landing-light .chat-message a,
+.landing-page.landing-light .ai-message a,
+.landing-page.landing-light .assistant-message a,
+.landing-page.landing-light .select-material-link {
+  color: #d85b9b !important;
+
+  font-weight: 600 !important;
+
+  text-decoration: none !important;
+}
+
+
+.landing-page.landing-light .chat-message a:hover,
+.landing-page.landing-light .ai-message a:hover,
+.landing-page.landing-light .assistant-message a:hover,
+.landing-page.landing-light .select-material-link:hover {
+  color: #b72b69 !important;
+}
+
+
+/* =========================================
+   USER MESSAGE
+========================================= */
+
+.landing-page.landing-light .user-message {
+  color: #1f1f1f !important;
+
+  border: 1px solid #d85b9b !important;
+
+  background: #ffffff !important;
+
+  box-shadow:
+    0 8px 20px rgba(216, 91, 155, 0.06) !important;
+}
+
+
+/* "You" label */
+
+.landing-page.landing-light .user-message .message-name,
+.landing-page.landing-light .user-message-name {
+  color: #d85b9b !important;
+
+  font-weight: 700 !important;
+}
+
+
+/* User message actual text */
+
+.landing-page.landing-light .user-message p,
+.landing-page.landing-light .user-message span {
+  color: #1f1f1f !important;
+}
+
+/* =========================================
+   SELECT MATERIAL - NO BOX
+========================================= */
+
+.dashboard-ai-message button,
+.dashboard-ai-message button:hover,
+.dashboard-ai-message button:focus,
+.dashboard-ai-message button:focus-visible,
+.dashboard-ai-message button:active {
+  margin-top: 12px;
+
+  padding: 0 !important;
+
+  color: #a03f73 !important;
+
+  border: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+
+  box-shadow: none !important;
+
+  font: inherit;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+
+/* Hover par sirf text darker hoga */
+
+.dashboard-ai-message button:hover {
+  color: #8f315f !important;
+
+  transform: none !important;
+}
+
+/* =========================================================
+   FINAL CHAT THEME FIX
+   LIGHT = WHITE + PINK/MAROON
+   DARK  = BLACK + PURPLE
+========================================================= */
+
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+/* ---------------- USER MESSAGE ---------------- */
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-user-message,
+:root[data-theme="light"] .dashboard-page .dashboard-user-message {
+  color: #1f1f1f !important;
+
+  border: 1px solid #d85b9b !important;
+
+  background: #ffffff !important;
+  background-image: none !important;
+
+  box-shadow:
+    0 8px 22px rgba(216, 91, 155, 0.08) !important;
+}
+
+
+/* "You" = pink */
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-user-message>span,
+:root[data-theme="light"] .dashboard-page .dashboard-user-message>span {
+  color: #d85b9b !important;
+
+  -webkit-text-fill-color: #d85b9b !important;
+
+  font-weight: 700 !important;
+}
+
+
+/* User message = black */
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-user-message p,
+:root[data-theme="light"] .dashboard-page .dashboard-user-message p {
+  color: #1f1f1f !important;
+
+  -webkit-text-fill-color: #1f1f1f !important;
+}
+
+
+
+/* ---------------- AI MESSAGE ---------------- */
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-ai-message,
+:root[data-theme="light"] .dashboard-page .dashboard-ai-message {
+  color: #1f1f1f !important;
+
+  border: 1px solid #d85b9b !important;
+
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+
+  box-shadow:
+    0 10px 28px rgba(216, 91, 155, 0.08) !important;
+}
+
+
+/* PrepMate AI = pink */
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-ai-message>div:last-child>span,
+:root[data-theme="light"] .dashboard-page .dashboard-ai-message>div:last-child>span {
+  color: #d85b9b !important;
+
+  -webkit-text-fill-color: #d85b9b !important;
+
+  font-weight: 700 !important;
+}
+
+
+/* AI response = black */
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-ai-message p,
+:root[data-theme="light"] .dashboard-page .dashboard-ai-message p {
+  color: #1f1f1f !important;
+
+  -webkit-text-fill-color: #1f1f1f !important;
+}
+
+
+
+/* ---------------- AI ICON ---------------- */
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-ai-icon,
+:root[data-theme="light"] .dashboard-page .dashboard-ai-icon {
+  color: #d85b9b !important;
+
+  border: 1px solid #d85b9b !important;
+
+  background: #fff4f9 !important;
+
+  box-shadow:
+    0 5px 16px rgba(216, 91, 155, 0.12) !important;
+}
+
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-ai-icon svg,
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-ai-icon svg *,
+:root[data-theme="light"] .dashboard-page .dashboard-ai-icon svg,
+:root[data-theme="light"] .dashboard-page .dashboard-ai-icon svg * {
+  color: #d85b9b !important;
+
+  stroke: #d85b9b !important;
+}
+
+
+
+/* ---------------- SELECT MATERIAL ---------------- */
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-ai-message button,
+:root[data-theme="light"] .dashboard-page .dashboard-ai-message button {
+  margin-top: 12px !important;
+
+  padding: 0 !important;
+
+  color: #d85b9b !important;
+
+  border: none !important;
+
+  outline: none !important;
+
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+
+  box-shadow: none !important;
+
+  font-weight: 600 !important;
+}
+
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-ai-message button svg,
+:root[data-theme="light"] .dashboard-page .dashboard-ai-message button svg {
+  color: #d85b9b !important;
+
+  stroke: #d85b9b !important;
+}
+
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-ai-message button:hover,
+:root[data-theme="light"] .dashboard-page .dashboard-ai-message button:hover {
+  color: #a03f73 !important;
+}
+
+
+html[data-theme="light"] body[data-theme="light"] .dashboard-page .dashboard-ai-message button:hover svg,
+:root[data-theme="light"] .dashboard-page .dashboard-ai-message button:hover svg {
+  color: #a03f73 !important;
+
+  stroke: #a03f73 !important;
+}
+
+
+
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+/* ---------------- USER MESSAGE ---------------- */
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-user-message,
+:root[data-theme="dark"] .dashboard-page .dashboard-user-message {
+  color: #ffffff !important;
+
+  border: 1px solid rgba(166, 108, 255, 0.5) !important;
+
+  background:
+    linear-gradient(145deg,
+      rgba(103, 49, 187, 0.78),
+      rgba(62, 27, 116, 0.78)) !important;
+}
+
+
+/* You = purple */
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-user-message>span,
+:root[data-theme="dark"] .dashboard-page .dashboard-user-message>span {
+  color: #d9bcff !important;
+
+  -webkit-text-fill-color: #d9bcff !important;
+
+  font-weight: 700 !important;
+}
+
+
+/* Message white */
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-user-message p,
+:root[data-theme="dark"] .dashboard-page .dashboard-user-message p {
+  color: #ffffff !important;
+
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+
+
+/* ---------------- AI MESSAGE ---------------- */
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-ai-message,
+:root[data-theme="dark"] .dashboard-page .dashboard-ai-message {
+  color: #bab4c1 !important;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.42) !important;
+
+  background:
+    linear-gradient(145deg,
+      #15121e,
+      #0c0b11) !important;
+
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, 0.25) !important;
+}
+
+
+/* PrepMate AI purple */
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-ai-message>div:last-child>span,
+:root[data-theme="dark"] .dashboard-page .dashboard-ai-message>div:last-child>span {
+  color: #d9bcff !important;
+
+  -webkit-text-fill-color: #d9bcff !important;
+
+  font-weight: 700 !important;
+}
+
+
+/* AI answer */
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-ai-message p,
+:root[data-theme="dark"] .dashboard-page .dashboard-ai-message p {
+  color: #e8e3ed !important;
+
+  -webkit-text-fill-color: #e8e3ed !important;
+}
+
+
+
+/* ---------------- AI ICON PURPLE ---------------- */
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-ai-icon,
+:root[data-theme="dark"] .dashboard-page .dashboard-ai-icon {
+  color: #c293ff !important;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.45) !important;
+
+  background:
+    rgba(166, 108, 255, 0.13) !important;
+}
+
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-ai-icon svg,
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-ai-icon svg *,
+:root[data-theme="dark"] .dashboard-page .dashboard-ai-icon svg,
+:root[data-theme="dark"] .dashboard-page .dashboard-ai-icon svg * {
+  color: #c293ff !important;
+
+  stroke: #c293ff !important;
+}
+
+
+
+/* ---------------- SELECT MATERIAL PURPLE ---------------- */
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-ai-message button,
+:root[data-theme="dark"] .dashboard-page .dashboard-ai-message button {
+  margin-top: 12px !important;
+
+  padding: 0 !important;
+
+  color: #c293ff !important;
+
+  border: none !important;
+
+  outline: none !important;
+
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+
+  box-shadow: none !important;
+
+  font-weight: 600 !important;
+}
+
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-ai-message button svg,
+:root[data-theme="dark"] .dashboard-page .dashboard-ai-message button svg {
+  color: #c293ff !important;
+
+  stroke: #c293ff !important;
+}
+
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-ai-message button:hover,
+:root[data-theme="dark"] .dashboard-page .dashboard-ai-message button:hover {
+  color: #ffffff !important;
+}
+
+
+html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-ai-message button:hover svg,
+:root[data-theme="dark"] .dashboard-page .dashboard-ai-message button:hover svg {
+  color: #ffffff !important;
+
+  stroke: #ffffff !important;
+}
+
+/* =========================================================
+   LIGHT THEME - MODE CARDS PINK ONLY
+========================================================= */
+
+:root[data-theme="light"] .dashboard-page .dashboard-mode-card {
+  border-color: #d85b9b !important;
+
+  background:
+    linear-gradient(145deg,
+      #ffffff 0%,
+      #fff5f9 100%) !important;
+}
+
+
+/* =========================================================
+   LARGE FADED BACKGROUND ICON - LIGHT THEME
+========================================================= */
+
+/* Normal state - very light pink */
+
+:root[data-theme="light"] .dashboard-page .mode-card-decoration {
+  color: rgba(216, 91, 155, 0.08) !important;
+
+  /* transition:
+    color 0.3s ease,
+    transform 0.3s ease; */
+}
+
+
+:root[data-theme="light"] .dashboard-page .mode-card-decoration svg,
+:root[data-theme="light"] .dashboard-page .mode-card-decoration svg * {
+  stroke: rgba(216, 91, 155, 0.15) !important;
+
+  /* transition: stroke 0.3s ease; */
+}
+
+
+/* =========================================================
+   CARD HOVER - DARK PINK
+========================================================= */
+
+:root[data-theme="light"] .dashboard-page .dashboard-mode-card:hover .mode-card-decoration {
+  color: rgba(160, 63, 115, 0.28) !important;
+
+  /* transform: scale(1.05) rotate(-3deg); */
+}
+
+
+:root[data-theme="light"] .dashboard-page .dashboard-mode-card:hover .mode-card-decoration svg,
+:root[data-theme="light"] .dashboard-page .dashboard-mode-card:hover .mode-card-decoration svg * {
+  stroke: #a03f73 !important;
+}
+
+/* Main icon box */
+
+:root[data-theme="light"] .dashboard-page .mode-card-icon {
+  color: #d85b9b !important;
+
+  border-color:
+    rgba(216, 91, 155, 0.35) !important;
+
+  background: #fff1f7 !important;
+}
+
+
+:root[data-theme="light"] .dashboard-page .mode-card-icon svg,
+:root[data-theme="light"] .dashboard-page .mode-card-icon svg * {
+  stroke: #d85b9b !important;
+}
+
+
+/* Arrow border pink */
+
+:root[data-theme="light"] .dashboard-page .mode-card-arrow {
+  border-color: #d85b9b !important;
+
+  background: #ffffff !important;
+}
+
+
+/* Hover bhi pink */
+
+:root[data-theme="light"] .dashboard-page .dashboard-mode-card:hover {
+  border-color: #d85b9b !important;
+}
+
+
+:root[data-theme="light"] .dashboard-page .dashboard-mode-card:hover .mode-card-arrow {
+  color: #ffffff !important;
+
+  border-color: #d85b9b !important;
+
+  background: #d85b9b !important;
+}
