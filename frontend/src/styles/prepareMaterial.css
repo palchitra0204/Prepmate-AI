@@ -554,8 +554,8 @@
 .prepare-card-bounce:nth-child(2)::after {
   background:
     radial-gradient(ellipse,
-      rgba(236, 90, 174, 0.55),
-      transparent 70%);
+      rgba(133, 78, 255, 0.42),
+        transparent 70%);
 }
 
 
@@ -643,28 +643,21 @@
 ========================================================= */
 
 .prepare-card-bounce:hover .prepare-mode-card {
-  animation-play-state:
-    paused;
+  animation-play-state: paused;
 
   transform:
     translateY(-13px) scale(1.025) rotate(0deg);
 
-  border-color:
-    var(--prepare-purple);
+  border-color: var(--prepare-purple);
 
-  box-shadow:
-    0 32px 80px rgba(0, 0, 0, 0.38),
-    0 0 34px rgba(166, 108, 255, 0.18);
+  box-shadow: none;
 }
 
-
 .prepare-card-bounce:nth-child(2):hover .prepare-mode-card {
-  border-color:
-    var(--prepare-pink);
+  /* border-color: var(--prepare-pink); */
+  border-color: var(--prepare-purple);
 
-  box-shadow:
-    0 32px 80px rgba(0, 0, 0, 0.38),
-    0 0 38px rgba(236, 90, 174, 0.23);
+  box-shadow: none;
 }
 
 
@@ -1265,6 +1258,8 @@
     linear-gradient(145deg,
       #ffffff,
       #fff5f9);
+
+      
 }
 
 
@@ -1275,6 +1270,8 @@
     #d85b9b;
 
   opacity: 0.07;
+
+  
 }
 
 
@@ -1678,4 +1675,167 @@
 :root:not([data-theme="light"]) .materials-float-brain {
   color:
     rgba(180, 126, 255, 0.17) !important;
+}
+
+/* =========================================================
+   FOUR PREPARATION CARDS
+========================================================= */
+
+.prepare-cards {
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prepare-mode-card-4 {
+  transform:
+    translateY(6px) rotate(1.2deg);
+
+  animation:
+    prepare-card-float-two 5.4s ease-in-out infinite;
+}
+
+.prepare-mode-card-4 .prepare-mode-icon {
+  color: var(--prepare-purple-light);
+  border-color:
+    rgba(166, 108, 255, 0.38);
+  background:
+    rgba(102, 53, 177, 0.25);
+}
+
+.prepare-mode-card-4 .prepare-card-decoration {
+  color:
+    rgba(166, 108, 255, 0.09);
+}
+
+.prepare-card-bounce:nth-child(4)::after {
+  background:
+    radial-gradient(ellipse,
+      rgba(166, 108, 255, 0.42),
+      transparent 70%);
+}
+
+.prepare-card-bounce:nth-child(4):hover .prepare-mode-card {
+  border-color:
+    var(--prepare-purple);
+  box-shadow: none;
+}
+
+:root[data-theme="light"] .prepare-mode-card-4 {
+  border-color:
+    rgba(216, 91, 155, 0.55);
+  background:
+    linear-gradient(145deg,
+      #ffffff,
+      #fff9fb);
+}
+
+:root[data-theme="light"] .prepare-mode-card-4 .prepare-mode-icon {
+  color: #d85b9b;
+  border-color:
+    rgba(216, 91, 155, 0.3);
+  background: #fff2f8;
+}
+
+:root[data-theme="light"] .prepare-mode-card-4 .prepare-card-decoration {
+  color:
+    rgba(216, 91, 155, 0.08);
+}
+
+@media (max-width: 900px) {
+  .prepare-cards {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .prepare-card-bounce:last-child {
+    grid-column: auto;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .prepare-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   DARK THEME - Q&A CARD PURPLE FIX
+========================================================= */
+
+:root:not([data-theme="light"]) .prepare-mode-card-2 {
+  border-color:
+    rgba(166, 108, 255, 0.4);
+
+  background:
+    linear-gradient(145deg,
+      rgba(24, 20, 35, 0.96),
+      rgba(11, 10, 17, 0.98));
+}
+
+
+/* Q&A card glow */
+
+:root:not([data-theme="light"]) .prepare-mode-card-2 .prepare-card-glow {
+  background:
+    var(--prepare-purple);
+
+  opacity: 0.1;
+}
+
+
+/* Large background book icon */
+
+:root:not([data-theme="light"]) .prepare-mode-card-2 .prepare-card-decoration {
+  color:
+    rgba(166, 108, 255, 0.09);
+}
+
+
+/* Small card icon */
+
+:root:not([data-theme="light"]) .prepare-mode-card-2 .prepare-mode-icon {
+  color:
+    var(--prepare-purple-light);
+
+  border-color:
+    rgba(166, 108, 255, 0.35);
+
+  background:
+    rgba(102, 53, 177, 0.25);
+}
+
+
+/* Start preparing text */
+
+:root:not([data-theme="light"]) .prepare-mode-card-2 .prepare-start-button {
+  color:
+    var(--prepare-purple-light);
+}
+
+
+/* Hover arrow */
+
+:root:not([data-theme="light"]) .prepare-mode-card-2 .prepare-start-button:hover .prepare-start-arrow {
+  color: #ffffff;
+
+  border-color:
+    var(--prepare-purple);
+
+  background:
+    var(--prepare-purple);
+}
+
+
+/* Floor glow */
+
+:root:not([data-theme="light"]) .prepare-card-bounce:nth-child(2)::after {
+  background:
+    radial-gradient(ellipse,
+      rgba(133, 78, 255, 0.42),
+      transparent 70%);
 }

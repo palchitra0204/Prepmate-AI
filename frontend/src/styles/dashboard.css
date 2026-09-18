@@ -81,10 +81,10 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  color: var(--accent-soft);
-  border: 1px solid var(--border);
+  color: #d85b9b;
+  border: #d85b9b  1px solid;
   border-radius: 999px;
-  background: rgba(157, 92, 255, 0.08);
+  background: #f7f4fb;
   font-size: 11px;
   font-weight: 700;
 }
@@ -1411,4 +1411,264 @@ html[data-theme="dark"] body[data-theme="dark"] .dashboard-page .dashboard-ai-me
   border-color: #d85b9b !important;
 
   background: #d85b9b !important;
+}
+
+/* =========================================================
+   DASHBOARD FLOATING BACKGROUND
+========================================================= */
+
+.dashboard-page {
+  position: relative;
+
+  isolation: isolate;
+
+  overflow-x: hidden;
+}
+
+
+.dashboard-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+.dashboard-background-art {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   ORBIT LINES
+========================================================= */
+
+.dashboard-orbit {
+  position: absolute;
+
+  display: block;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.12);
+
+  border-radius: 50%;
+
+  opacity: 0.75;
+}
+
+
+.dashboard-orbit-one {
+  width: 760px;
+  height: 340px;
+
+  top: -150px;
+  left: -280px;
+
+  transform: rotate(-18deg);
+}
+
+
+.dashboard-orbit-two {
+  width: 850px;
+  height: 390px;
+
+  right: -360px;
+  bottom: -160px;
+
+  transform: rotate(20deg);
+}
+
+
+.dashboard-orbit-three {
+  width: 470px;
+  height: 210px;
+
+  top: 38%;
+  right: 26%;
+
+  opacity: 0.35;
+
+  transform: rotate(-35deg);
+}
+
+
+/* =========================================================
+   FLOATING ICONS
+========================================================= */
+
+.dashboard-floating-icon {
+  position: absolute;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color:
+    rgba(192, 147, 255, 0.22);
+
+  filter:
+    drop-shadow(0 0 12px rgba(166, 108, 255, 0.18));
+
+  animation:
+    dashboardIconFloat 7s ease-in-out infinite;
+}
+
+
+.dashboard-floating-icon svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+
+/* Book */
+
+.dashboard-float-book {
+  top: 13%;
+  left: 4%;
+
+  animation-delay: -1s;
+}
+
+
+/* Brain */
+
+.dashboard-float-brain {
+  top: 14%;
+  right: 5%;
+
+  animation-delay: -3.2s;
+}
+
+
+/* Question */
+
+.dashboard-float-question {
+  top: 48%;
+  right: 3%;
+
+  animation-delay: -5s;
+}
+
+
+/* Graduation cap */
+
+.dashboard-float-cap {
+  left: 4%;
+  bottom: 16%;
+
+  animation-delay: -2.1s;
+}
+
+
+/* Document */
+
+.dashboard-float-file {
+  right: 8%;
+  bottom: 13%;
+
+  animation-delay: -4.3s;
+}
+
+
+/* Sparkle */
+
+.dashboard-float-sparkle {
+  top: 46%;
+  left: 2%;
+
+  animation-delay: -1.8s;
+}
+
+
+/* =========================================================
+   FLOATING ANIMATION
+========================================================= */
+
+@keyframes dashboardIconFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0) rotate(-5deg);
+  }
+
+  50% {
+    transform:
+      translateY(-18px) rotate(5deg);
+  }
+}
+
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+:root[data-theme="light"] .dashboard-orbit {
+  border-color:
+    rgba(216, 91, 155, 0.13);
+}
+
+
+:root[data-theme="light"] .dashboard-floating-icon {
+  color:
+    rgba(160, 63, 115, 0.19);
+
+  filter:
+    drop-shadow(0 0 10px rgba(216, 91, 155, 0.13));
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .dashboard-float-question,
+  .dashboard-float-file {
+    display: none;
+  }
+
+
+  .dashboard-orbit-three {
+    display: none;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .dashboard-floating-icon {
+    opacity: 0.65;
+  }
+
+
+  .dashboard-float-book,
+  .dashboard-float-brain {
+    display: none;
+  }
+
+
+  .dashboard-float-cap {
+    left: 6%;
+    bottom: 9%;
+  }
+
+
+  .dashboard-float-sparkle {
+    top: 22%;
+    left: 6%;
+  }
+}
+
+
+/* Stop animation when disabled by user */
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-floating-icon {
+    animation: none;
+  }
 }

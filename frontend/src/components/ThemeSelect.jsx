@@ -12,6 +12,7 @@ import {
 import "../styles/themeSelect.css";
 
 const ThemeSelect = ({
+    id,
     value = "",
     onChange,
     options = [],
@@ -22,24 +23,33 @@ const ThemeSelect = ({
     const [isOpen, setIsOpen] =
         useState(false);
 
-    const containerRef =
-        useRef(null);
+    const containerRef = useRef(null);
+    const optionRefs = useRef([]);
 
-    const selectedOption =
-        options.find(
+    const selectedIndex =
+        options.findIndex(
             (option) =>
                 String(option.value) ===
-                String(value)
+                String(value),
         );
+
+    const selectedOption =
+        selectedIndex >= 0
+            ? options[selectedIndex]
+            : null;
+
+    const menuId = id
+        ? `${id}-menu`
+        : undefined;
 
     useEffect(() => {
         const handleOutsideClick = (
-            event
+            event,
         ) => {
             if (
                 containerRef.current &&
                 !containerRef.current.contains(
-                    event.target
+                    event.target,
                 )
             ) {
                 setIsOpen(false);
@@ -54,32 +64,118 @@ const ThemeSelect = ({
 
         document.addEventListener(
             "mousedown",
-            handleOutsideClick
+            handleOutsideClick,
         );
 
         document.addEventListener(
             "keydown",
-            handleEscape
+            handleEscape,
         );
 
         return () => {
             document.removeEventListener(
                 "mousedown",
-                handleOutsideClick
+                handleOutsideClick,
             );
 
             document.removeEventListener(
                 "keydown",
-                handleEscape
+                handleEscape,
             );
         };
     }, []);
 
+    useEffect(() => {
+        if (disabled) {
+            setIsOpen(false);
+        }
+    }, [disabled]);
+
+    useEffect(() => {
+        if (!isOpen) {
+            return;
+        }
+
+        const nextIndex =
+            selectedIndex >= 0
+                ? selectedIndex
+                : 0;
+
+        window.requestAnimationFrame(() => {
+            optionRefs.current[
+                nextIndex
+            ]?.focus();
+        });
+    }, [isOpen, selectedIndex]);
+
     const handleSelect = (
-        selectedValue
+        selectedValue,
     ) => {
-        onChange(selectedValue);
+        onChange?.(selectedValue);
         setIsOpen(false);
+    };
+
+    const handleTriggerKeyDown = (
+        event,
+    ) => {
+        if (
+            event.key === "ArrowDown" ||
+            event.key === "ArrowUp"
+        ) {
+            event.preventDefault();
+            setIsOpen(true);
+        }
+    };
+
+    const handleOptionKeyDown = (
+        event,
+        index,
+    ) => {
+        if (event.key === "ArrowDown") {
+            event.preventDefault();
+
+            const nextIndex =
+                (index + 1) %
+                options.length;
+
+            optionRefs.current[
+                nextIndex
+            ]?.focus();
+        }
+
+        if (event.key === "ArrowUp") {
+            event.preventDefault();
+
+            const previousIndex =
+                (index -
+                    1 +
+                    options.length) %
+                options.length;
+
+            optionRefs.current[
+                previousIndex
+            ]?.focus();
+        }
+
+        if (
+            event.key === "Home"
+        ) {
+            event.preventDefault();
+            optionRefs.current[0]?.focus();
+        }
+
+        if (event.key === "End") {
+            event.preventDefault();
+
+            optionRefs.current[
+                options.length - 1
+            ]?.focus();
+        }
+
+        if (event.key === "Escape") {
+            event.preventDefault();
+            setIsOpen(false);
+        }
     };
 
     return (
@@ -94,16 +190,21 @@ const ThemeSelect = ({
                 }`}
         >
             <button
+                id={id}
                 type="button"
                 className="theme-select-trigger"
                 aria-label={ariaLabel}
                 aria-haspopup="listbox"
                 aria-expanded={isOpen}
+                aria-controls={menuId}
                 disabled={disabled}
+                onKeyDown={
+                    handleTriggerKeyDown
+                }
                 onClick={() =>
                     setIsOpen(
                         (previousValue) =>
-                            !previousValue
+                            !previousValue,
                     )
                 }
             >
@@ -127,43 +228,59 @@ const ThemeSelect = ({
 
             {isOpen && (
                 <div
+                    id={menuId}
                     className="theme-select-menu"
                     role="listbox"
                     aria-label={ariaLabel}
                 >
-                    {options.map((option) => {
-                        const isSelected =
-                            String(option.value) ===
-                            String(value);
+                    {options.map(
+                        (option, index) => {
+                            const isSelected =
+                                String(
+                                    option.value,
+                                ) === String(value);
 
-                        return (
-                            <button
-                                key={option.value}
-                                type="button"
-                                role="option"
-                                aria-selected={
-                                    isSelected
-                                }
-                                className={`theme-select-option ${isSelected
-                                        ? "theme-select-option-selected"
-                                        : ""
-                                    }`}
-                                onClick={() =>
-                                    handleSelect(
-                                        option.value
-                                    )
-                                }
-                            >
-                                <span>
-                                    {option.label}
-                                </span>
+                            return (
+                                <button
+                                    ref={(element) => {
+                                        optionRefs.current[
+                                            index
+                                        ] = element;
+                                    }}
+                                    key={option.value}
+                                    type="button"
+                                    role="option"
+                                    aria-selected={
+                                        isSelected
+                                    }
+                                    tabIndex={-1}
+                                    className={`theme-select-option ${isSelected
+                                            ? "theme-select-option-selected"
+                                            : ""
+                                        }`}
+                                    onKeyDown={(event) =>
+                                        handleOptionKeyDown(
+                                            event,
+                                            index,
+                                        )
+                                    }
+                                    onClick={() =>
+                                        handleSelect(
+                                            option.value,
+                                        )
+                                    }
+                                >
+                                    <span>
+                                        {option.label}
+                                    </span>
 
-                                {isSelected && (
-                                    <Check size={17} />
-                                )}
-                            </button>
-                        );
-                    })}
+                                    {isSelected && (
+                                        <Check size={17} />
+                                    )}
+                                </button>
+                            );
+                        },
+                    )}
                 </div>
             )}
         </div>

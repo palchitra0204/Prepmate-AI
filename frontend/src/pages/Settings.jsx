@@ -13,12 +13,14 @@ import {
   FileQuestion,
   GraduationCap,
   LockKeyhole,
+  LogOut,
   Mail,
   Moon,
   Save,
   SlidersHorizontal,
   Sparkles,
   Sun,
+  UserRound,
 } from "lucide-react";
 
 import {
@@ -494,6 +496,22 @@ const Settings = () => {
     };
 
 
+  /* =====================================================
+     LOGOUT
+  ===================================================== */
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    updateUser(null);
+
+    navigate("/login", {
+      replace: true,
+    });
+  };
+
+
   return (
     <div className="settings-page">
 
@@ -735,7 +753,7 @@ const Settings = () => {
               DEFAULT MODE
           ================================================= */}
 
-          <div className="settings-preference-row">
+          {/* <div className="settings-preference-row">
 
             <div className="settings-row-icon">
 
@@ -786,14 +804,14 @@ const Settings = () => {
 
             </select>
 
-          </div>
+          </div> */}
 
 
           {/* =================================================
               DIFFICULTY
           ================================================= */}
 
-          <div className="settings-preference-row">
+          {/* <div className="settings-preference-row">
 
             <div className="settings-row-icon">
 
@@ -844,14 +862,14 @@ const Settings = () => {
 
             </select>
 
-          </div>
+          </div> */}
 
 
           {/* =================================================
               QUESTION COUNT
           ================================================= */}
 
-          <div className="settings-preference-row">
+          {/* <div className="settings-preference-row">
 
             <div className="settings-row-icon">
 
@@ -906,7 +924,7 @@ const Settings = () => {
 
             </select>
 
-          </div>
+          </div> */}
 
 
           {/* =================================================
@@ -1084,6 +1102,50 @@ const Settings = () => {
 
 
         {/* =================================================
+            ACCOUNT SECTION
+        ================================================= */}
+
+        <section className="settings-account-card">
+
+          <div className="settings-account-heading">
+
+            <div className="settings-account-avatar">
+              <UserRound size={25} />
+            </div>
+
+            <div>
+              <p className="settings-account-label">
+                Account
+              </p>
+
+              <h2>
+                {user?.name || "PrepMate User"}
+              </h2>
+
+              <div className="settings-account-email">
+                <Mail size={15} />
+
+                <span>
+                  {user?.email || "Login email unavailable"}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            className="settings-logout-button"
+            onClick={handleLogout}
+          >
+            <LogOut size={18} />
+            Logout
+          </button>
+
+        </section>
+
+
+        {/* =================================================
             PASSWORD SECTION
         ================================================= */}
 
@@ -1159,6 +1221,7 @@ const Settings = () => {
           <div className="settings-password-fields">
 
             <input
+              id="current-password"
               name="currentPassword"
 
               type={
@@ -1180,6 +1243,7 @@ const Settings = () => {
 
 
             <input
+              id="new-password"
               name="newPassword"
 
               type={
@@ -1201,6 +1265,7 @@ const Settings = () => {
 
 
             <input
+              id="confirm-password"
               name="confirmPassword"
 
               type={

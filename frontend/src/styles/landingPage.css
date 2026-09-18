@@ -4067,7 +4067,7 @@ html[data-theme="light"]
   .dock-item:focus-visible {
   color: #ffffff !important;
   border-color: #a03f73 !important;
-  background: #a03f73 !important;
+  /* background: #a03f73 !important; */
   box-shadow:
     0 0 0 4px rgba(160, 63, 115, 0.13),
     0 10px 25px rgba(160, 63, 115, 0.2) !important;
@@ -4095,13 +4095,13 @@ html[data-theme="light"]
   .dock-item:focus-visible
   svg
   * {
-  color: #ffffff !important;
-  stroke: #ffffff !important;
+  color: #a03f73 !important;
+  stroke: #a03f73 !important;
 }
 
 /* Approved pink accent for the light hero heading only. */
 :root[data-theme="light"] .landing-page.landing-light .hero-text h1 span,
-body[data-theme="light"] .landing-page.landing-light .hero-text h1 span {
+body[data-theme="light"] .landing-page.landing-light .hero-text h1 span { 
   color: #d13f82 !important;
 }
 

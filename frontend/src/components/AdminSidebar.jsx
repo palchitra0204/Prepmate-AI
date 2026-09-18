@@ -6,14 +6,24 @@ import {
   LogOut,
   Menu,
   Settings,
+  ShieldCheck,
   Users,
   X,
 } from "lucide-react";
-import { useState } from "react";
+
+import {
+  useState,
+} from "react";
+
 import {
   NavLink,
   useNavigate,
 } from "react-router-dom";
+
+import {
+  useAuth,
+} from "../context/AuthContext";
+
 
 const adminNavigation = [
   {
@@ -44,40 +54,83 @@ const adminNavigation = [
   },
 ];
 
+
 const AdminSidebar = () => {
-  const navigate = useNavigate();
+  const navigate =
+    useNavigate();
 
-  const [isOpen, setIsOpen] =
-    useState(false);
+  const {
+    user,
+    logout,
+  } = useAuth();
 
-  let user = null;
+  const [
+    isOpen,
+    setIsOpen,
+  ] = useState(false);
 
-  try {
-    const storedUser =
-      localStorage.getItem("user");
 
-    user = storedUser
-      ? JSON.parse(storedUser)
-      : null;
-  } catch {
-    user = null;
-  }
+  /* =====================================================
+     CLOSE SIDEBAR
+  ===================================================== */
 
   const closeSidebar = () => {
+    /*
+     * Focused sidebar element ka focus
+     * remove karke accessibility warning
+     * prevent hoti hai.
+     */
+
+    if (
+      document.activeElement
+      instanceof HTMLElement
+    ) {
+      const sidebar =
+        document.getElementById(
+          "admin-sidebar"
+        );
+
+      if (
+        sidebar?.contains(
+          document.activeElement
+        )
+      ) {
+        document.activeElement
+          .blur();
+      }
+    }
+
     setIsOpen(false);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
 
-    navigate("/login", {
-      replace: true,
-    });
+  /* =====================================================
+     LOGOUT
+  ===================================================== */
+
+  const handleLogout = () => {
+    closeSidebar();
+
+    /*
+     * AuthContext aur localStorage
+     * dono clear honge.
+     */
+
+    logout();
+
+    navigate(
+      "/login",
+      {
+        replace: true,
+      }
+    );
   };
+
 
   return (
     <>
+      {/* MENU BUTTON */}
+
       <button
         type="button"
         className="admin-menu-button"
@@ -85,34 +138,60 @@ const AdminSidebar = () => {
           setIsOpen(true)
         }
         aria-label="Open admin menu"
+        aria-expanded={isOpen}
+        aria-controls="admin-sidebar"
       >
         <Menu size={24} />
-        Menu
+
+        <span>Menu</span>
       </button>
+
+
+      {/* MOBILE OVERLAY */}
 
       {isOpen && (
         <button
           type="button"
           className="admin-sidebar-overlay"
-          onClick={closeSidebar}
+          onClick={
+            closeSidebar
+          }
           aria-label="Close admin menu"
         />
       )}
 
+
+      {/* ADMIN SIDEBAR */}
+
       <aside
-        className={`admin-sidebar ${
-          isOpen
+        id="admin-sidebar"
+        className={`admin-sidebar ${isOpen
             ? "admin-sidebar-open"
             : ""
-        }`}
+          }`}
+        aria-label="Admin sidebar"
       >
+        <div
+          className="admin-sidebar-glow"
+          aria-hidden="true"
+        />
+
+
+        {/* SIDEBAR HEADER */}
+
         <header className="admin-sidebar-header">
           <NavLink
             to="/admin"
             className="admin-sidebar-brand"
-            onClick={closeSidebar}
+            onClick={
+              closeSidebar
+            }
           >
-            <BrainCircuit size={34} />
+            <div className="admin-sidebar-brand-icon">
+              <BrainCircuit
+                size={31}
+              />
+            </div>
 
             <div>
               <strong>
@@ -128,40 +207,73 @@ const AdminSidebar = () => {
           <button
             type="button"
             className="admin-sidebar-close"
-            onClick={closeSidebar}
+            onClick={
+              closeSidebar
+            }
             aria-label="Close admin menu"
           >
-            <X size={23} />
+            <X size={22} />
           </button>
         </header>
 
-        <nav className="admin-navigation">
+
+        {/* ADMIN ACCESS BADGE */}
+
+        <div className="admin-sidebar-admin-badge">
+          <ShieldCheck
+            size={16}
+          />
+
+          <span>
+            Administrator access
+          </span>
+        </div>
+
+
+        {/* ADMIN NAVIGATION */}
+
+        <nav
+          className="admin-navigation"
+          aria-label="Admin navigation"
+        >
           <p>ADMIN MENU</p>
 
           {adminNavigation.map(
             (item) => {
-              const Icon = item.icon;
+              const Icon =
+                item.icon;
 
               return (
                 <NavLink
-                  key={item.path}
-                  to={item.path}
-                  end={item.end}
-                  onClick={closeSidebar}
+                  key={
+                    item.path
+                  }
+                  to={
+                    item.path
+                  }
+                  end={
+                    item.end
+                  }
+                  onClick={
+                    closeSidebar
+                  }
                   className={({
                     isActive,
                   }) =>
-                    `admin-navigation-link ${
-                      isActive
-                        ? "admin-navigation-link-active"
-                        : ""
+                    `admin-navigation-link ${isActive
+                      ? "admin-navigation-link-active"
+                      : ""
                     }`
                   }
                 >
-                  <Icon size={20} />
+                  <Icon
+                    size={20}
+                  />
 
                   <span>
-                    {item.title}
+                    {
+                      item.title
+                    }
                   </span>
                 </NavLink>
               );
@@ -169,22 +281,27 @@ const AdminSidebar = () => {
           )}
         </nav>
 
+
+        {/* ADMIN PROFILE */}
+
         <footer className="admin-sidebar-footer">
           <div className="admin-profile">
             <div className="admin-avatar">
               {user?.name
                 ?.charAt(0)
-                .toUpperCase() || "A"}
+                .toUpperCase() ||
+                "A"}
             </div>
 
-            <div>
+            <div className="admin-profile-information">
               <strong>
-                {user?.name || "Admin"}
+                {user?.name ||
+                  "Administrator"}
               </strong>
 
               <span>
                 {user?.email ||
-                  "Administrator"}
+                  "No email available"}
               </span>
             </div>
           </div>
@@ -192,15 +309,23 @@ const AdminSidebar = () => {
           <button
             type="button"
             className="admin-logout-button"
-            onClick={handleLogout}
+            onClick={
+              handleLogout
+            }
           >
-            <LogOut size={19} />
-            Logout
+            <LogOut
+              size={19}
+            />
+
+            <span>
+              Logout
+            </span>
           </button>
         </footer>
       </aside>
     </>
   );
 };
+
 
 export default AdminSidebar;

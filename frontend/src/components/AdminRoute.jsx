@@ -3,29 +3,40 @@ import {
     Outlet,
 } from "react-router-dom";
 
+import {
+    useAuth,
+} from "../context/AuthContext";
+
+
 const AdminRoute = () => {
-    const token =
-        localStorage.getItem("token");
+    const {
+        user,
+        isAuthenticated,
+        isInitializing,
+    } = useAuth();
 
-    let user = null;
 
-    try {
-        const storedUser =
-            localStorage.getItem("user");
-
-        user = storedUser
-            ? JSON.parse(storedUser)
-            : null;
-    } catch (error) {
-        console.error(
-            "Unable to read user:",
-            error
+    if (isInitializing) {
+        return (
+            <div
+                style={{
+                    minHeight: "100vh",
+                    display: "grid",
+                    placeItems: "center",
+                    color: "#ffffff",
+                    background:
+                        "#08070d",
+                    fontFamily:
+                        "Inter, sans-serif",
+                }}
+            >
+                Checking your session...
+            </div>
         );
-
-        localStorage.removeItem("user");
     }
 
-    if (!token) {
+
+    if (!isAuthenticated) {
         return (
             <Navigate
                 to="/login"
@@ -34,10 +45,8 @@ const AdminRoute = () => {
         );
     }
 
-    if (
-        !user ||
-        user.role !== "Admin"
-    ) {
+
+    if (user?.role !== "Admin") {
         return (
             <Navigate
                 to="/dashboard"
@@ -46,7 +55,9 @@ const AdminRoute = () => {
         );
     }
 
+
     return <Outlet />;
 };
+
 
 export default AdminRoute;

@@ -44,6 +44,7 @@
   cursor: pointer;
 }
 
+
 .admin-menu-button svg {
   color: var(--admin-purple);
 }
@@ -628,14 +629,14 @@
 
 .admin-list-toolbar {
   margin-bottom: 18px;
-  padding: 14px;
+  /* padding: 14px; */
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  border: 1px solid var(--admin-border);
-  border-radius: 14px;
-  background: var(--admin-surface);
+  /* border: 1px solid var(--admin-border); */
+  /* border-radius: 14px; */
+  /* background: var(--admin-surface); */
 }
 
 .admin-list-toolbar>span {
@@ -1377,4 +1378,5127 @@
 
 .admin-generation-meta {
   flex-wrap: wrap;
+}
+/* =========================================================
+   ADMIN COMBINED GENERATIONS / TABLE ADDITIONS
+========================================================= */
+
+.admin-generation-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.admin-generation-owner,
+.admin-table-person {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-generation-owner {
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(166, 108, 255, 0.12);
+}
+
+.admin-generation-owner strong,
+.admin-table-person strong {
+  color: #f8f5fb;
+  font-size: 13px;
+}
+
+.admin-generation-owner span,
+.admin-table-person span {
+  color: #928a9d;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.admin-status-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 27px;
+  padding: 4px 9px;
+  border: 1px solid rgba(166, 108, 255, 0.25);
+  border-radius: 999px;
+  color: #c9a7ff;
+  background: rgba(166, 108, 255, 0.1);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.admin-status-ready,
+.admin-status-completed {
+  color: #78dfb2;
+  border-color: rgba(64, 196, 137, 0.28);
+  background: rgba(64, 196, 137, 0.1);
+}
+
+.admin-status-failed {
+  color: #ff91ad;
+  border-color: rgba(255, 101, 139, 0.3);
+  background: rgba(255, 101, 139, 0.1);
+}
+
+.admin-status-processing,
+.admin-status-uploaded,
+.admin-status-active {
+  color: #ffd084;
+  border-color: rgba(255, 190, 82, 0.3);
+  background: rgba(255, 190, 82, 0.1);
+}
+
+:root[data-theme="light"] .admin-generation-owner {
+  border-top-color: rgba(160, 63, 115, 0.12);
+}
+
+:root[data-theme="light"] .admin-generation-owner strong,
+:root[data-theme="light"] .admin-table-person strong {
+  color: #2d2b2e;
+}
+
+:root[data-theme="light"] .admin-generation-owner span,
+:root[data-theme="light"] .admin-table-person span {
+  color: #756d72;
+}
+
+:root[data-theme="light"] .admin-status-badge {
+  color: #a03f73;
+  border-color: rgba(216, 91, 155, 0.28);
+  background: #fff2f8;
+}
+
+:root[data-theme="light"] .admin-status-ready,
+:root[data-theme="light"] .admin-status-completed {
+  color: #18794e;
+  border-color: rgba(24, 121, 78, 0.22);
+  background: #eefbf5;
+}
+
+:root[data-theme="light"] .admin-status-failed {
+  color: #b4234d;
+  border-color: rgba(180, 35, 77, 0.22);
+  background: #fff0f4;
+}
+
+:root[data-theme="light"] .admin-status-processing,
+:root[data-theme="light"] .admin-status-uploaded,
+:root[data-theme="light"] .admin-status-active {
+  color: #8a5700;
+  border-color: rgba(138, 87, 0, 0.2);
+  background: #fff8e8;
+}
+
+@media (max-width: 700px) {
+  .admin-generation-badges {
+    justify-content: flex-start;
+  }
+}
+/* =========================================================
+   ADMIN DASHBOARD — PURPLE / PINK / MAROON
+========================================================= */
+
+.admin-dashboard-page {
+  background:
+    radial-gradient(circle at 74% 8%, rgba(166, 108, 255, 0.13), transparent 28%),
+    radial-gradient(circle at 92% 54%, rgba(236, 90, 174, 0.08), transparent 29%),
+    radial-gradient(circle at 38% 92%, rgba(130, 35, 82, 0.08), transparent 30%),
+    #07060d;
+}
+
+.admin-dashboard-refresh {
+  min-height: 43px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #f6efff;
+  border: 1px solid rgba(166, 108, 255, 0.28);
+  border-radius: 12px;
+  background: rgba(166, 108, 255, 0.1);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-overview-grid {
+  margin-top: 31px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.admin-overview-card {
+  min-height: 188px;
+  padding: 23px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(166, 108, 255, 0.3);
+  border-radius: 21px;
+  background: linear-gradient(145deg, rgba(27, 22, 40, 0.97), rgba(12, 10, 18, 0.98));
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.22);
+}
+
+.admin-overview-card-glow {
+  width: 145px;
+  height: 145px;
+  position: absolute;
+  top: -80px;
+  right: -45px;
+  border-radius: 50%;
+  background: #a66cff;
+  filter: blur(48px);
+  opacity: 0.24;
+}
+
+.admin-overview-pink { border-color: rgba(236, 90, 174, 0.4); }
+.admin-overview-pink .admin-overview-card-glow { background: #ec5aae; }
+.admin-overview-maroon { border-color: rgba(157, 52, 104, 0.52); }
+.admin-overview-maroon .admin-overview-card-glow { background: #9d3468; }
+.admin-overview-gradient { border-color: rgba(209, 79, 160, 0.43); }
+.admin-overview-gradient .admin-overview-card-glow { background: linear-gradient(135deg, #a66cff, #ec5aae, #8d315d); }
+
+.admin-overview-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  color: #c99cff;
+  border: 1px solid rgba(166, 108, 255, 0.3);
+  border-radius: 14px;
+  background: rgba(166, 108, 255, 0.12);
+}
+
+.admin-overview-pink .admin-overview-icon { color: #ff92cb; border-color: rgba(236, 90, 174, 0.32); background: rgba(236, 90, 174, 0.11); }
+.admin-overview-maroon .admin-overview-icon { color: #e98bb9; border-color: rgba(157, 52, 104, 0.34); background: rgba(157, 52, 104, 0.14); }
+
+.admin-overview-card > p { margin: 19px 0 5px; color: #aaa2b4; font-size: 13px; }
+.admin-overview-card h2 { margin: 0; color: #fff; font: 800 32px/1.1 "Manrope", sans-serif; }
+.admin-overview-card > span { display: block; margin-top: 8px; color: #8d8596; font-size: 12px; }
+
+.admin-analytics-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.9fr) minmax(250px, 0.8fr);
+  gap: 18px;
+}
+
+.admin-dashboard-bottom-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(290px, 0.75fr);
+  gap: 18px;
+}
+
+.admin-dashboard-panel {
+  padding: 24px;
+  border: 1px solid rgba(166, 108, 255, 0.2);
+  border-radius: 21px;
+  background: linear-gradient(145deg, rgba(22, 18, 31, 0.96), rgba(11, 9, 16, 0.98));
+}
+
+.admin-dashboard-panel > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; }
+.admin-dashboard-panel > header > svg { color: #c38eff; }
+.admin-dashboard-panel h2 { margin: 0; color: #fff; font: 800 17px/1.25 "Manrope", sans-serif; }
+.admin-dashboard-panel header p { margin: 6px 0 0; color: #91899b; font-size: 12px; }
+
+.admin-usage-chart { margin-top: 27px; display: grid; gap: 18px; }
+.admin-usage-row > div:first-child { margin-bottom: 8px; display: flex; justify-content: space-between; color: #aaa2b4; font-size: 12px; }
+.admin-usage-row strong { color: #f8f5fb; }
+.admin-usage-track { height: 8px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,0.055); }
+.admin-usage-track span { height: 100%; display: block; border-radius: inherit; }
+.admin-usage-purple { background: linear-gradient(90deg, #7e49df, #b98aff); }
+.admin-usage-pink { background: linear-gradient(90deg, #be3f84, #f17cbc); }
+.admin-usage-maroon { background: linear-gradient(90deg, #762346, #bc4d83); }
+.admin-usage-violet { background: linear-gradient(90deg, #8f4fc7, #e45ba9); }
+
+.admin-interview-chart-wrap { min-height: 220px; margin-top: 18px; display: grid; place-items: center; }
+.admin-interview-donut { width: 132px; height: 132px; display: grid; place-items: center; border-radius: 50%; background: conic-gradient(#d9509b 0 var(--static-percentage), #7f3eb6 var(--static-percentage) 100%); box-shadow: 0 0 34px rgba(216,80,155,.14); }
+.admin-interview-donut::before { content: ""; width: 91px; height: 91px; position: absolute; border-radius: 50%; background: #12101a; }
+.admin-interview-donut > div { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+.admin-interview-donut strong { color: #fff; font-size: 25px; }
+.admin-interview-donut span { color: #91899b; font-size: 11px; }
+.admin-chart-legend { width: 100%; display: grid; gap: 9px; }
+.admin-chart-legend > div { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 9px; color: #aaa2b4; font-size: 12px; }
+.admin-chart-legend i { width: 9px; height: 9px; border-radius: 50%; }
+.admin-legend-static { background: #d9509b; }
+.admin-legend-dynamic { background: #7f3eb6; }
+.admin-chart-legend strong { color: #fff; }
+
+.admin-health-score { margin: 25px 0 22px; text-align: center; }
+.admin-health-score strong { display: block; color: #d884bb; font: 800 42px/1 "Manrope", sans-serif; }
+.admin-health-score span { display: block; margin-top: 8px; color: #91899b; font-size: 12px; }
+.admin-health-items { display: grid; gap: 10px; }
+.admin-health-items > div { padding: 10px 12px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 9px; color: #aaa2b4; border-radius: 11px; background: rgba(255,255,255,.035); font-size: 12px; }
+.admin-health-items svg { color: #c778aa; }
+.admin-health-items strong { color: #fff; }
+
+.admin-system-summary { margin-top: 22px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.admin-system-summary > div { min-height: 82px; padding: 14px; display: flex; flex-direction: column; justify-content: center; border-radius: 13px; background: rgba(166,108,255,.055); }
+.admin-system-summary span { color: #91899b; font-size: 11px; }
+.admin-system-summary strong { margin-top: 7px; color: #f6efff; font-size: 13px; overflow-wrap: anywhere; }
+
+:root[data-theme="light"] .admin-dashboard-page { background: radial-gradient(circle at 75% 8%, rgba(216,91,155,.09), transparent 30%), #fffafb; }
+:root[data-theme="light"] .admin-overview-card,
+:root[data-theme="light"] .admin-dashboard-panel { border-color: rgba(216,91,155,.22); background: linear-gradient(145deg, #fff, #fff8fb); box-shadow: 0 18px 45px rgba(129,39,84,.07); }
+:root[data-theme="light"] .admin-overview-card h2,
+:root[data-theme="light"] .admin-dashboard-panel h2,
+:root[data-theme="light"] .admin-usage-row strong,
+:root[data-theme="light"] .admin-chart-legend strong,
+:root[data-theme="light"] .admin-health-items strong,
+:root[data-theme="light"] .admin-system-summary strong { color: #2d2b2e; }
+:root[data-theme="light"] .admin-interview-donut::before { background: #fff9fb; }
+:root[data-theme="light"] .admin-dashboard-refresh { color: #a03f73; border-color: rgba(216,91,155,.28); background: #fff2f8; }
+
+@media (max-width: 1200px) {
+  .admin-overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-analytics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-health-panel { grid-column: 1 / -1; }
+}
+
+@media (max-width: 850px) {
+  .admin-analytics-grid,
+  .admin-dashboard-bottom-grid { grid-template-columns: 1fr; }
+  .admin-health-panel { grid-column: auto; }
+}
+
+@media (max-width: 560px) {
+  .admin-overview-grid { grid-template-columns: 1fr; }
+  .admin-dashboard-header { align-items: flex-start; }
+  .admin-dashboard-refresh { width: 100%; justify-content: center; }
+}
+/* =========================================================
+   TEMPORARY ADMIN DASHBOARD DARK-ONLY THEME
+   Light version will be added after the admin module is done.
+========================================================= */
+
+:root[data-theme="light"] .admin-dashboard-page {
+  color: #f8f5fb;
+  background:
+    radial-gradient(circle at 74% 8%, rgba(166, 108, 255, 0.13), transparent 28%),
+    radial-gradient(circle at 92% 54%, rgba(236, 90, 174, 0.08), transparent 29%),
+    radial-gradient(circle at 38% 92%, rgba(130, 35, 82, 0.08), transparent 30%),
+    #07060d !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-page-header h1,
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-card h2,
+:root[data-theme="light"] .admin-dashboard-page .admin-dashboard-panel h2,
+:root[data-theme="light"] .admin-dashboard-page .admin-usage-row strong,
+:root[data-theme="light"] .admin-dashboard-page .admin-chart-legend strong,
+:root[data-theme="light"] .admin-dashboard-page .admin-health-items strong,
+:root[data-theme="light"] .admin-dashboard-page .admin-system-summary strong,
+:root[data-theme="light"] .admin-dashboard-page .admin-interview-donut strong {
+  color: #ffffff !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-page-header > div > span,
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-card > p,
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-card > span,
+:root[data-theme="light"] .admin-dashboard-page .admin-dashboard-panel header p,
+:root[data-theme="light"] .admin-dashboard-page .admin-usage-row > div:first-child,
+:root[data-theme="light"] .admin-dashboard-page .admin-chart-legend,
+:root[data-theme="light"] .admin-dashboard-page .admin-health-score span,
+:root[data-theme="light"] .admin-dashboard-page .admin-system-summary span,
+:root[data-theme="light"] .admin-dashboard-page .admin-interview-donut span {
+  color: #aaa2b4 !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-card {
+  border-color: rgba(166, 108, 255, 0.3) !important;
+  background: linear-gradient(145deg, rgba(27, 22, 40, 0.97), rgba(12, 10, 18, 0.98)) !important;
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.22) !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-pink {
+  border-color: rgba(236, 90, 174, 0.4) !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-maroon {
+  border-color: rgba(157, 52, 104, 0.52) !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-gradient {
+  border-color: rgba(209, 79, 160, 0.43) !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-dashboard-panel {
+  border-color: rgba(166, 108, 255, 0.2) !important;
+  background: linear-gradient(145deg, rgba(22, 18, 31, 0.96), rgba(11, 9, 16, 0.98)) !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-icon {
+  color: #c99cff !important;
+  border-color: rgba(166, 108, 255, 0.3) !important;
+  background: rgba(166, 108, 255, 0.12) !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-pink .admin-overview-icon {
+  color: #ff92cb !important;
+  border-color: rgba(236, 90, 174, 0.32) !important;
+  background: rgba(236, 90, 174, 0.11) !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-maroon .admin-overview-icon {
+  color: #e98bb9 !important;
+  border-color: rgba(157, 52, 104, 0.34) !important;
+  background: rgba(157, 52, 104, 0.14) !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-usage-track {
+  background: rgba(255, 255, 255, 0.055) !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-interview-donut {
+  background: conic-gradient(
+    #d9509b 0 var(--static-percentage),
+    #7f3eb6 var(--static-percentage) 100%
+  ) !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-interview-donut::before {
+  background: #12101a !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-health-items > div {
+  color: #aaa2b4 !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-system-summary > div {
+  background: rgba(166, 108, 255, 0.055) !important;
+}
+
+:root[data-theme="light"] .admin-dashboard-page .admin-dashboard-refresh {
+  color: #f6efff !important;
+  border-color: rgba(166, 108, 255, 0.28) !important;
+  background: rgba(166, 108, 255, 0.1) !important;
+}
+
+
+/* =========================================================
+   ADMIN DASHBOARD PURPLE-BLACK BACKGROUND
+========================================================= */
+
+.admin-dashboard-page,
+:root[data-theme="light"] .admin-dashboard-page {
+  min-height: 100vh;
+
+  color: #f8f5fb;
+
+  background:
+    #07060d !important;
+}
+
+
+/*
+ * .admin-main ka existing white/light
+ * background remove karta hai.
+ */
+
+.admin-dashboard-page .admin-main,
+:root[data-theme="light"] .admin-dashboard-page .admin-main {
+  min-height: 100vh;
+
+  position: relative;
+
+  isolation: isolate;
+
+  color: #f8f5fb !important;
+
+  background:
+    radial-gradient(circle at 72% 7%,
+      rgba(137, 75, 230, 0.2),
+      transparent 30%),
+    radial-gradient(circle at 94% 43%,
+      rgba(236, 90, 174, 0.11),
+      transparent 28%),
+    radial-gradient(circle at 34% 88%,
+      rgba(117, 33, 76, 0.12),
+      transparent 32%),
+    linear-gradient(180deg,
+      #0c0915 0%,
+      #08070f 48%,
+      #05050a 100%) !important;
+}
+
+
+/* Purple atmospheric glow */
+
+.admin-dashboard-page .admin-main::before,
+:root[data-theme="light"] .admin-dashboard-page .admin-main::before {
+  content: "";
+
+  width: 760px;
+  height: 460px;
+
+  position: absolute;
+
+  top: -270px;
+  left: 52%;
+
+  z-index: -1;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle,
+      rgba(166, 108, 255, 0.2),
+      rgba(105, 50, 181, 0.07) 48%,
+      transparent 72%);
+
+  filter: blur(28px);
+
+  transform:
+    translateX(-50%);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   HEADER COLORS
+========================================================= */
+
+.admin-dashboard-page .admin-page-header h1,
+:root[data-theme="light"] .admin-dashboard-page .admin-page-header h1 {
+  color:
+    #ffffff !important;
+}
+
+
+.admin-dashboard-page .admin-page-header>div>span,
+:root[data-theme="light"] .admin-dashboard-page .admin-page-header>div>span {
+  color:
+    #aaa2b4 !important;
+}
+
+
+.admin-dashboard-page .admin-eyebrow,
+:root[data-theme="light"] .admin-dashboard-page .admin-eyebrow {
+  color:
+    #c5858cff !important;
+}
+
+
+/* =========================================================
+   REFRESH BUTTON
+========================================================= */
+
+.admin-dashboard-page .admin-dashboard-refresh,
+:root[data-theme="light"] .admin-dashboard-page .admin-dashboard-refresh {
+  color:
+    #f6efff !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.28) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.1) !important;
+}
+
+
+.admin-dashboard-page .admin-dashboard-refresh:hover,
+:root[data-theme="light"] .admin-dashboard-page .admin-dashboard-refresh:hover {
+  color:
+    #ffffff !important;
+
+  border-color:
+    #a66cff !important;
+
+  background:
+    linear-gradient(135deg,
+      #a66cff,
+      #8d61ff) !important;
+}
+
+
+/* =========================================================
+   DARK DASHBOARD CARDS
+========================================================= */
+
+.admin-dashboard-page .admin-overview-card,
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-card {
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.3) !important;
+
+  background:
+    linear-gradient(145deg,
+      rgba(27,
+        22,
+        40,
+        0.97),
+      rgba(12,
+        10,
+        18,
+        0.98)) !important;
+
+  box-shadow:
+    0 22px 55px rgba(0,
+      0,
+      0,
+      0.22) !important;
+}
+
+
+.admin-dashboard-page .admin-overview-pink {
+  border-color:
+    rgba(236,
+      90,
+      174,
+      0.4) !important;
+}
+
+
+.admin-dashboard-page .admin-overview-maroon {
+  border-color:
+    rgba(157,
+      52,
+      104,
+      0.52) !important;
+}
+
+
+.admin-dashboard-page .admin-overview-gradient {
+  border-color:
+    rgba(209,
+      79,
+      160,
+      0.43) !important;
+}
+
+
+/* =========================================================
+   DARK ANALYTICS PANELS
+========================================================= */
+
+.admin-dashboard-page .admin-dashboard-panel,
+:root[data-theme="light"] .admin-dashboard-page .admin-dashboard-panel {
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.2) !important;
+
+  background:
+    linear-gradient(145deg,
+      rgba(22,
+        18,
+        31,
+        0.96),
+      rgba(11,
+        9,
+        16,
+        0.98)) !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* =========================================================
+   TEXT VISIBILITY
+========================================================= */
+
+.admin-dashboard-page .admin-overview-card h2,
+.admin-dashboard-page .admin-dashboard-panel h2,
+.admin-dashboard-page .admin-usage-row strong,
+.admin-dashboard-page .admin-chart-legend strong,
+.admin-dashboard-page .admin-health-items strong,
+.admin-dashboard-page .admin-system-summary strong,
+.admin-dashboard-page .admin-interview-donut strong,
+:root[data-theme="light"] .admin-dashboard-page .admin-overview-card h2,
+:root[data-theme="light"] .admin-dashboard-page .admin-dashboard-panel h2,
+:root[data-theme="light"] .admin-dashboard-page .admin-usage-row strong,
+:root[data-theme="light"] .admin-dashboard-page .admin-chart-legend strong,
+:root[data-theme="light"] .admin-dashboard-page .admin-health-items strong,
+:root[data-theme="light"] .admin-dashboard-page .admin-system-summary strong,
+:root[data-theme="light"] .admin-dashboard-page .admin-interview-donut strong {
+  color:
+    #ffffff !important;
+}
+
+
+.admin-dashboard-page .admin-overview-card>p,
+.admin-dashboard-page .admin-overview-card>span,
+.admin-dashboard-page .admin-dashboard-panel header p,
+.admin-dashboard-page .admin-usage-row>div:first-child,
+.admin-dashboard-page .admin-chart-legend,
+.admin-dashboard-page .admin-health-score span,
+.admin-dashboard-page .admin-system-summary span,
+.admin-dashboard-page .admin-interview-donut span {
+  color:
+    #aaa2b4 !important;
+}
+
+
+/* =========================================================
+   DARK INNER ELEMENTS
+========================================================= */
+
+.admin-dashboard-page .admin-interview-donut::before,
+:root[data-theme="light"] .admin-dashboard-page .admin-interview-donut::before {
+  background:
+    #12101a !important;
+}
+
+
+.admin-dashboard-page .admin-usage-track,
+:root[data-theme="light"] .admin-dashboard-page .admin-usage-track {
+  background:
+    rgba(255,
+      255,
+      255,
+      0.055) !important;
+}
+
+
+.admin-dashboard-page .admin-health-items>div,
+:root[data-theme="light"] .admin-dashboard-page .admin-health-items>div {
+  color:
+    #aaa2b4 !important;
+
+  background:
+    rgba(255,
+      255,
+      255,
+      0.035) !important;
+}
+
+
+.admin-dashboard-page .admin-system-summary>div,
+:root[data-theme="light"] .admin-dashboard-page .admin-system-summary>div {
+  background:
+    rgba(166,
+      108,
+      255,
+      0.055) !important;
+}
+
+/* =========================================================
+   ADMIN DASHBOARD FULL-SCREEN DARK BACKGROUND FIX
+   Is code ko admin.css ke bilkul end mein rakho.
+========================================================= */
+
+html:has(.admin-dashboard-page),
+body:has(.admin-dashboard-page),
+#root:has(.admin-dashboard-page) {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+
+  margin: 0;
+
+  background:
+    #07060d !important;
+}
+
+
+body:has(.admin-dashboard-page) {
+  min-height: 100vh;
+
+  overflow-x: hidden;
+}
+
+
+/* Complete page background */
+
+.admin-page.admin-dashboard-page,
+:root[data-theme="light"] .admin-page.admin-dashboard-page {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100vh;
+
+  margin: 0;
+
+  overflow-x: hidden;
+
+  color:
+    #f8f5fb !important;
+
+  background:
+    radial-gradient(circle at 72% 7%,
+      rgba(137,
+        75,
+        230,
+        0.2),
+      transparent 30%),
+    radial-gradient(circle at 94% 43%,
+      rgba(236,
+        90,
+        174,
+        0.11),
+      transparent 28%),
+    radial-gradient(circle at 34% 88%,
+      rgba(117,
+        33,
+        76,
+        0.12),
+      transparent 32%),
+    linear-gradient(180deg,
+      #0c0915 0%,
+      #08070f 48%,
+      #05050a 100%) !important;
+}
+
+
+/*
+ * Main content ke existing light background
+ * aur limited background ko remove karta hai.
+ */
+
+.admin-dashboard-page .admin-main,
+:root[data-theme="light"] .admin-dashboard-page .admin-main {
+  width: 100%;
+
+  min-width: 0;
+  min-height: 100vh;
+
+  margin: 0;
+
+  position: relative;
+
+  color:
+    #f8f5fb !important;
+
+  background:
+    transparent !important;
+}
+
+
+/*
+ * Full browser screen ke peeche fixed
+ * purple-black background banata hai.
+ */
+
+.admin-dashboard-page .admin-main::after,
+:root[data-theme="light"] .admin-dashboard-page .admin-main::after {
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: -2;
+
+  background:
+    radial-gradient(circle at 70% 5%,
+      rgba(137,
+        75,
+        230,
+        0.2),
+      transparent 31%),
+    radial-gradient(circle at 96% 45%,
+      rgba(236,
+        90,
+        174,
+        0.1),
+      transparent 29%),
+    radial-gradient(circle at 25% 88%,
+      rgba(117,
+        33,
+        76,
+        0.12),
+      transparent 34%),
+    linear-gradient(180deg,
+      #0c0915 0%,
+      #08070f 48%,
+      #05050a 100%);
+
+  pointer-events: none;
+}
+
+
+/* Content centered rahega */
+
+.admin-dashboard-page .admin-main>* {
+  position: relative;
+
+  z-index: 1;
+}
+
+/* =========================================================
+   ADMIN MENU BUTTON PURPLE HOVER
+========================================================= */
+
+.admin-menu-button {
+  color:
+    #f8f5fb !important;
+
+  border:
+    1px solid rgba(166,
+      108,
+      255,
+      0.28) !important;
+
+  background:
+    rgba(16,
+      13,
+      24,
+      0.96) !important;
+
+  box-shadow:
+    none !important;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.admin-menu-button svg {
+  color:
+    #b982ff !important;
+
+  stroke:
+    #b982ff !important;
+}
+
+
+/* Purple hover */
+
+.admin-menu-button:hover,
+.admin-menu-button:focus,
+.admin-menu-button:focus-visible {
+  color:
+    #ffffff !important;
+
+  border-color:
+    #a66cff !important;
+
+  background:
+    linear-gradient(135deg,
+      rgba(103,
+        55,
+        174,
+        0.36),
+      rgba(45,
+        25,
+        75,
+        0.95)) !important;
+
+  box-shadow:
+    0 0 0 3px rgba(166,
+      108,
+      255,
+      0.08),
+    0 10px 30px rgba(93,
+      43,
+      165,
+      0.22) !important;
+
+  transform:
+    translateY(-2px);
+}
+
+
+.admin-menu-button:hover svg,
+.admin-menu-button:focus svg,
+.admin-menu-button:focus-visible svg {
+  color:
+    #d1adff !important;
+
+  stroke:
+    #d1adff !important;
+}
+
+
+/* Remove pink active effect */
+
+.admin-menu-button:active {
+  color:
+    #ffffff !important;
+
+  border-color:
+    #8d61ff !important;
+
+  background:
+    rgba(100,
+      54,
+      170,
+      0.32) !important;
+
+  box-shadow:
+    none !important;
+
+  transform:
+    translateY(0);
+}
+
+/* =========================================================
+   ADMIN SIDEBAR — DARK PURPLE THEME
+========================================================= */
+
+.admin-sidebar-body-locked {
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   MENU BUTTON
+========================================================= */
+
+.admin-menu-button {
+  min-width: 116px;
+  min-height: 50px;
+
+  padding:
+    0 18px;
+
+  position: fixed;
+
+  top: 22px;
+  left: 18px;
+
+  z-index: 150;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  color:
+    #f8f5fb !important;
+
+  border:
+    1px solid rgba(166,
+      108,
+      255,
+      0.32) !important;
+
+  border-radius:
+    14px;
+
+  background:
+    rgba(13,
+      10,
+      21,
+      0.95) !important;
+
+  box-shadow:
+    0 12px 35px rgba(0,
+      0,
+      0,
+      0.2) !important;
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+
+  font: inherit;
+
+  font-size:
+    15px;
+
+  font-weight:
+    800;
+
+  cursor:
+    pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.admin-menu-button svg {
+  color:
+    #b982ff !important;
+
+  stroke:
+    #b982ff !important;
+}
+
+
+.admin-menu-button:hover,
+.admin-menu-button:focus-visible {
+  color:
+    #ffffff !important;
+
+  border-color:
+    #a66cff !important;
+
+  background:
+    linear-gradient(135deg,
+      rgba(98,
+        51,
+        169,
+        0.48),
+      rgba(35,
+        21,
+        59,
+        0.98)) !important;
+
+  box-shadow:
+    0 0 0 3px rgba(166,
+      108,
+      255,
+      0.08),
+    0 14px 38px rgba(86,
+      39,
+      151,
+      0.25) !important;
+
+  transform:
+    translateY(-2px);
+}
+
+
+.admin-menu-button:hover svg,
+.admin-menu-button:focus-visible svg {
+  color:
+    #d4b3ff !important;
+
+  stroke:
+    #d4b3ff !important;
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.admin-sidebar-overlay {
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 180;
+
+  visibility:
+    hidden;
+
+  border:
+    none;
+
+  background:
+    rgba(3,
+      2,
+      7,
+      0.72);
+
+  backdrop-filter:
+    blur(4px);
+
+  -webkit-backdrop-filter:
+    blur(4px);
+
+  opacity:
+    0;
+
+  pointer-events:
+    none;
+
+  cursor:
+    pointer;
+
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+
+.admin-sidebar-overlay-visible {
+  visibility:
+    visible;
+
+  opacity:
+    1;
+
+  pointer-events:
+    auto;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.admin-sidebar {
+  width:
+    min(340px,
+      calc(100vw - 28px));
+
+  height:
+    calc(100vh - 28px);
+
+  padding:
+    22px;
+
+  position:
+    fixed;
+
+  top:
+    14px;
+
+  left:
+    14px;
+
+  z-index:
+    200;
+
+  overflow:
+    hidden;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  color:
+    #f8f5fb;
+
+  border:
+    1px solid rgba(166,
+      108,
+      255,
+      0.28);
+
+  border-radius:
+    24px;
+
+  background:
+    linear-gradient(160deg,
+      rgba(24,
+        18,
+        37,
+        0.99),
+      rgba(9,
+        7,
+        15,
+        0.99));
+
+  box-shadow:
+    24px 0 75px rgba(0,
+      0,
+      0,
+      0.48);
+
+  transform:
+    translateX(calc(-100% - 35px));
+
+  visibility:
+    hidden;
+
+  transition:
+    transform 0.3s ease,
+    visibility 0.3s ease;
+}
+
+
+.admin-sidebar-open {
+  visibility:
+    visible;
+
+  transform:
+    translateX(0);
+}
+
+
+/* Sidebar top glow */
+
+.admin-sidebar-glow {
+  width:
+    250px;
+
+  height:
+    250px;
+
+  position:
+    absolute;
+
+  top:
+    -165px;
+
+  left:
+    50%;
+
+  border-radius:
+    50%;
+
+  background:
+    radial-gradient(circle,
+      rgba(166,
+        108,
+        255,
+        0.27),
+      transparent 70%);
+
+  filter:
+    blur(15px);
+
+  transform:
+    translateX(-50%);
+
+  pointer-events:
+    none;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.admin-sidebar-header {
+  position:
+    relative;
+
+  z-index:
+    2;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    15px;
+}
+
+
+.admin-sidebar-brand {
+  min-width:
+    0;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    13px;
+
+  color:
+    #ffffff;
+
+  text-decoration:
+    none;
+}
+
+
+.admin-sidebar-logo {
+  width:
+    49px;
+
+  height:
+    49px;
+
+  flex-shrink:
+    0;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  color:
+    #c89aff;
+
+  border:
+    1px solid rgba(166,
+      108,
+      255,
+      0.35);
+
+  border-radius:
+    15px;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.13);
+
+  box-shadow:
+    0 10px 28px rgba(88,
+      39,
+      160,
+      0.2);
+}
+
+
+.admin-sidebar-brand>div:last-child {
+  min-width:
+    0;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    4px;
+}
+
+
+.admin-sidebar-brand strong {
+  color:
+    #ffffff;
+
+  font-family:
+    "Manrope",
+    sans-serif;
+
+  font-size:
+    17px;
+}
+
+
+.admin-sidebar-brand span {
+  color:
+    #a99fb5;
+
+  font-size:
+    11px;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.08em;
+
+  text-transform:
+    uppercase;
+}
+
+
+.admin-sidebar-close {
+  width:
+    39px;
+
+  height:
+    39px;
+
+  flex-shrink:
+    0;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  color:
+    #aaa2b4;
+
+  border:
+    1px solid rgba(166,
+      108,
+      255,
+      0.17);
+
+  border-radius:
+    11px;
+
+  background:
+    rgba(255,
+      255,
+      255,
+      0.035);
+
+  cursor:
+    pointer;
+}
+
+
+.admin-sidebar-close:hover {
+  color:
+    #ffffff;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.55);
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.13);
+}
+
+
+/* =========================================================
+   ADMIN BADGE
+========================================================= */
+
+.admin-sidebar-admin-badge {
+  min-height:
+    39px;
+
+  margin-top:
+    24px;
+
+  padding:
+    0 13px;
+
+  position:
+    relative;
+
+  z-index:
+    2;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    8px;
+
+  color:
+    #d0acff;
+
+  border:
+    1px solid rgba(166,
+      108,
+      255,
+      0.2);
+
+  border-radius:
+    11px;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.07);
+
+  font-size:
+    12px;
+
+  font-weight:
+    700;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.admin-navigation {
+  margin-top:
+    25px;
+
+  position:
+    relative;
+
+  z-index:
+    2;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    8px;
+}
+
+
+.admin-navigation>p {
+  margin:
+    0 0 8px;
+
+  color:
+    #776f81;
+
+  font-size:
+    10px;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.13em;
+}
+
+
+.admin-navigation-link {
+  min-height:
+    49px;
+
+  padding:
+    0 14px;
+
+  position:
+    relative;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    12px;
+
+  overflow:
+    hidden;
+
+  color:
+    #aaa2b4;
+
+  border:
+    1px solid transparent;
+
+  border-radius:
+    13px;
+
+  background:
+    transparent;
+
+  font-size:
+    14px;
+
+  font-weight:
+    700;
+
+  text-decoration:
+    none;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.admin-navigation-icon {
+  width:
+    31px;
+
+  height:
+    31px;
+
+  flex-shrink:
+    0;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  border-radius:
+    9px;
+
+  background:
+    rgba(255,
+      255,
+      255,
+      0.035);
+}
+
+
+.admin-navigation-link:hover {
+  color:
+    #ffffff;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.18);
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.07);
+
+  transform:
+    translateX(3px);
+}
+
+
+.admin-navigation-link:hover .admin-navigation-icon {
+  color:
+    #c99cff;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.12);
+}
+
+
+/* Active route */
+
+.admin-navigation-link-active {
+  color:
+    #ffffff;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.4);
+
+  background:
+    linear-gradient(90deg,
+      rgba(110,
+        58,
+        190,
+        0.34),
+      rgba(166,
+        108,
+        255,
+        0.1));
+
+  box-shadow:
+    inset 3px 0 0 #a66cff;
+}
+
+
+.admin-navigation-link-active .admin-navigation-icon {
+  color:
+    #d2afff;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.17);
+}
+
+
+/* =========================================================
+   FOOTER AND PROFILE
+========================================================= */
+
+.admin-sidebar-footer {
+  margin-top:
+    auto;
+
+  padding-top:
+    19px;
+
+  position:
+    relative;
+
+  z-index:
+    2;
+
+  border-top:
+    1px solid rgba(166,
+      108,
+      255,
+      0.13);
+}
+
+
+.admin-profile {
+  min-width:
+    0;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    12px;
+}
+
+
+.admin-avatar {
+  width:
+    44px;
+
+  height:
+    44px;
+
+  flex-shrink:
+    0;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  color:
+    #ffffff;
+
+  border:
+    1px solid rgba(207,
+      157,
+      255,
+      0.38);
+
+  border-radius:
+    14px;
+
+  background:
+    linear-gradient(135deg,
+      #8d5ae0,
+      #5d319f);
+
+  font-weight:
+    800;
+}
+
+
+.admin-profile-information {
+  min-width:
+    0;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    4px;
+}
+
+
+.admin-profile-information strong {
+  overflow:
+    hidden;
+
+  color:
+    #ffffff;
+
+  font-size:
+    13px;
+
+  text-overflow:
+    ellipsis;
+
+  white-space:
+    nowrap;
+}
+
+
+.admin-profile-information span {
+  overflow:
+    hidden;
+
+  color:
+    #8e8698;
+
+  font-size:
+    11px;
+
+  text-overflow:
+    ellipsis;
+
+  white-space:
+    nowrap;
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.admin-logout-button {
+  width:
+    100%;
+
+  min-height:
+    45px;
+
+  margin-top:
+    16px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    9px;
+
+  color:
+    #e79abd;
+
+  border:
+    1px solid rgba(176,
+      61,
+      111,
+      0.28);
+
+  border-radius:
+    12px;
+
+  background:
+    rgba(128,
+      37,
+      78,
+      0.1);
+
+  font: inherit;
+
+  font-size:
+    13px;
+
+  font-weight:
+    800;
+
+  cursor:
+    pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.admin-logout-button:hover {
+  color:
+    #ffffff;
+
+  border-color:
+    #a83d70;
+
+  background:
+    linear-gradient(135deg,
+      #8d2f5c,
+      #681f43);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .admin-menu-button {
+    min-width:
+      auto;
+
+    min-height:
+      45px;
+
+    top:
+      14px;
+
+    left:
+      14px;
+
+    padding:
+      0 14px;
+  }
+
+
+  .admin-sidebar {
+    width:
+      calc(100vw - 20px);
+
+    height:
+      calc(100vh - 20px);
+
+    top:
+      10px;
+
+    left:
+      10px;
+
+    padding:
+      18px;
+
+    border-radius:
+      20px;
+  }
+
+
+  .admin-sidebar-admin-badge {
+    margin-top:
+      20px;
+  }
+
+
+  .admin-navigation {
+    margin-top:
+      20px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .admin-sidebar,
+  .admin-sidebar-overlay,
+  .admin-menu-button,
+  .admin-navigation-link {
+    transition:
+      none !important;
+  }
+}
+
+/* =========================================================
+   ADMIN SIDEBAR FORCE DARK PURPLE THEME
+   Pink/maroon colors intentionally removed.
+========================================================= */
+
+.admin-sidebar,
+:root[data-theme="light"] .admin-sidebar {
+  color:
+    #f8f5fb !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.3) !important;
+
+  background:
+    radial-gradient(circle at 50% 0%,
+      rgba(126,
+        70,
+        219,
+        0.18),
+      transparent 29%),
+    linear-gradient(160deg,
+      #191326 0%,
+      #100c19 48%,
+      #09070f 100%) !important;
+
+  box-shadow:
+    24px 0 75px rgba(0,
+      0,
+      0,
+      0.55) !important;
+}
+
+
+/* Purple top glow */
+
+.admin-sidebar-glow,
+:root[data-theme="light"] .admin-sidebar-glow {
+  background:
+    radial-gradient(circle,
+      rgba(166,
+        108,
+        255,
+        0.3),
+      transparent 70%) !important;
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.admin-sidebar-brand,
+:root[data-theme="light"] .admin-sidebar-brand {
+  color:
+    #ffffff !important;
+}
+
+
+.admin-sidebar-brand strong,
+:root[data-theme="light"] .admin-sidebar-brand strong {
+  color:
+    #ffffff !important;
+}
+
+
+.admin-sidebar-brand span,
+:root[data-theme="light"] .admin-sidebar-brand span {
+  color:
+    #aaa2b4 !important;
+}
+
+
+.admin-sidebar-logo,
+:root[data-theme="light"] .admin-sidebar-logo {
+  color:
+    #c99cff !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.38) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.14) !important;
+
+  box-shadow:
+    0 10px 30px rgba(94,
+      43,
+      165,
+      0.22) !important;
+}
+
+
+.admin-sidebar-logo svg,
+:root[data-theme="light"] .admin-sidebar-logo svg {
+  color:
+    #c99cff !important;
+
+  stroke:
+    #c99cff !important;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.admin-sidebar-close,
+:root[data-theme="light"] .admin-sidebar-close {
+  color:
+    #aaa2b4 !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.2) !important;
+
+  background:
+    rgba(255,
+      255,
+      255,
+      0.035) !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+.admin-sidebar-close:hover,
+.admin-sidebar-close:focus-visible,
+:root[data-theme="light"] .admin-sidebar-close:hover,
+:root[data-theme="light"] .admin-sidebar-close:focus-visible {
+  color:
+    #ffffff !important;
+
+  border-color:
+    #a66cff !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.14) !important;
+}
+
+
+/* =========================================================
+   ADMIN ACCESS BADGE
+========================================================= */
+
+.admin-sidebar-admin-badge,
+:root[data-theme="light"] .admin-sidebar-admin-badge {
+  color:
+    #d2afff !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.25) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.09) !important;
+}
+
+
+.admin-sidebar-admin-badge svg,
+:root[data-theme="light"] .admin-sidebar-admin-badge svg {
+  color:
+    #bd8aff !important;
+
+  stroke:
+    #bd8aff !important;
+}
+
+
+/* =========================================================
+   NAVIGATION TITLE
+========================================================= */
+
+.admin-navigation>p,
+:root[data-theme="light"] .admin-navigation>p {
+  color:
+    #81788c !important;
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+========================================================= */
+
+.admin-navigation-link,
+:root[data-theme="light"] .admin-navigation-link {
+  color:
+    #aaa2b4 !important;
+
+  border-color:
+    transparent !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+.admin-navigation-icon,
+:root[data-theme="light"] .admin-navigation-icon {
+  color:
+    #aaa2b4 !important;
+
+  background:
+    rgba(255,
+      255,
+      255,
+      0.035) !important;
+}
+
+
+/* Purple hover only */
+
+.admin-navigation-link:hover,
+.admin-navigation-link:focus-visible,
+:root[data-theme="light"] .admin-navigation-link:hover,
+:root[data-theme="light"] .admin-navigation-link:focus-visible {
+  color:
+    #ffffff !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.22) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.09) !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+.admin-navigation-link:hover .admin-navigation-icon,
+.admin-navigation-link:focus-visible .admin-navigation-icon,
+:root[data-theme="light"] .admin-navigation-link:hover .admin-navigation-icon,
+:root[data-theme="light"] .admin-navigation-link:focus-visible .admin-navigation-icon {
+  color:
+    #c99cff !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.14) !important;
+}
+
+
+/* Active menu */
+
+.admin-navigation-link-active,
+.admin-navigation-link-active:hover,
+:root[data-theme="light"] .admin-navigation-link-active,
+:root[data-theme="light"] .admin-navigation-link-active:hover {
+  color:
+    #ffffff !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.42) !important;
+
+  background:
+    linear-gradient(90deg,
+      rgba(112,
+        60,
+        193,
+        0.42),
+      rgba(166,
+        108,
+        255,
+        0.13)) !important;
+
+  box-shadow:
+    inset 3px 0 0 #a66cff !important;
+}
+
+
+.admin-navigation-link-active .admin-navigation-icon,
+:root[data-theme="light"] .admin-navigation-link-active .admin-navigation-icon {
+  color:
+    #d5b5ff !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.18) !important;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.admin-sidebar-footer,
+:root[data-theme="light"] .admin-sidebar-footer {
+  border-top-color:
+    rgba(166,
+      108,
+      255,
+      0.16) !important;
+
+  background:
+    transparent !important;
+}
+
+
+.admin-profile,
+:root[data-theme="light"] .admin-profile {
+  background:
+    transparent !important;
+
+  border:
+    none !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+.admin-avatar,
+:root[data-theme="light"] .admin-avatar {
+  color:
+    #ffffff !important;
+
+  border-color:
+    rgba(190,
+      141,
+      255,
+      0.4) !important;
+
+  background:
+    linear-gradient(135deg,
+      #955fe9,
+      #6134a5) !important;
+}
+
+
+.admin-profile-information strong,
+:root[data-theme="light"] .admin-profile-information strong {
+  color:
+    #ffffff !important;
+}
+
+
+.admin-profile-information span,
+:root[data-theme="light"] .admin-profile-information span {
+  color:
+    #91899b !important;
+}
+
+
+/* =========================================================
+   LOGOUT — PURPLE ONLY
+========================================================= */
+
+.admin-logout-button,
+:root[data-theme="light"] .admin-logout-button {
+  color:
+    #caa0ff !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.3) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.08) !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+.admin-logout-button svg,
+:root[data-theme="light"] .admin-logout-button svg {
+  color:
+    #bd8aff !important;
+
+  stroke:
+    #bd8aff !important;
+}
+
+
+.admin-logout-button:hover,
+.admin-logout-button:focus-visible,
+:root[data-theme="light"] .admin-logout-button:hover,
+:root[data-theme="light"] .admin-logout-button:focus-visible {
+  color:
+    #ffffff !important;
+
+  border-color:
+    #a66cff !important;
+
+  background:
+    linear-gradient(135deg,
+      #8250d0,
+      #5c319e) !important;
+
+  box-shadow:
+    0 12px 30px rgba(99,
+      49,
+      173,
+      0.24) !important;
+}
+
+
+.admin-logout-button:hover svg,
+.admin-logout-button:focus-visible svg,
+:root[data-theme="light"] .admin-logout-button:hover svg,
+:root[data-theme="light"] .admin-logout-button:focus-visible svg {
+  color:
+    #ffffff !important;
+
+  stroke:
+    #ffffff !important;
+}
+
+/* =========================================================
+   COMPLETE ADMIN PANEL — FORCE PURPLE-BLACK THEME
+   Dashboard, Users, Materials, Generations, Settings, Sidebar
+========================================================= */
+
+/* Root page background */
+
+html:has(.admin-page),
+body:has(.admin-page),
+#root:has(.admin-page) {
+  min-width: 100%;
+  min-height: 100%;
+
+  margin: 0;
+
+  color:
+    #f8f5fb !important;
+
+  background:
+    #07060d !important;
+}
+
+
+/* Every Admin page */
+
+html body #root .admin-page,
+html[data-theme="light"] body #root .admin-page {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100vh;
+
+  color:
+    #f8f5fb !important;
+
+  background:
+    radial-gradient(circle at 72% 7%,
+      rgba(137,
+        75,
+        230,
+        0.2),
+      transparent 30%),
+    radial-gradient(circle at 94% 43%,
+      rgba(166,
+        108,
+        255,
+        0.1),
+      transparent 28%),
+    radial-gradient(circle at 34% 88%,
+      rgba(85,
+        42,
+        150,
+        0.11),
+      transparent 32%),
+    linear-gradient(180deg,
+      #0c0915 0%,
+      #08070f 48%,
+      #05050a 100%) !important;
+}
+
+
+/* Every Admin main content */
+
+html body #root .admin-page .admin-main,
+html[data-theme="light"] body #root .admin-page .admin-main {
+  width: 100%;
+  min-height: 100vh;
+
+  color:
+    #f8f5fb !important;
+
+  background:
+    transparent !important;
+}
+
+
+/* =========================================================
+   ADMIN SIDEBAR
+========================================================= */
+
+html body #root .admin-sidebar,
+html[data-theme="light"] body #root .admin-sidebar {
+  color:
+    #f8f5fb !important;
+
+  border:
+    1px solid rgba(166,
+      108,
+      255,
+      0.34) !important;
+
+  background:
+    radial-gradient(circle at 50% 0%,
+      rgba(137,
+        77,
+        230,
+        0.22),
+      transparent 30%),
+    linear-gradient(160deg,
+      #1a1428 0%,
+      #100c19 48%,
+      #08060e 100%) !important;
+
+  background-color:
+    #0d0915 !important;
+
+  box-shadow:
+    24px 0 75px rgba(0,
+      0,
+      0,
+      0.58) !important;
+}
+
+
+/* Sidebar ke andar white backgrounds remove */
+
+html body #root .admin-sidebar *,
+html[data-theme="light"] body #root .admin-sidebar * {
+  border-color:
+    inherit;
+}
+
+
+html body #root .admin-sidebar-header,
+html body #root .admin-sidebar-footer,
+html body #root .admin-navigation,
+html body #root .admin-profile,
+html[data-theme="light"] body #root .admin-sidebar-header,
+html[data-theme="light"] body #root .admin-sidebar-footer,
+html[data-theme="light"] body #root .admin-navigation,
+html[data-theme="light"] body #root .admin-profile {
+  background:
+    transparent !important;
+
+  background-color:
+    transparent !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* =========================================================
+   SIDEBAR BRAND
+========================================================= */
+
+html body #root .admin-sidebar-brand strong,
+html[data-theme="light"] body #root .admin-sidebar-brand strong {
+  color:
+    #ffffff !important;
+}
+
+
+html body #root .admin-sidebar-brand span,
+html[data-theme="light"] body #root .admin-sidebar-brand span {
+  color:
+    #aaa2b4 !important;
+}
+
+
+html body #root .admin-sidebar-logo,
+html[data-theme="light"] body #root .admin-sidebar-logo {
+  color:
+    #c99cff !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.38) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.15) !important;
+}
+
+
+/* =========================================================
+   ADMIN ACCESS BADGE
+========================================================= */
+
+html body #root .admin-sidebar-admin-badge,
+html[data-theme="light"] body #root .admin-sidebar-admin-badge {
+  color:
+    #d2afff !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.28) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.1) !important;
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+========================================================= */
+
+html body #root .admin-navigation>p,
+html[data-theme="light"] body #root .admin-navigation>p {
+  color:
+    #81788c !important;
+}
+
+
+html body #root .admin-navigation-link,
+html[data-theme="light"] body #root .admin-navigation-link {
+  color:
+    #aaa2b4 !important;
+
+  border-color:
+    transparent !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+html body #root .admin-navigation-icon,
+html[data-theme="light"] body #root .admin-navigation-icon {
+  color:
+    #aaa2b4 !important;
+
+  background:
+    rgba(255,
+      255,
+      255,
+      0.035) !important;
+}
+
+
+/* Navigation hover */
+
+html body #root .admin-navigation-link:hover,
+html[data-theme="light"] body #root .admin-navigation-link:hover {
+  color:
+    #ffffff !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.25) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.1) !important;
+}
+
+
+/* Active navigation */
+
+html body #root .admin-navigation-link-active,
+html body #root .admin-navigation-link-active:hover,
+html[data-theme="light"] body #root .admin-navigation-link-active,
+html[data-theme="light"] body #root .admin-navigation-link-active:hover {
+  color:
+    #ffffff !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.45) !important;
+
+  background:
+    linear-gradient(90deg,
+      rgba(111,
+        60,
+        192,
+        0.46),
+      rgba(166,
+        108,
+        255,
+        0.13)) !important;
+
+  box-shadow:
+    inset 3px 0 0 #a66cff !important;
+}
+
+
+/* =========================================================
+   SIDEBAR PROFILE
+========================================================= */
+
+html body #root .admin-sidebar-footer,
+html[data-theme="light"] body #root .admin-sidebar-footer {
+  border-top-color:
+    rgba(166,
+      108,
+      255,
+      0.16) !important;
+}
+
+
+html body #root .admin-avatar,
+html[data-theme="light"] body #root .admin-avatar {
+  color:
+    #ffffff !important;
+
+  border-color:
+    rgba(190,
+      141,
+      255,
+      0.4) !important;
+
+  background:
+    linear-gradient(135deg,
+      #955fe9,
+      #6134a5) !important;
+}
+
+
+html body #root .admin-profile-information strong,
+html[data-theme="light"] body #root .admin-profile-information strong {
+  color:
+    #ffffff !important;
+}
+
+
+html body #root .admin-profile-information span,
+html[data-theme="light"] body #root .admin-profile-information span {
+  color:
+    #91899b !important;
+}
+
+
+/* =========================================================
+   LOGOUT — PURPLE
+========================================================= */
+
+html body #root .admin-logout-button,
+html[data-theme="light"] body #root .admin-logout-button {
+  color:
+    #caa0ff !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.32) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.09) !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+html body #root .admin-logout-button:hover,
+html[data-theme="light"] body #root .admin-logout-button:hover {
+  color:
+    #ffffff !important;
+
+  border-color:
+    #a66cff !important;
+
+  background:
+    linear-gradient(135deg,
+      #8250d0,
+      #5c319e) !important;
+}
+
+
+/* =========================================================
+   ALL ADMIN CONTENT CARDS
+========================================================= */
+
+html body #root .admin-data-card,
+html body #root .admin-dashboard-panel,
+html body #root .admin-statistic-card,
+html body #root .admin-overview-card,
+html body #root .admin-generation-card,
+html body #root .admin-settings-card,
+html[data-theme="light"] body #root .admin-data-card,
+html[data-theme="light"] body #root .admin-dashboard-panel,
+html[data-theme="light"] body #root .admin-statistic-card,
+html[data-theme="light"] body #root .admin-overview-card,
+html[data-theme="light"] body #root .admin-generation-card,
+html[data-theme="light"] body #root .admin-settings-card {
+  color:
+    #f8f5fb !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.24) !important;
+
+  background:
+    linear-gradient(145deg,
+      rgba(24,
+        19,
+        35,
+        0.97),
+      rgba(10,
+        8,
+        15,
+        0.98)) !important;
+
+  background-color:
+    #100d18 !important;
+
+  box-shadow:
+    0 20px 55px rgba(0,
+      0,
+      0,
+      0.22) !important;
+}
+
+
+/* =========================================================
+   HEADINGS AND TEXT
+========================================================= */
+
+html body #root .admin-page h1,
+html body #root .admin-page h2,
+html body #root .admin-page h3,
+html body #root .admin-page strong,
+html[data-theme="light"] body #root .admin-page h1,
+html[data-theme="light"] body #root .admin-page h2,
+html[data-theme="light"] body #root .admin-page h3,
+html[data-theme="light"] body #root .admin-page strong {
+  color:
+    #ffffff !important;
+}
+
+
+html body #root .admin-page p,
+html body #root .admin-page span,
+html[data-theme="light"] body #root .admin-page p,
+html[data-theme="light"] body #root .admin-page span {
+  color:
+    #aaa2b4;
+}
+
+
+/* Purple eyebrow */
+
+html body #root .admin-eyebrow,
+html[data-theme="light"] body #root .admin-eyebrow {
+  color:
+    #bd88ff !important;
+}
+
+
+/* =========================================================
+   TOOLBARS
+========================================================= */
+
+html body #root .admin-list-toolbar,
+html[data-theme="light"] body #root .admin-list-toolbar {
+  color:
+    #aaa2b4 !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.2) !important;
+
+  background:
+    rgba(19,
+      15,
+      28,
+      0.92) !important;
+}
+
+
+/* =========================================================
+   INPUTS AND SELECTS
+========================================================= */
+
+html body #root .admin-search-box,
+html body #root .admin-search-box input,
+html body #root .admin-filter-select,
+html body #root .admin-setting-field input,
+html[data-theme="light"] body #root .admin-search-box,
+html[data-theme="light"] body #root .admin-search-box input,
+html[data-theme="light"] body #root .admin-filter-select,
+html[data-theme="light"] body #root .admin-setting-field input {
+  color:
+    #f8f5fb !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.22) !important;
+
+  background:
+    rgba(255,
+      255,
+      255,
+      0.035) !important;
+}
+
+
+html body #root .admin-search-box input::placeholder,
+html[data-theme="light"] body #root .admin-search-box input::placeholder {
+  color:
+    #777080 !important;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+html body #root .admin-table,
+html body #root .admin-table-wrapper,
+html[data-theme="light"] body #root .admin-table,
+html[data-theme="light"] body #root .admin-table-wrapper {
+  color:
+    #d9d2df !important;
+
+  background:
+    transparent !important;
+}
+
+
+html body #root .admin-table th,
+html[data-theme="light"] body #root .admin-table th {
+  color:
+    #bfa8d8 !important;
+
+  border-bottom-color:
+    rgba(166,
+      108,
+      255,
+      0.18) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.055) !important;
+}
+
+
+html body #root .admin-table td,
+html[data-theme="light"] body #root .admin-table td {
+  color:
+    #c8c0ce !important;
+
+  border-bottom-color:
+    rgba(166,
+      108,
+      255,
+      0.1) !important;
+
+  background:
+    transparent !important;
+}
+
+
+html body #root .admin-table tbody tr:hover td,
+html[data-theme="light"] body #root .admin-table tbody tr:hover td {
+  background:
+    rgba(166,
+      108,
+      255,
+      0.055) !important;
+}
+/* =========================================================
+   FINAL ADMIN CLEANUP
+   Keep this block at the very end of admin.css.
+========================================================= */
+
+/* Remove colored text-selection highlight inside Admin pages. */
+.admin-page ::selection {
+  color: inherit;
+  background: transparent;
+}
+
+.admin-page ::-moz-selection {
+  color: inherit;
+  background: transparent;
+}
+
+/* Remove the large outer box around search/filter controls. */
+.admin-list-toolbar,
+html body #root .admin-list-toolbar,
+html[data-theme="light"] body #root .admin-list-toolbar {
+  margin-bottom: 18px;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Keep the native filter itself dark purple, including its open menu. */
+.admin-filter-select,
+html body #root .admin-filter-select,
+html[data-theme="light"] body #root .admin-filter-select {
+  width: 230px;
+  height: 46px;
+  padding: 0 40px 0 14px;
+  color: #ffffff !important;
+  border: 1px solid rgba(166, 108, 255, 0.38) !important;
+  border-radius: 11px;
+  outline: none;
+  background-color: #100c19 !important;
+  color-scheme: dark;
+  font: inherit;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+.admin-filter-select:hover,
+.admin-filter-select:focus {
+  border-color: #a66cff !important;
+  background-color: #171022 !important;
+}
+
+.admin-filter-select option,
+html body #root .admin-filter-select option,
+html[data-theme="light"] body #root .admin-filter-select option {
+  color: #ffffff !important;
+  background: #100c19 !important;
+  background-color: #100c19 !important;
+}
+
+.admin-filter-select option:checked {
+  color: #ffffff !important;
+  background: #7040bd !important;
+  background-color: #7040bd !important;
+}
+
+@media (max-width: 650px) {
+  .admin-generation-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-filter-select {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   REMOVE PINK MENU OUTLINE
+========================================================= */
+
+.admin-menu-button,
+.admin-menu-button:hover,
+.admin-menu-button:focus,
+.admin-menu-button:focus-visible,
+.admin-menu-button:active {
+  outline:
+    none !important;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.5) !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* Menu hover — purple only */
+
+.admin-menu-button:hover,
+.admin-menu-button:focus-visible {
+  color:
+    #ffffff !important;
+
+  border-color:
+    #a66cff !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.14) !important;
+}
+
+
+.admin-menu-button svg,
+.admin-menu-button:hover svg,
+.admin-menu-button:focus-visible svg {
+  color:
+    #b982ff !important;
+
+  stroke:
+    #b982ff !important;
+}
+
+
+/* =========================================================
+   REMOVE INNER BOX FROM ALL ADMIN SEARCH INPUTS
+========================================================= */
+
+.admin-page .admin-search-box input,
+html body #root .admin-page .admin-search-box input,
+html[data-theme="light"] body #root .admin-page .admin-search-box input {
+  width:
+    100%;
+
+  height:
+    100%;
+
+  padding:
+    0 !important;
+
+  color:
+    #ffffff !important;
+
+  border:
+    none !important;
+
+  border-radius:
+    0 !important;
+
+  outline:
+    none !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* Search input focus par bhi inner box nahi */
+
+.admin-page .admin-search-box input:focus,
+.admin-page .admin-search-box input:focus-visible {
+  border:
+    none !important;
+
+  outline:
+    none !important;
+
+  background:
+    transparent !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* Sirf single outer search box rahega */
+
+.admin-page .admin-search-box,
+html body #root .admin-page .admin-search-box,
+html[data-theme="light"] body #root .admin-page .admin-search-box {
+  overflow:
+    hidden;
+
+  border:
+    1px solid rgba(166,
+      108,
+      255,
+      0.35) !important;
+
+  border-radius:
+    11px !important;
+
+  outline:
+    none !important;
+
+  background:
+    rgba(18,
+      14,
+      27,
+      0.96) !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* Search focus — purple only */
+
+.admin-page .admin-search-box:focus-within {
+  border-color:
+    #a66cff !important;
+
+  box-shadow:
+    0 0 0 3px rgba(166,
+      108,
+      255,
+      0.08) !important;
+}
+
+/* =========================================================
+   ADMIN SETTINGS — LIGHT PURPLE LINES
+========================================================= */
+
+.admin-settings-card-header,
+html body #root .admin-settings-card-header,
+html[data-theme="light"] body #root .admin-settings-card-header {
+  border-bottom:
+    1px solid rgba(192,
+      149,
+      255,
+      0.28) !important;
+}
+
+
+/* Settings card outer border */
+
+.admin-settings-card,
+.admin-security-note,
+html body #root .admin-settings-card,
+html body #root .admin-security-note,
+html[data-theme="light"] body #root .admin-settings-card,
+html[data-theme="light"] body #root .admin-security-note {
+  border-color:
+    rgba(192,
+      149,
+      255,
+      0.25) !important;
+}
+
+
+/* Input borders */
+
+.admin-settings-card input,
+html body #root .admin-settings-card input,
+html[data-theme="light"] body #root .admin-settings-card input {
+  border-color:
+    rgba(192,
+      149,
+      255,
+      0.26) !important;
+}
+
+
+/* Icons */
+
+.admin-settings-card-icon,
+html body #root .admin-settings-card-icon {
+  color:
+    #c095ff !important;
+
+  border-color:
+    rgba(192,
+      149,
+      255,
+      0.25) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.12) !important;
+}
+
+
+/* Browser scrollbar bhi purple */
+
+.admin-page {
+  scrollbar-color:
+    #9b68dc #0b0811;
+}
+
+
+.admin-page::-webkit-scrollbar {
+  width:
+    8px;
+}
+
+
+.admin-page::-webkit-scrollbar-track {
+  background:
+    #0b0811;
+}
+
+
+.admin-page::-webkit-scrollbar-thumb {
+  border:
+    2px solid #0b0811;
+
+  border-radius:
+    999px;
+
+  background:
+    #9b68dc;
+}
+
+/* =========================================================
+   ADMIN SETTINGS — PURPLE HOVER AND WHITE TEXT
+========================================================= */
+
+/* Labels white */
+
+.admin-setting-field label,
+html body #root .admin-setting-field label,
+html[data-theme="light"] body #root .admin-setting-field label {
+  color:
+    #ffffff !important;
+
+  opacity:
+    1 !important;
+}
+
+
+/* Input text white */
+
+.admin-setting-field input,
+html body #root .admin-setting-field input,
+html[data-theme="light"] body #root .admin-setting-field input {
+  color:
+    #ffffff !important;
+
+  -webkit-text-fill-color:
+    #ffffff !important;
+
+  border-color:
+    rgba(192,
+      149,
+      255,
+      0.28) !important;
+
+  background:
+    rgba(255,
+      255,
+      255,
+      0.035) !important;
+
+  caret-color:
+    #c095ff !important;
+
+  opacity:
+    1 !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* Read-only input ka text bhi white */
+
+.admin-setting-field input[readonly],
+html body #root .admin-setting-field input[readonly] {
+  color:
+    #ffffff !important;
+
+  -webkit-text-fill-color:
+    #ffffff !important;
+
+  opacity:
+    1 !important;
+
+  cursor:
+    default;
+}
+
+
+/* Hover — light purple only */
+
+.admin-setting-field input:hover,
+html body #root .admin-setting-field input:hover,
+html[data-theme="light"] body #root .admin-setting-field input:hover {
+  color:
+    #ffffff !important;
+
+  -webkit-text-fill-color:
+    #ffffff !important;
+
+  border-color:
+    rgba(192,
+      149,
+      255,
+      0.6) !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.08) !important;
+
+  box-shadow:
+    none !important;
+}
+
+
+/* Focus — light purple glow */
+
+.admin-setting-field input:focus,
+.admin-setting-field input:focus-visible,
+html body #root .admin-setting-field input:focus,
+html body #root .admin-setting-field input:focus-visible,
+html[data-theme="light"] body #root .admin-setting-field input:focus,
+html[data-theme="light"] body #root .admin-setting-field input:focus-visible {
+  color:
+    #ffffff !important;
+
+  -webkit-text-fill-color:
+    #ffffff !important;
+
+  border-color:
+    #a66cff !important;
+
+  outline:
+    none !important;
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.1) !important;
+
+  box-shadow:
+    0 0 0 3px rgba(166,
+      108,
+      255,
+      0.09) !important;
+}
+
+
+/* Autofill color fix */
+
+.admin-setting-field input:-webkit-autofill,
+.admin-setting-field input:-webkit-autofill:hover,
+.admin-setting-field input:-webkit-autofill:focus {
+  -webkit-text-fill-color:
+    #ffffff !important;
+
+  -webkit-box-shadow:
+    0 0 0 1000px #171320 inset !important;
+
+  transition:
+    background-color 9999s ease-out;
+}
+
+/* =========================================================
+   ADMIN SIDEBAR CLOSE BUTTON — PURPLE THEME
+========================================================= */
+
+.admin-sidebar-close,
+.admin-sidebar-close:hover,
+.admin-sidebar-close:focus,
+.admin-sidebar-close:focus-visible,
+.admin-sidebar-close:active {
+  color: #c797ff !important;
+
+  border: 1px solid rgba(166, 108, 255, 0.55) !important;
+  outline: none !important;
+
+  background: rgba(166, 108, 255, 0.1) !important;
+
+  box-shadow: none !important;
+}
+
+.admin-sidebar-close:hover {
+  color: #ffffff !important;
+
+  border-color: #a66cff !important;
+
+  background: rgba(166, 108, 255, 0.22) !important;
+
+  transform: scale(1.04);
+}
+
+.admin-sidebar-close svg,
+.admin-sidebar-close:hover svg,
+.admin-sidebar-close:focus svg,
+.admin-sidebar-close:active svg {
+  color: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* =========================================================
+   ADMIN STATUS BADGES — CLEAR PURPLE THEME
+========================================================= */
+
+.admin-status-badge {
+  padding: 6px 11px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  box-shadow: none !important;
+}
+
+/* Active — bright purple */
+
+.admin-status-active {
+  color: #ffffff !important;
+
+  border: 1px solid #a66cff !important;
+
+  background:
+    linear-gradient(135deg,
+      #8b4de8,
+      #6d35bd) !important;
+}
+
+/* Completed — dark purple */
+
+.admin-status-completed {
+  color: #d7b7ff !important;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.48) !important;
+
+  background:
+    rgba(166, 108, 255, 0.14) !important;
+}
+
+/* Failed — clearly different */
+
+.admin-status-failed {
+  color: #ffb3ca !important;
+
+  border:
+    1px solid rgba(255, 107, 154, 0.45) !important;
+
+  background:
+    rgba(255, 107, 154, 0.12) !important;
+}
+
+/* Date text */
+
+.admin-activity-date,
+.admin-recent-date {
+  color: #8f879d !important;
+}
+
+/* =========================================================
+   ADMIN USER MANAGEMENT ACTIONS
+========================================================= */
+
+.admin-user-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+/* =========================================================
+   CURRENT USER LABEL
+========================================================= */
+
+.admin-current-user-label {
+  margin-left: 8px;
+  padding: 3px 7px;
+
+  display: inline-flex;
+
+  color: #c797ff;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.4);
+
+  border-radius: 999px;
+
+  background:
+    rgba(166, 108, 255, 0.12);
+
+  font-size: 10px;
+  font-weight: 800;
+  vertical-align: middle;
+}
+
+
+/* =========================================================
+   ROLE SELECT
+========================================================= */
+
+.admin-role-select-wrapper {
+  min-width: 115px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+.admin-role-select-wrapper .admin-spin {
+  position: absolute;
+
+  right: 29px;
+
+  z-index: 2;
+
+  color: #c797ff;
+
+  pointer-events: none;
+}
+
+.admin-role-select {
+  width: 100%;
+
+  padding:
+    9px 31px 9px 12px;
+
+  color: #ffffff;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.38);
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background:
+    #181221;
+
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-role-select:hover {
+  border-color: #a66cff;
+
+  background:
+    rgba(166, 108, 255, 0.12);
+}
+
+.admin-role-select:focus,
+.admin-role-select:focus-visible {
+  border-color: #a66cff;
+
+  background:
+    #181221;
+
+  box-shadow:
+    0 0 0 3px rgba(166, 108, 255, 0.14);
+}
+
+.admin-role-select option {
+  color: #ffffff;
+
+  background:
+    #17111f;
+}
+
+.admin-role-select:disabled {
+  color: #8d8498;
+
+  border-color:
+    rgba(166, 108, 255, 0.18);
+
+  background:
+    rgba(255, 255, 255, 0.025);
+
+  cursor: not-allowed;
+
+  opacity: 0.65;
+}
+
+
+/* =========================================================
+   DELETE USER BUTTON
+========================================================= */
+
+.admin-delete-user-button {
+  padding: 9px 12px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  color: var(--admin-purple);
+
+  border:
+    1px solid var(--admin-purple-light);
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background:
+    rgba(255, 80, 125, 0.08);
+
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-delete-user-button:hover:not(:disabled) {
+  color: #ffffff;
+
+  border-color: #ff648c;
+
+  background:
+    #c83e68;
+
+  transform:
+    translateY(-1px);
+}
+
+.admin-delete-user-button svg {
+  stroke: currentColor;
+}
+
+.admin-delete-user-button:disabled {
+  color: #c69aff;
+
+  border-color:
+    rgba(255, 255, 255, 0.08);
+
+  background:
+    rgba(255, 255, 255, 0.025);
+
+  cursor: not-allowed;
+
+  opacity: 0.55;
+}
+
+
+/* =========================================================
+   SUCCESS AND ERROR MESSAGES
+========================================================= */
+
+.admin-success-message,
+.admin-error {
+  margin: 18px 0;
+
+  padding: 13px 15px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border-radius: 12px;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.admin-success-message {
+  color: #78e8ad;
+
+  border:
+    1px solid rgba(74, 222, 128, 0.3);
+
+  background:
+    rgba(34, 197, 94, 0.1);
+}
+
+.admin-error {
+  color: #ff9db7;
+
+  border:
+    1px solid rgba(255, 100, 140, 0.3);
+
+  background:
+    rgba(255, 80, 125, 0.08);
+}
+
+.admin-success-message p,
+.admin-error p {
+  flex: 1;
+
+  margin: 0;
+
+  color: inherit;
+}
+
+.admin-success-message button,
+.admin-error button {
+  width: 30px;
+  height: 30px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+
+  color: inherit;
+
+  border: none;
+  outline: none;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.admin-success-message button:hover,
+.admin-error button:hover {
+  color: #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   DELETE CONFIRMATION MODAL
+========================================================= */
+
+.admin-modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  padding: 20px;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    rgba(3, 2, 8, 0.8);
+
+  backdrop-filter:
+    blur(9px);
+
+  -webkit-backdrop-filter:
+    blur(9px);
+}
+
+.admin-confirm-modal {
+  width:
+    min(440px, 100%);
+
+  padding: 31px;
+
+  position: relative;
+
+  color: #ffffff;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.42);
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(145deg,
+      #1d1529,
+      #0e0b15);
+
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.58),
+    0 0 45px rgba(130, 65, 220, 0.12);
+}
+
+.admin-modal-close {
+  width: 37px;
+  height: 37px;
+
+  position: absolute;
+
+  top: 17px;
+  right: 17px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+
+  color: #c797ff;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.35);
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background:
+    rgba(166, 108, 255, 0.1);
+
+  cursor: pointer;
+}
+
+.admin-modal-close:hover:not(:disabled) {
+  color: #ffffff;
+
+  border-color: #a66cff;
+
+  background:
+    rgba(166, 108, 255, 0.22);
+}
+
+.admin-modal-close:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.admin-confirm-icon {
+  width: 58px;
+  height: 58px;
+
+  display: grid;
+  place-items: center;
+
+  color: #ff8dad;
+
+  border:
+    1px solid rgba(255, 100, 140, 0.35);
+
+  border-radius: 17px;
+
+  background:
+    rgba(255, 80, 125, 0.1);
+}
+
+.admin-confirm-modal h2 {
+  margin:
+    22px 0 9px;
+
+  color: #ffffff;
+
+  font-size: 25px;
+  letter-spacing: -0.03em;
+}
+
+.admin-confirm-modal>p {
+  margin: 0;
+
+  color: #bcb2c8;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.admin-confirm-modal>p strong {
+  color: #ffffff;
+}
+
+.admin-delete-warning {
+  margin-top: 15px;
+
+  padding: 12px 13px;
+
+  display: block;
+
+  color: #c8bdd3;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.2);
+
+  border-radius: 10px;
+
+  background:
+    rgba(166, 108, 255, 0.07);
+
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.admin-confirm-actions {
+  margin-top: 25px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+.admin-cancel-button,
+.admin-confirm-delete-button {
+  min-height: 45px;
+
+  padding: 10px 15px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border-radius: 11px;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.admin-cancel-button {
+  color: #d5cae0;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.32);
+
+  background:
+    rgba(166, 108, 255, 0.08);
+}
+
+.admin-cancel-button:hover:not(:disabled) {
+  color: #ffffff;
+
+  border-color: #a66cff;
+
+  background:
+    rgba(166, 108, 255, 0.18);
+}
+
+.admin-confirm-delete-button {
+  color: #ffffff;
+
+  border:
+    1px solid #d64c74;
+
+  background:
+    #b9335c;
+}
+
+.admin-confirm-delete-button:hover:not(:disabled) {
+  border-color: #ff7599;
+
+  background:
+    #ce416b;
+}
+
+.admin-cancel-button:disabled,
+.admin-confirm-delete-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+
+/* =========================================================
+   USER MANAGEMENT RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .admin-user-actions {
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-confirm-modal {
+    padding:
+      27px 20px 20px;
+  }
+
+  .admin-confirm-actions {
+    grid-template-columns:
+      1fr;
+  }
+
+  .admin-user-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-role-select-wrapper {
+    width: 100%;
+  }
+
+  .admin-delete-user-button {
+    width: 100%;
+  }
+}
+
+/* Admin fixed/protected account */
+
+.admin-protected-account {
+  padding: 8px 11px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #c797ff;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.38);
+
+  border-radius: 9px;
+
+  background:
+    rgba(166, 108, 255, 0.1);
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+
+/* Student delete button — purple theme */
+
+.admin-delete-user-button {
+  padding: 9px 13px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  color: #c797ff;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.42);
+
+  border-radius: 9px;
+
+  background:
+    rgba(166, 108, 255, 0.1);
+
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.admin-delete-user-button:hover:not(:disabled) {
+  color: #ffffff;
+
+  border-color: #a66cff;
+
+  background:
+    rgba(166, 108, 255, 0.24);
+}
+
+.admin-delete-user-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* =========================================================
+   DELETE BUTTON — FINAL PURPLE THEME
+========================================================= */
+
+.admin-page .admin-delete-user-button,
+.admin-page .admin-delete-user-button:focus,
+.admin-page .admin-delete-user-button:focus-visible,
+.admin-page .admin-delete-user-button:active {
+  color: #c797ff !important;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.45) !important;
+
+  outline: none !important;
+
+  background:
+    rgba(166, 108, 255, 0.1) !important;
+
+  box-shadow:
+    none !important;
+}
+
+.admin-page .admin-delete-user-button:hover:not(:disabled) {
+  color: #ffffff !important;
+
+  border-color:
+    #a66cff !important;
+
+  background:
+    linear-gradient(135deg,
+      #8348d9,
+      #6531ac) !important;
+
+  box-shadow:
+    0 7px 18px rgba(120, 61, 203, 0.24) !important;
+
+  transform:
+    translateY(-1px);
+}
+
+.admin-page .admin-delete-user-button svg,
+.admin-page .admin-delete-user-button svg * {
+  color: currentColor !important;
+  stroke: currentColor !important;
+}
+
+.admin-page .admin-delete-user-button:disabled {
+  color: #756c82 !important;
+
+  border-color:
+    rgba(166, 108, 255, 0.16) !important;
+
+  background:
+    rgba(166, 108, 255, 0.04) !important;
+
+  box-shadow: none !important;
+
+  cursor: not-allowed;
+
+  opacity: 0.55;
+}
+
+/* =========================================================
+   DELETE MODAL — FINAL PURPLE THEME
+========================================================= */
+
+.admin-page~.admin-modal-backdrop,
+.admin-modal-backdrop {
+  background:
+    rgba(3, 2, 9, 0.84) !important;
+}
+
+
+/* Modal card */
+
+.admin-confirm-modal {
+  border:
+    1px solid rgba(166, 108, 255, 0.48) !important;
+
+  background:
+    linear-gradient(145deg,
+      #1d1629,
+      #0e0b15) !important;
+
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.6),
+    0 0 45px rgba(140, 76, 230, 0.14) !important;
+}
+
+
+/* Warning icon */
+
+.admin-confirm-icon {
+  color: #c797ff !important;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.45) !important;
+
+  background:
+    rgba(166, 108, 255, 0.13) !important;
+}
+
+.admin-confirm-icon svg,
+.admin-confirm-icon svg * {
+  color: #c797ff !important;
+  stroke: #c797ff !important;
+}
+
+
+/* Close button */
+
+.admin-modal-close,
+.admin-modal-close:focus,
+.admin-modal-close:active {
+  color: #c797ff !important;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.42) !important;
+
+  background:
+    rgba(166, 108, 255, 0.1) !important;
+
+  box-shadow: none !important;
+}
+
+.admin-modal-close:hover:not(:disabled) {
+  color: #ffffff !important;
+
+  border-color: #a66cff !important;
+
+  background:
+    rgba(166, 108, 255, 0.24) !important;
+}
+
+.admin-modal-close svg,
+.admin-modal-close svg * {
+  stroke: currentColor !important;
+}
+
+
+/* Warning text box */
+
+.admin-delete-warning {
+  color: #c8bdd5 !important;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.25) !important;
+
+  background:
+    rgba(166, 108, 255, 0.07) !important;
+}
+
+
+/* Cancel button */
+
+.admin-cancel-button,
+.admin-cancel-button:focus,
+.admin-cancel-button:active {
+  color: #d7cae5 !important;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.4) !important;
+
+  background:
+    rgba(166, 108, 255, 0.08) !important;
+
+  box-shadow: none !important;
+}
+
+.admin-cancel-button:hover:not(:disabled) {
+  color: #ffffff !important;
+
+  border-color: #a66cff !important;
+
+  background:
+    rgba(166, 108, 255, 0.2) !important;
+}
+
+
+/* Delete confirmation button */
+
+.admin-confirm-delete-button,
+.admin-confirm-delete-button:focus,
+.admin-confirm-delete-button:active {
+  color: #ffffff !important;
+
+  border:
+    1px solid #a66cff !important;
+
+  background:
+    linear-gradient(135deg,
+      #864adb,
+      #6531ac) !important;
+
+  box-shadow: none !important;
+}
+
+.admin-confirm-delete-button:hover:not(:disabled) {
+  color: #ffffff !important;
+
+  border-color: #c797ff !important;
+
+  background:
+    linear-gradient(135deg,
+      #9c60ef,
+      #783dc5) !important;
+
+  box-shadow:
+    0 8px 22px rgba(130, 65, 215, 0.3) !important;
+
+  transform:
+    translateY(-1px);
+}
+
+.admin-confirm-delete-button svg,
+.admin-confirm-delete-button svg * {
+  color: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* =========================================================
+   ADMIN DASHBOARD ERROR — PURPLE THEME
+========================================================= */
+
+.admin-main>.admin-error {
+  width: 100%;
+
+  padding: 14px 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  color: #d8c5f5 !important;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.42) !important;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(135deg,
+      rgba(166, 108, 255, 0.1),
+      rgba(90, 44, 155, 0.08)) !important;
+
+  box-shadow: none !important;
+}
+
+.admin-main>.admin-error p {
+  margin: 0;
+
+  color: #d8c5f5 !important;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+/* Try again button */
+
+.admin-main>.admin-error button {
+  width: auto !important;
+  height: auto !important;
+
+  padding: 8px 13px !important;
+
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #c797ff !important;
+
+  border:
+    1px solid rgba(166, 108, 255, 0.45) !important;
+
+  border-radius: 9px;
+
+  outline: none !important;
+
+  background:
+    rgba(166, 108, 255, 0.1) !important;
+
+  box-shadow: none !important;
+
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-main>.admin-error button:hover {
+  color: #ffffff !important;
+
+  border-color: #a66cff !important;
+
+  background:
+    linear-gradient(135deg,
+      #864adb,
+      #6531ac) !important;
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* Refresh button hover */
+
+.admin-refresh-button:hover,
+.admin-page-header button:hover {
+  color: #ffffff !important;
+
+  border-color: #a66cff !important;
+
+  background:
+    rgba(166, 108, 255, 0.22) !important;
+
+  box-shadow:
+    0 7px 20px rgba(126, 67, 207, 0.2) !important;
+}
+
+/* =========================================================
+   DELETE MODAL — COOL PURPLE FINAL OVERRIDE
+========================================================= */
+
+html body #root .admin-modal-backdrop .admin-confirm-modal,
+html body #root .admin-modal-backdrop .admin-confirm-modal:hover {
+  border:
+    1px solid #513a78 !important;
+
+  background:
+    linear-gradient(145deg,
+      #181221 0%,
+      #0d0a13 100%) !important;
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.65),
+    0 0 35px rgba(99, 72, 184, 0.12) !important;
+}
+
+/* Purane pseudo-element effects remove */
+
+html body #root .admin-confirm-modal::before,
+html body #root .admin-confirm-modal::after {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+
+/* Warning icon */
+
+html body #root .admin-confirm-icon {
+  color: #a990ff !important;
+
+  border-color:
+    #594287 !important;
+
+  background:
+    rgba(108, 76, 190, 0.14) !important;
+
+  box-shadow: none !important;
+}
+
+html body #root .admin-confirm-icon svg,
+html body #root .admin-confirm-icon svg * {
+  color: #a990ff !important;
+  stroke: #a990ff !important;
+}
+
+
+/* Close button */
+
+html body #root .admin-modal-close,
+html body #root .admin-modal-close:focus,
+html body #root .admin-modal-close:active {
+  color: #a990ff !important;
+
+  border-color:
+    #594287 !important;
+
+  background:
+    rgba(108, 76, 190, 0.12) !important;
+
+  box-shadow: none !important;
+}
+
+html body #root .admin-modal-close:hover:not(:disabled) {
+  color: #ffffff !important;
+
+  /* border-color:
+    #7c5cff !important;
+
+  background:
+    #4f3690 !important; */
+}
+
+
+/* Information box */
+
+html body #root .admin-delete-warning {
+  color: #c4bad1 !important;
+
+  border-color:
+    #3f3158 !important;
+
+  background:
+    rgba(82, 60, 117, 0.13) !important;
+
+  box-shadow: none !important;
+}
+
+
+/* Cancel button */
+
+html body #root .admin-cancel-button {
+  color: #d4cbe0 !important;
+
+  border-color:
+    #4c386c !important;
+
+  background:
+    #171020 !important;
+
+  box-shadow: none !important;
+}
+
+html body #root .admin-cancel-button:hover:not(:disabled) {
+  color: #ffffff !important;
+
+  border-color:
+    #7654b2 !important;
+
+  background:
+    #2b1d40 !important;
+}
+
+
+/* Delete button */
+
+html body #root .admin-confirm-delete-button {
+  color: #ffffff !important;
+
+  border-color:
+    #7658d5 !important;
+
+  background:
+    linear-gradient(135deg,
+      #7452d4,
+      #5133a5) !important;
+
+  box-shadow: none !important;
+}
+
+html body #root .admin-confirm-delete-button:hover:not(:disabled) {
+  color: #ffffff !important;
+
+  border-color:
+    #9b82ee !important;
+
+  background:
+    linear-gradient(135deg,
+      #8566df,
+      #6042b8) !important;
+
+  box-shadow:
+    0 8px 22px rgba(93, 65, 180, 0.3) !important;
+
+  transform:
+    translateY(-1px);
+}
+
+/* FINAL FIX — MODAL CLOSE ICON */
+
+html body #root .admin-modal-backdrop .admin-confirm-modal .admin-modal-close svg,
+html body #root .admin-modal-backdrop .admin-confirm-modal .admin-modal-close svg *,
+html body #root .admin-modal-backdrop .admin-confirm-modal .admin-modal-close svg path,
+html body #root .admin-modal-backdrop .admin-confirm-modal .admin-modal-close svg line {
+  color: #b9a7ff !important;
+  stroke: #b9a7ff !important;
+  fill: none !important;
+}
+
+
+/* Hover par white icon */
+
+html body #root .admin-modal-backdrop .admin-confirm-modal .admin-modal-close:hover svg,
+html body #root .admin-modal-backdrop .admin-confirm-modal .admin-modal-close:hover svg *,
+html body #root .admin-modal-backdrop .admin-confirm-modal .admin-modal-close:hover svg path,
+html body #root .admin-modal-backdrop .admin-confirm-modal .admin-modal-close:hover svg line {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: none !important;
+}
+
+/* =========================================================
+   GENERATION ACTION BUTTONS — FINAL
+========================================================= */
+
+html body #root .admin-page .admin-generation-actions {
+  width: 100%;
+
+  margin-top: 20px;
+
+  padding-top: 15px;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  border-top:
+    1px solid rgba(124, 92, 255, 0.12);
+}
+
+
+/* View details — no border */
+
+html body #root .admin-page .admin-generation-view-button,
+html body #root .admin-page .admin-generation-view-button:focus,
+html body #root .admin-page .admin-generation-view-button:focus-visible,
+html body #root .admin-page .admin-generation-view-button:active {
+  min-height: 38px;
+
+  padding: 9px 13px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  color: #b9a7ff !important;
+
+  border: none !important;
+  outline: none !important;
+
+  border-radius: 9px;
+
+  background:
+    rgba(108, 76, 190, 0.12) !important;
+
+  box-shadow: none !important;
+
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* Purple hover — no pink and no border */
+
+html body #root .admin-page .admin-generation-view-button:hover:not(:disabled) {
+  color: #ffffff !important;
+
+  border: none !important;
+
+  background:
+    #51379b !important;
+
+  box-shadow: none !important;
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* Eye icon */
+
+html body #root .admin-page .admin-generation-view-button svg,
+html body #root .admin-page .admin-generation-view-button svg *,
+html body #root .admin-page .admin-generation-view-button:hover svg,
+html body #root .admin-page .admin-generation-view-button:hover svg * {
+  color: currentColor !important;
+  stroke: currentColor !important;
+  fill: none !important;
+}
+
+
+/* Delete button spacing */
+
+html body #root .admin-page .admin-generation-actions .admin-delete-user-button {
+  margin: 0 !important;
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   GENERATION DETAILS MODAL — PURPLE BLACK THEME
+========================================================= */
+
+html body #root .admin-generation-details-modal {
+  width:
+    min(580px, 100%);
+
+  max-height:
+    calc(100vh - 40px);
+
+  padding: 30px;
+
+  position: relative;
+
+  overflow-y: auto;
+
+  color: #ffffff;
+
+  border:
+    1px solid #4d376f;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(145deg,
+      #1b1426 0%,
+      #0d0a13 100%);
+
+  box-shadow:
+    0 30px 85px rgba(0, 0, 0, 0.68),
+    0 0 40px rgba(93, 66, 175, 0.12);
+}
+
+
+/* Top icon */
+
+html body #root .admin-generation-details-icon {
+  width: 58px;
+  height: 58px;
+
+  display: grid;
+  place-items: center;
+
+  color: #b9a7ff;
+
+  border-radius: 17px;
+
+  background:
+    rgba(108, 76, 190, 0.16);
+}
+
+html body #root .admin-generation-details-icon svg,
+html body #root .admin-generation-details-icon svg * {
+  color: #b9a7ff;
+  stroke: #b9a7ff;
+}
+
+
+/* Heading */
+
+html body #root .admin-generation-details-modal h2 {
+  margin:
+    21px 0 7px;
+
+  color: #ffffff;
+
+  font-size: 26px;
+  line-height: 1.2;
+
+  letter-spacing: -0.03em;
+}
+
+html body #root .admin-generation-details-modal>p {
+  margin: 0;
+
+  color: #aaa0b8;
+
+  font-size: 14px;
+}
+
+
+/* Details grid */
+
+html body #root .admin-generation-details-grid {
+  margin-top: 25px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+html body #root .admin-generation-details-grid>div {
+  min-width: 0;
+
+  padding: 14px 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  border-radius: 12px;
+
+  background:
+    rgba(108, 76, 190, 0.09);
+}
+
+html body #root .admin-generation-details-grid span {
+  color: #9589a4;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+}
+
+html body #root .admin-generation-details-grid strong {
+  overflow: hidden;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+
+/* Close button */
+
+html body #root .admin-generation-details-modal .admin-modal-close {
+  width: 38px;
+  height: 38px;
+
+  position: absolute;
+
+  top: 18px;
+  right: 18px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+
+  color: #b9a7ff !important;
+
+  border: none !important;
+
+  border-radius: 10px;
+
+  outline: none !important;
+
+  background:
+    rgba(108, 76, 190, 0.14) !important;
+
+  box-shadow: none !important;
+
+  cursor: pointer;
+}
+
+html body #root .admin-generation-details-modal .admin-modal-close:hover {
+  color: #ffffff !important;
+
+  border: none !important;
+
+  background:
+    #51379b !important;
+}
+
+html body #root .admin-generation-details-modal .admin-modal-close svg,
+html body #root .admin-generation-details-modal .admin-modal-close svg * {
+  color: currentColor !important;
+  stroke: currentColor !important;
+  fill: none !important;
+}
+
+
+/* Scrollbar */
+
+.admin-generation-details-modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-generation-details-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-generation-details-modal::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background:
+    rgba(124, 92, 255, 0.4);
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  html body #root .admin-generation-details-modal {
+    padding:
+      27px 19px 20px;
+  }
+
+  html body #root .admin-generation-details-grid {
+    grid-template-columns:
+      1fr;
+  }
+}
+
+/* =========================================================
+   GENERATION DETAILS — NO PINK, NO OUTER BORDER
+========================================================= */
+
+html body #root .admin-modal-backdrop .admin-generation-details-modal,
+html body #root .admin-modal-backdrop .admin-generation-details-modal:hover,
+html body #root .admin-modal-backdrop .admin-generation-details-modal:focus {
+  border: none !important;
+  outline: none !important;
+
+  background:
+    linear-gradient(145deg,
+      #181321 0%,
+      #0d0a13 100%) !important;
+
+  box-shadow:
+    0 30px 85px rgba(0, 0, 0, 0.72),
+    0 0 38px rgba(86, 66, 175, 0.16) !important;
+}
+
+
+/* Remove any old border pseudo-elements */
+
+html body #root .admin-generation-details-modal::before,
+html body #root .admin-generation-details-modal::after {
+  content: none !important;
+
+  display: none !important;
+
+  border: none !important;
+
+  background: none !important;
+
+  box-shadow: none !important;
+}
+
+
+/* Icon — cool purple only */
+
+html body #root .admin-generation-details-icon {
+  color: #a99cff !important;
+
+  border: none !important;
+
+  background:
+    #292043 !important;
+
+  box-shadow: none !important;
+}
+
+html body #root .admin-generation-details-icon svg,
+html body #root .admin-generation-details-icon svg * {
+  color: #a99cff !important;
+  stroke: #a99cff !important;
+  fill: none !important;
+}
+
+
+/* Close button — no border */
+
+html body #root .admin-generation-details-modal .admin-modal-close,
+html body #root .admin-generation-details-modal .admin-modal-close:focus,
+html body #root .admin-generation-details-modal .admin-modal-close:active {
+  color: #a99cff !important;
+
+  border: none !important;
+  outline: none !important;
+
+  background:
+    #292043 !important;
+
+  box-shadow: none !important;
+}
+
+html body #root .admin-generation-details-modal .admin-modal-close:hover {
+  color: #ffffff !important;
+
+  border: none !important;
+
+  background:
+    #5141a0 !important;
+
+  box-shadow: none !important;
+}
+
+
+/* Details boxes — purple black */
+
+html body #root .admin-generation-details-grid>div {
+  border: none !important;
+
+  background:
+    #1c152a !important;
+
+  box-shadow: none !important;
 }

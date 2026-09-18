@@ -1074,180 +1074,324 @@ html[data-theme="light"] body #root .materials-page .materials-search input:acti
    MY MATERIALS - PREPARE MATERIAL STYLE BACKGROUND
 ========================================================= */
 
+/* =========================================================
+   MATERIALS BACKGROUND - HISTORY STYLE
+========================================================= */
+
 .materials-page {
   position: relative;
-  isolation: isolate;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
-
-
-/* Background decoration container */
-
-.materials-background-art {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-
-  overflow: hidden;
-
-  pointer-events: none;
-}
-
-
-/* Keep actual page content above decorations */
 
 .materials-content {
   position: relative;
-  z-index: 2;
+  z-index: 5;
 }
 
+.materials-background-art {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
 
-/* =========================================================
-   LARGE ORBIT LINES
-========================================================= */
-
-.materials-orbit {
-  position: absolute;
-
-  border: 1px solid rgba(166, 108, 255, 0.09);
-  border-radius: 50%;
-
+  overflow: hidden;
   pointer-events: none;
 }
 
+/* Large oval orbit lines */
 
-.materials-orbit-one {
-  top: 120px;
+.materials-orbit {
+  position: absolute;
   left: 50%;
 
-  width: 1150px;
-  height: 520px;
+  border:
+    1px solid rgba(166, 108, 255, 0.1);
 
-  transform:
-    translateX(-50%) rotate(-8deg);
+  border-radius: 50%;
 }
 
+.materials-orbit-one {
+  width: 1450px;
+  height: 600px;
+
+  top: 40px;
+
+  transform:
+    translateX(-50%) rotate(-6deg);
+}
 
 .materials-orbit-two {
-  top: 350px;
-  left: -160px;
+  width: 1250px;
+  height: 500px;
 
-  width: 850px;
-  height: 430px;
+  top: 650px;
 
   transform:
-    rotate(18deg);
+    translateX(-50%) rotate(6deg);
 }
-
 
 .materials-orbit-three {
-  top: 520px;
-  right: -230px;
+  width: 1050px;
+  height: 430px;
 
-  width: 900px;
-  height: 440px;
+  top: 1200px;
+
+  opacity: 0.65;
 
   transform:
-    rotate(-16deg);
+    translateX(-50%) rotate(-5deg);
 }
 
-
-/* =========================================================
-   FLOATING STUDY ICONS
-========================================================= */
+/* Floating icon boxes */
 
 .materials-floating-icon {
   position: absolute;
 
-  color: rgba(166, 108, 255, 0.075);
+  width: 60px;
+  height: 60px;
 
-  stroke-width: 1.25;
+  display: grid;
+  place-items: center;
 
-  filter:
-    drop-shadow(0 10px 20px rgba(166, 108, 255, 0.05));
+  color: #ba84ff;
 
-  pointer-events: none;
+  border:
+    1px solid rgba(166, 108, 255, 0.18);
+
+  border-radius: 18px;
+
+  background:
+    rgba(83, 39, 151, 0.2);
+
+  box-shadow:
+    0 14px 35px rgba(60, 28, 112, 0.15);
+
+  opacity: 0.5;
 
   animation:
-    materials-background-float 7s ease-in-out infinite;
+    materials-history-float 6s ease-in-out infinite;
 }
 
-
-/* Book */
+/* Floating icon positions */
 
 .materials-float-book {
-  top: 145px;
-  right: 7%;
-
-  transform: rotate(12deg);
-
-  animation-delay: -1s;
-}
-
-
-/* Graduation cap */
-
-.materials-float-cap {
-  top: 380px;
-  left: 3%;
-
-  transform: rotate(-12deg);
-
-  animation-delay: -3.2s;
-}
-
-
-/* Brain */
-
-.materials-float-brain {
-  top: 620px;
-  right: 13%;
-
-  transform: rotate(8deg);
-
-  animation-delay: -4.4s;
-}
-
-
-/* Question document */
-
-.materials-float-question {
-  top: 710px;
-  left: 16%;
-
-  transform: rotate(-9deg);
-
-  animation-delay: -2.1s;
-}
-
-
-/* File */
-
-.materials-float-file {
-  top: 290px;
-  left: 47%;
-
-  transform: rotate(9deg);
-
-  animation-delay: -5s;
-}
-
-
-/* Sparkles */
-
-.materials-float-sparkle {
-  top: 505px;
-  right: 39%;
+  top: 115px;
+  left: 4%;
 
   transform: rotate(-8deg);
-
-  animation-delay: -1.8s;
+  animation-delay: -1.2s;
 }
 
+.materials-float-file {
+  top: 75px;
+  right: 4%;
+
+  width: 64px;
+  height: 64px;
+
+  transform: rotate(8deg);
+  animation-delay: -2.5s;
+}
+
+.materials-float-brain {
+  top: 390px;
+  left: 2%;
+
+  width: 58px;
+  height: 58px;
+
+  transform: rotate(-7deg);
+  animation-delay: -3.3s;
+}
+
+.materials-float-question {
+  top: 390px;
+  right: 3%;
+
+  width: 58px;
+  height: 58px;
+
+  transform: rotate(9deg);
+  animation-delay: -4.2s;
+}
+
+.materials-float-cap {
+  top: 760px;
+  left: 5%;
+
+  width: 54px;
+  height: 54px;
+
+  transform: rotate(7deg);
+  animation-delay: -2s;
+}
+
+.materials-float-sparkle {
+  top: 790px;
+  right: 9%;
+
+  width: 52px;
+  height: 52px;
+
+  transform: rotate(-7deg);
+  animation-delay: -3.8s;
+}
+
+/* Floating animation */
+
+@keyframes materials-history-float {
+
+  0%,
+  100% {
+    margin-top: 0;
+  }
+
+  50% {
+    margin-top: -16px;
+  }
+}
 
 /* =========================================================
    LIGHT THEME
 ========================================================= */
 
+:root[data-theme="light"] .materials-page {
+  background:
+    radial-gradient(circle at 15% 10%,
+      rgba(216, 91, 155, 0.06),
+      transparent 29%),
+    radial-gradient(circle at 85% 65%,
+      rgba(160, 63, 115, 0.04),
+      transparent 28%),
+    #fffafa !important;
+}
+
+:root[data-theme="light"] .materials-orbit {
+  border-color:
+    rgba(216, 91, 155, 0.15);
+}
+
+:root[data-theme="light"] .materials-floating-icon {
+  color: #d85b9b;
+
+  border-color:
+    rgba(216, 91, 155, 0.2);
+
+  background:
+    rgba(255, 241, 248, 0.78);
+
+  box-shadow:
+    0 14px 35px rgba(216, 91, 155, 0.08);
+
+  opacity: 0.48;
+}
+
+:root[data-theme="light"] .materials-floating-icon svg {
+  color: #d85b9b;
+  stroke: #d85b9b;
+}
+
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+:root:not([data-theme="light"]) .materials-page {
+  background:
+    radial-gradient(circle at 15% 8%,
+      rgba(135, 72, 244, 0.13),
+      transparent 30%),
+    radial-gradient(circle at 87% 70%,
+      rgba(95, 46, 190, 0.08),
+      transparent 28%),
+    #08070d !important;
+}
+
+:root:not([data-theme="light"]) .materials-orbit {
+  border-color:
+    rgba(166, 108, 255, 0.1);
+}
+
+:root:not([data-theme="light"]) .materials-floating-icon {
+  color: #ba84ff;
+
+  border-color:
+    rgba(166, 108, 255, 0.18);
+
+  background:
+    rgba(83, 39, 151, 0.2);
+}
+
+:root:not([data-theme="light"]) .materials-floating-icon svg {
+  color: #ba84ff;
+  stroke: #ba84ff;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .materials-orbit-one {
+    width: 1100px;
+    height: 520px;
+  }
+
+  .materials-orbit-two {
+    width: 1000px;
+    height: 470px;
+  }
+
+  .materials-orbit-three {
+    width: 900px;
+  }
+
+  .materials-floating-icon {
+    opacity: 0.38;
+  }
+}
+
+@media (max-width: 700px) {
+  .materials-orbit-one {
+    width: 900px;
+    height: 470px;
+    top: 90px;
+  }
+
+  .materials-orbit-two {
+    width: 850px;
+    height: 430px;
+    top: 720px;
+  }
+
+  .materials-orbit-three {
+    display: none;
+  }
+
+  .materials-float-file,
+  .materials-float-cap,
+  .materials-float-sparkle {
+    display: none;
+  }
+
+  .materials-floating-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 14px;
+    opacity: 0.32;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .materials-floating-icon {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+/* 
 :root[data-theme="light"] .materials-page {
   background:
     radial-gradient(circle at 12% 10%,
@@ -1292,7 +1436,7 @@ html[data-theme="light"] body #root .materials-page .materials-search input:acti
 :root[data-theme="light"] .materials-float-brain {
   color:
     rgba(216, 91, 155, 0.09);
-}
+}  */
 
 
 /* =========================================================
@@ -1458,5 +1602,425 @@ html[data-theme="light"] body #root .materials-page .materials-search input:acti
 :root[data-theme="dark"] .delete-material-button:hover svg {
   color: #ffffff !important;
   stroke: #ffffff !important;
+}
+
+/* =========================================================
+   DELETE MATERIAL MODAL
+========================================================= */
+
+.delete-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(6, 4, 10, 0.76);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+
+  animation: deleteOverlayFade 0.2s ease;
+}
+
+.delete-modal {
+  position: relative;
+
+  width: min(100%, 460px);
+  padding: 30px;
+
+  color: #ffffff;
+
+  border: 1px solid rgba(166, 108, 255, 0.45);
+  border-radius: 22px;
+
+  background:
+    radial-gradient(circle at top,
+      rgba(166, 108, 255, 0.15),
+      transparent 42%),
+    #15121b;
+
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.55),
+    0 0 35px rgba(166, 108, 255, 0.14);
+
+  animation: deleteModalOpen 0.24s ease;
+}
+
+.delete-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  width: 38px;
+  height: 38px;
+  padding: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #c9c1d2;
+
+  border: 1px solid rgba(166, 108, 255, 0.25);
+  border-radius: 10px;
+
+  background: rgba(166, 108, 255, 0.06);
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.delete-modal-close:hover:not(:disabled) {
+  color: #ffffff;
+
+  border-color: #a66cff;
+
+  background: rgba(166, 108, 255, 0.18);
+
+  transform: rotate(5deg);
+}
+
+.delete-modal-icon {
+  width: 58px;
+  height: 58px;
+  margin-bottom: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #c093ff;
+
+  border: 1px solid rgba(166, 108, 255, 0.45);
+  border-radius: 17px;
+
+  background: rgba(166, 108, 255, 0.1);
+
+  box-shadow:
+    0 0 24px rgba(166, 108, 255, 0.16);
+}
+
+.delete-modal-content h2 {
+  margin: 0 45px 10px 0;
+
+  color: #ffffff;
+
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.delete-modal-content p {
+  margin: 0;
+
+  color: #b9b1c2;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.delete-modal-content strong {
+  color: #c093ff;
+
+  overflow-wrap: anywhere;
+}
+
+.delete-modal-warning {
+  margin-top: 14px !important;
+  padding: 13px 14px;
+
+  color: #c9c1d2 !important;
+
+  border: 1px solid rgba(166, 108, 255, 0.2);
+  border-radius: 12px;
+
+  background: rgba(166, 108, 255, 0.06);
+}
+
+.delete-modal-actions {
+  margin-top: 26px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.delete-cancel-button,
+.delete-confirm-button {
+  min-height: 46px;
+  padding: 0 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border-radius: 12px;
+
+  font: inherit;
+  font-size: 14px;
+  font-weight: 750;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.delete-cancel-button {
+  color: #d1cad8;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.delete-cancel-button:hover:not(:disabled) {
+  color: #ffffff;
+
+  border-color: rgba(166, 108, 255, 0.5);
+
+  background: rgba(166, 108, 255, 0.1);
+
+  transform: translateY(-2px);
+}
+
+.delete-confirm-button {
+  color: #ffffff;
+
+  border: 1px solid #a66cff;
+
+  background:
+    linear-gradient(135deg,
+      #a66cff,
+      #7133d9);
+
+  box-shadow:
+    0 10px 25px rgba(113, 51, 217, 0.28);
+}
+
+.delete-confirm-button:hover:not(:disabled) {
+  border-color: #c093ff;
+
+  background:
+    linear-gradient(135deg,
+      #b77aff,
+      #8245e5);
+
+  box-shadow:
+    0 13px 30px rgba(166, 108, 255, 0.34);
+
+  transform: translateY(-2px);
+}
+
+.delete-modal button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
+
+/* =========================================================
+   DELETE MODAL - LIGHT THEME
+========================================================= */
+
+:root[data-theme="light"] .delete-modal-overlay {
+  background: rgba(77, 43, 62, 0.3);
+}
+
+:root[data-theme="light"] .delete-modal {
+  color: #2d2b2e;
+
+  border-color: rgba(216, 91, 155, 0.38);
+
+  background:
+    radial-gradient(circle at top,
+      rgba(216, 91, 155, 0.12),
+      transparent 42%),
+    #fffafa;
+
+  box-shadow:
+    0 28px 75px rgba(92, 48, 70, 0.2),
+    0 0 30px rgba(216, 91, 155, 0.12);
+}
+
+:root[data-theme="light"] .delete-modal-close {
+  color: #8a6177;
+
+  border-color: rgba(160, 63, 115, 0.25);
+
+  background: rgba(216, 91, 155, 0.06);
+}
+
+:root[data-theme="light"] .delete-modal-close:hover:not(:disabled) {
+  color: #a03f73;
+
+  border-color: #d85b9b;
+
+  background: rgba(216, 91, 155, 0.12);
+}
+
+:root[data-theme="light"] .delete-modal-icon {
+  color: #a03f73;
+
+  border-color: rgba(216, 91, 155, 0.4);
+
+  background: rgba(216, 91, 155, 0.09);
+
+  box-shadow:
+    0 0 22px rgba(216, 91, 155, 0.12);
+}
+
+:root[data-theme="light"] .delete-modal-content h2 {
+  color: #2d2b2e;
+}
+
+:root[data-theme="light"] .delete-modal-content p {
+  color: #716a6f;
+}
+
+:root[data-theme="light"] .delete-modal-content strong {
+  color: #a03f73;
+}
+
+:root[data-theme="light"] .delete-modal-warning {
+  color: #716a6f !important;
+
+  border-color: rgba(216, 91, 155, 0.22);
+
+  background: rgba(216, 91, 155, 0.06);
+}
+
+:root[data-theme="light"] .delete-cancel-button {
+  color: #62575d;
+
+  border-color: rgba(160, 63, 115, 0.25);
+
+  background: #ffffff;
+}
+
+:root[data-theme="light"] .delete-cancel-button:hover:not(:disabled) {
+  color: #a03f73;
+
+  border-color: #d85b9b;
+
+  background: #fff4f9;
+}
+
+:root[data-theme="light"] .delete-confirm-button {
+  color: #ffffff;
+
+  border-color: #d85b9b;
+
+  background:
+    linear-gradient(135deg,
+      #d85b9b,
+      #a03f73);
+
+  box-shadow:
+    0 10px 24px rgba(160, 63, 115, 0.23);
+}
+
+:root[data-theme="light"] .delete-confirm-button:hover:not(:disabled) {
+  border-color: #e979b4;
+
+  background:
+    linear-gradient(135deg,
+      #e46bab,
+      #ad487f);
+}
+
+
+/* =========================================================
+   DELETE MODAL ANIMATION
+========================================================= */
+
+@keyframes deleteOverlayFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes deleteModalOpen {
+  from {
+    opacity: 0;
+    transform:
+      translateY(18px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0) scale(1);
+  }
+}
+
+
+/* =========================================================
+   DELETE MODAL RESPONSIVE
+========================================================= */
+
+@media (max-width: 520px) {
+  .delete-modal {
+    padding: 25px 20px 20px;
+
+    border-radius: 18px;
+  }
+
+  .delete-modal-content h2 {
+    font-size: 21px;
+  }
+
+  .delete-modal-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .delete-cancel-button,
+  .delete-confirm-button {
+    width: 100%;
+  }
+}
+
+.material-card-pptx {
+  border-color: rgba(166, 108, 255, 0.34);
+  background:
+    radial-gradient(circle at 90% 10%,
+      rgba(166, 108, 255, 0.12),
+      transparent 38%),
+    var(--materials-surface);
+}
+
+.material-card-pptx .material-file-badge {
+  color: #c093ff;
+  border-color: rgba(166, 108, 255, 0.38);
+  background: rgba(166, 108, 255, 0.1);
+}
+
+:root[data-theme="light"] .material-card-pptx {
+  border-color: rgba(160, 63, 115, 0.4);
+  background: #fffafa;
+}
+
+:root[data-theme="light"] .material-card-pptx .material-file-badge {
+  color: #a03f73;
+  border-color: rgba(160, 63, 115, 0.4);
+  background: rgba(160, 63, 115, 0.08);
 }
 

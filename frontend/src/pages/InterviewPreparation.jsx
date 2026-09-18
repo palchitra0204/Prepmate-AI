@@ -1,18 +1,26 @@
 import { useState } from "react";
+
 import {
   ArrowLeft,
+  BookOpen,
+  BrainCircuit,
+  Database,
+  FileQuestion,
+  GraduationCap,
+  History,
   LoaderCircle,
   MessageSquareText,
   Sparkles,
 } from "lucide-react";
+
 import {
   Link,
   useParams,
 } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
-import api from "../services/api";
 import ThemeSelect from "../components/ThemeSelect";
+import api from "../services/api";
 
 import "../styles/interviewPreparation.css";
 
@@ -34,9 +42,17 @@ const InterviewPreparation = () => {
   const [loading, setLoading] =
     useState(false);
 
-  const [error, setError] = useState("");
+  const [error, setError] =
+    useState("");
 
   const generateQuestions = async () => {
+    if (!materialId) {
+      setError(
+        "Material ID is missing. Please return to your materials and try again."
+      );
+      return;
+    }
+
     try {
       setLoading(true);
       setError("");
@@ -49,15 +65,33 @@ const InterviewPreparation = () => {
           materialId,
           mode: "INTERVIEW",
           difficulty,
-          questionCount:
-            Number(questionCount),
+          questionCount: Number(questionCount),
         }
       );
 
-      setQuestions(
-        response.data.preparation?.content || []
-      );
+      const generatedQuestions =
+        response.data?.preparation?.content ||
+        response.data?.content ||
+        [];
+
+      if (
+        !Array.isArray(generatedQuestions) ||
+        generatedQuestions.length === 0
+      ) {
+        setError(
+          "No interview questions were generated. Please try again."
+        );
+        return;
+      }
+
+      setQuestions(generatedQuestions);
     } catch (requestError) {
+      console.error(
+        "Interview generation error:",
+        requestError.response?.data ||
+        requestError
+      );
+
       setError(
         requestError.response?.data?.message ||
         "Unable to generate interview questions"
@@ -68,18 +102,57 @@ const InterviewPreparation = () => {
   };
 
   const toggleAnswer = (index) => {
-    setVisibleAnswers(
-      (previousAnswers) => ({
-        ...previousAnswers,
-        [index]:
-          !previousAnswers[index],
-      })
-    );
+    setVisibleAnswers((previousAnswers) => ({
+      ...previousAnswers,
+      [index]: !previousAnswers[index],
+    }));
   };
 
   return (
     <div className="interview-page">
       <Sidebar />
+
+      <div
+        className="interview-background-art"
+        aria-hidden="true"
+      >
+        <span className="interview-orbit interview-orbit-one" />
+        <span className="interview-orbit interview-orbit-two" />
+        <span className="interview-orbit interview-orbit-three" />
+        <span className="interview-orbit interview-orbit-four" />
+
+        <span className="interview-floating-icon interview-float-one">
+          <MessageSquareText size={24} />
+        </span>
+
+        <span className="interview-floating-icon interview-float-two">
+          <BookOpen size={24} />
+        </span>
+
+        <span className="interview-floating-icon interview-float-three">
+          <BrainCircuit size={24} />
+        </span>
+
+        <span className="interview-floating-icon interview-float-four">
+          <GraduationCap size={25} />
+        </span>
+
+        <span className="interview-floating-icon interview-float-five">
+          <FileQuestion size={23} />
+        </span>
+
+        <span className="interview-floating-icon interview-float-six">
+          <Database size={22} />
+        </span>
+
+        <span className="interview-floating-icon interview-float-seven">
+          <History size={23} />
+        </span>
+
+        <span className="interview-floating-icon interview-float-eight">
+          <Sparkles size={22} />
+        </span>
+      </div>
 
       <main className="interview-content">
         <Link
@@ -103,9 +176,7 @@ const InterviewPreparation = () => {
 
         <section className="interview-settings">
           <div>
-            <label htmlFor="interview-difficulty">
-              Difficulty
-            </label>
+            <label>Difficulty</label>
 
             <ThemeSelect
               value={difficulty}
@@ -129,9 +200,7 @@ const InterviewPreparation = () => {
           </div>
 
           <div>
-            <label htmlFor="interview-count">
-              Questions
-            </label>
+            <label>Questions</label>
 
             <ThemeSelect
               value={String(questionCount)}
@@ -174,69 +243,76 @@ const InterviewPreparation = () => {
 
             {loading
               ? "Generating..."
-              : "Generate questions"}
+              : questions.length > 0
+                ? "Generate again"
+                : "Generate questions"}
           </button>
         </section>
 
         {error && (
-          <div className="interview-error">
+          <div
+            className="interview-error"
+            role="alert"
+          >
             {error}
           </div>
         )}
 
         {questions.length > 0 && (
           <section className="interview-list">
-            {questions.map(
-              (item, index) => (
-                <article
-                  key={index}
-                  className="interview-card"
-                >
-                  <div className="interview-card-heading">
-                    <div>
-                      <MessageSquareText
-                        size={21}
-                      />
-                    </div>
-
-                    <span>
-                      Question {index + 1}
-                    </span>
+            {questions.map((item, index) => (
+              <article
+                key={
+                  item.id ||
+                  `interview-question-${index}`
+                }
+                className="interview-card"
+              >
+                <div className="interview-card-heading">
+                  <div>
+                    <MessageSquareText size={21} />
                   </div>
 
-                  <h2>{item.question}</h2>
+                  <span>
+                    Question {index + 1}
+                  </span>
+                </div>
 
-                  <button
-                    type="button"
-                    className="show-answer-button"
-                    onClick={() =>
-                      toggleAnswer(index)
-                    }
-                  >
-                    {visibleAnswers[index]
-                      ? "Hide suggested answer"
-                      : "Show suggested answer"}
-                  </button>
+                <h2>{item.question}</h2>
 
-                  {visibleAnswers[index] && (
-                    <div className="interview-answer">
-                      <strong>
-                        Suggested answer
-                      </strong>
+                <button
+                  type="button"
+                  className="show-answer-button"
+                  aria-expanded={
+                    Boolean(visibleAnswers[index])
+                  }
+                  onClick={() =>
+                    toggleAnswer(index)
+                  }
+                >
+                  {visibleAnswers[index]
+                    ? "Hide suggested answer"
+                    : "Show suggested answer"}
+                </button>
 
-                      <p>{item.answer}</p>
+                {visibleAnswers[index] && (
+                  <div className="interview-answer">
+                    <strong>
+                      Suggested answer
+                    </strong>
 
-                      {item.tip && (
-                        <div className="interview-tip">
-                          <strong>Tip:</strong>{" "}
-                          {item.tip}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </article>
-              )
-            )}
+                    <p>{item.answer}</p>
+
+                    {item.tip && (
+                      <div className="interview-tip">
+                        <strong>Tip:</strong>{" "}
+                        {item.tip}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </article>
+            ))}
           </section>
         )}
       </main>

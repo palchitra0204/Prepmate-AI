@@ -58,6 +58,11 @@ const uploadMaterial = async (
     ) {
       fileType = "TXT";
 
+    } else if (
+      extension === "PPTX"
+    ) {
+      fileType = "PPTX";
+
     } else {
       if (
         req.file.path &&
@@ -74,7 +79,7 @@ const uploadMaterial = async (
       return res.status(400).json({
         success: false,
         message:
-          "Only PDF, DOC, DOCX and TXT files are allowed",
+          "Please select a PDF, DOC, DOCX, TXT or PPTX file", 
       });
     }
 

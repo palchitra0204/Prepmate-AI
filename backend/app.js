@@ -22,31 +22,25 @@ const preparationRoutes = require(
     "./routes/preparationRoutes"
 );
 
+const virtualInterviewRoutes =
+    require(
+        "./routes/virtualInterviewRoutes"
+    );
+
 const adminRoutes = require(
     "./routes/adminRoutes"
 );
 
 const app = express();
 
-/*
- * Express technology information
- * response header se remove karta hai.
- */
 app.disable("x-powered-by");
 
-/*
- * Security headers
- */
 app.use(
     helmet({
         crossOriginResourcePolicy: false,
     })
 );
 
-/*
- * Frontend ko backend APIs access
- * karne ki permission deta hai.
- */
 app.use(
     cors({
         origin:
@@ -71,18 +65,12 @@ app.use(
     })
 );
 
-/*
- * JSON request body parser
- */
 app.use(
     express.json({
         limit: "10mb",
     })
 );
 
-/*
- * Form-urlencoded body parser
- */
 app.use(
     express.urlencoded({
         extended: true,
@@ -90,15 +78,8 @@ app.use(
     })
 );
 
-/*
- * Cookie parser ko routes se
- * pehle add karna hai.
- */
 app.use(cookieParser());
 
-/*
- * Backend status route
- */
 app.get("/", (req, res) => {
     return res.status(200).json({
         success: true,
@@ -107,9 +88,6 @@ app.get("/", (req, res) => {
     });
 });
 
-/*
- * Health-check API
- */
 app.get(
     "/api/health",
     (req, res) => {
@@ -127,12 +105,6 @@ app.get(
     }
 );
 
-/*
- * Application API routes
- *
- * Har route ko sirf ek baar
- * register karna hai.
- */
 app.use(
     "/api/auth",
     authRoutes
@@ -154,29 +126,23 @@ app.use(
 );
 
 app.use(
+    "/api/virtual-interviews",
+    virtualInterviewRoutes
+);
+
+app.use(
     "/api/admin",
     adminRoutes
 );
 
-/*
- * Unknown API routes ke liye 404
- *
- * Is middleware ko saare valid
- * routes ke baad hona chahiye.
- */
 app.use((req, res) => {
     return res.status(404).json({
         success: false,
-        message: `Route not found: ${req.originalUrl}`,
+        message:
+            `Route not found: ${req.originalUrl}`,
     });
 });
 
-/*
- * Global error handler
- *
- * Ye hamesha app.js ke end mein
- * hona chahiye.
- */
 app.use(
     (error, req, res, next) => {
         console.error(
@@ -184,9 +150,6 @@ app.use(
             error
         );
 
-        /*
-         * Multer upload errors
-         */
         if (
             error instanceof
             multer.MulterError
@@ -208,12 +171,9 @@ app.use(
             });
         }
 
-        /*
-         * Unsupported upload format
-         */
         if (
             error.message ===
-            "Only PDF, DOC, DOCX and TXT files are allowed"
+            "Only PDF, DOC, DOCX, TXT and PPTX files are allowed"
         ) {
             return res.status(400).json({
                 success: false,
@@ -221,9 +181,6 @@ app.use(
             });
         }
 
-        /*
-         * Invalid MongoDB ObjectId
-         */
         if (
             error.name === "CastError"
         ) {
@@ -234,9 +191,6 @@ app.use(
             });
         }
 
-        /*
-         * Mongoose validation errors
-         */
         if (
             error.name ===
             "ValidationError"
@@ -257,9 +211,6 @@ app.use(
             });
         }
 
-        /*
-         * MongoDB duplicate value
-         */
         if (error.code === 11000) {
             return res.status(409).json({
                 success: false,
@@ -268,9 +219,6 @@ app.use(
             });
         }
 
-        /*
-         * Default server error
-         */
         return res
             .status(
                 error.statusCode || 500

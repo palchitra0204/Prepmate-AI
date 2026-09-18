@@ -2,6 +2,17 @@ const {
   GoogleGenAI,
 } = require("@google/genai");
 
+
+const DEFAULT_MODEL =
+  "gemini-embedding-001";
+
+const DEFAULT_DIMENSION = 768;
+
+
+/*
+ * Environment variables validate karke
+ * embedding configuration return karta hai.
+ */
 const getEmbeddingConfig = () => {
   const apiKey =
     process.env.GEMINI_API_KEY;
@@ -13,12 +24,14 @@ const getEmbeddingConfig = () => {
   }
 
   const model =
-    process.env.GEMINI_EMBEDDING_MODEL ||
-    "gemini-embedding-001";
+    process.env
+      .GEMINI_EMBEDDING_MODEL ||
+    DEFAULT_MODEL;
 
   const dimension = Number(
-    process.env.EMBEDDING_DIMENSION ||
-    768
+    process.env
+      .EMBEDDING_DIMENSION ||
+    DEFAULT_DIMENSION
   );
 
   if (
@@ -38,6 +51,43 @@ const getEmbeddingConfig = () => {
   };
 };
 
+
+/*
+ * Gemini client create karta hai.
+ */
+const getEmbeddingClient = () => {
+  const {
+    apiKey,
+  } = getEmbeddingConfig();
+
+  return new GoogleGenAI({
+    apiKey,
+  });
+};
+
+
+/*
+ * Embedding model ka naam return karta hai.
+ */
+const getEmbeddingModel = () => {
+  return getEmbeddingConfig().model;
+};
+
+
+/*
+ * Configured embedding dimension
+ * return karta hai.
+ */
+const getEmbeddingDimension = () => {
+  return getEmbeddingConfig()
+    .dimension;
+};
+
+
+/*
+ * Vector ko normalize karta hai taaki
+ * cosine similarity reliable rahe.
+ */
 const normalizeVector = (vector) => {
   if (
     !Array.isArray(vector) ||
@@ -48,10 +98,28 @@ const normalizeVector = (vector) => {
     );
   }
 
+  const numericVector =
+    vector.map((value) =>
+      Number(value)
+    );
+
+  const containsInvalidValue =
+    numericVector.some(
+      (value) =>
+        !Number.isFinite(value)
+    );
+
+  if (containsInvalidValue) {
+    throw new Error(
+      "Embedding contains invalid numeric values"
+    );
+  }
+
   const magnitude = Math.sqrt(
-    vector.reduce(
+    numericVector.reduce(
       (total, value) =>
-        total + value * value,
+        total +
+        value * value,
       0
     )
   );
@@ -62,39 +130,58 @@ const normalizeVector = (vector) => {
     );
   }
 
-  return vector.map(
-    (value) => value / magnitude
+  return numericVector.map(
+    (value) =>
+      value / magnitude
   );
 };
 
-const extractEmbeddingValues = (
+
+/*
+ * Gemini response se saare embedding
+ * vectors safely extract karta hai.
+ */
+const extractEmbeddingVectors = (
   response
 ) => {
-  const embedding =
-    response?.embeddings?.[0];
-
-  const values =
-    embedding?.values ||
-    embedding?.embedding?.values;
-
   if (
-    !Array.isArray(values) ||
-    values.length === 0
+    Array.isArray(
+      response?.embeddings
+    )
   ) {
-    throw new Error(
-      "Gemini did not return a valid embedding"
+    return response.embeddings.map(
+      (item) => {
+        return (
+          item?.values ||
+          item?.embedding?.values ||
+          []
+        );
+      }
     );
   }
 
-  return values;
+  if (
+    Array.isArray(
+      response?.embedding?.values
+    )
+  ) {
+    return [
+      response.embedding.values,
+    ];
+  }
+
+  return [];
 };
+
 
 /*
  * Single text ka embedding generate karta hai.
  */
 const generateEmbedding = async ({
   text,
-  taskType,
+  taskType =
+  "RETRIEVAL_QUERY",
+  title = "",
 }) => {
   const cleanText =
     String(text || "").trim();
@@ -106,35 +193,78 @@ const generateEmbedding = async ({
   }
 
   const {
-    apiKey,
     model,
     dimension,
   } = getEmbeddingConfig();
 
-  const ai = new GoogleGenAI({
-    apiKey,
-  });
+  const ai =
+    getEmbeddingClient();
 
   try {
     const response =
       await ai.models.embedContent({
         model,
-        contents: cleanText,
+
+        contents:
+          cleanText,
+
         config: {
           taskType,
+
           outputDimensionality:
             dimension,
+
+          autoTruncate:
+            true,
+
+          ...(title &&
+            taskType ===
+            "RETRIEVAL_DOCUMENT"
+            ? {
+              title:
+                String(
+                  title
+                )
+                  .trim()
+                  .slice(
+                    0,
+                    200
+                  ),
+            }
+            : {}),
         },
       });
 
-    const values =
-      extractEmbeddingValues(response);
+    const vectors =
+      extractEmbeddingVectors(
+        response
+      );
+
+    if (!vectors[0]?.length) {
+      throw new Error(
+        "Gemini did not return a valid embedding"
+      );
+    }
+
+    const embedding =
+      normalizeVector(
+        vectors[0]
+      );
+
+    if (
+      embedding.length !==
+      dimension
+    ) {
+      throw new Error(
+        `Expected embedding dimension ${dimension}, but received ${embedding.length}`
+      );
+    }
 
     return {
-      embedding:
-        normalizeVector(values),
+      embedding,
       model,
-      dimension: values.length,
+      dimension:
+        embedding.length,
     };
   } catch (error) {
     console.error(
@@ -149,67 +279,113 @@ const generateEmbedding = async ({
   }
 };
 
+
 /*
- * Uploaded document chunk ka embedding.
+ * Uploaded document chunk ka
+ * embedding generate karta hai.
  */
 const generateDocumentEmbedding =
-  async (text) => {
+  async (
+    text,
+    title = ""
+  ) => {
     return generateEmbedding({
       text,
+
+      title,
+
       taskType:
         "RETRIEVAL_DOCUMENT",
     });
   };
 
-/*
- * User query ka embedding.
- */
-const generateQueryEmbedding = async (
-  text
-) => {
-  return generateEmbedding({
-    text,
-    taskType: "RETRIEVAL_QUERY",
-  });
-};
 
 /*
- * Multiple material chunks ke embeddings.
+ * User search query ka embedding
+ * generate karta hai.
+ */
+const generateQueryEmbedding =
+  async (text) => {
+    return generateEmbedding({
+      text,
+
+      taskType:
+        "RETRIEVAL_QUERY",
+    });
+  };
+
+
+/*
+ * Multiple material chunks ke embeddings
+ * sequentially generate karta hai.
  *
- * Requests sequentially send ho rahi hain,
- * jisse rate-limit ka risk kam rahe.
+ * Sequential requests rate-limit ka risk
+ * reduce karti hain.
  */
 const generateDocumentEmbeddings =
-  async (chunks = []) => {
+  async (
+    chunks = [],
+    title = ""
+  ) => {
     if (!Array.isArray(chunks)) {
       throw new Error(
         "Chunks must be an array"
       );
     }
 
+    if (chunks.length === 0) {
+      return [];
+    }
+
     const embeddedChunks = [];
 
     for (const chunk of chunks) {
+      const content =
+        String(
+          chunk?.content || ""
+        ).trim();
+
+      if (!content) {
+        continue;
+      }
+
       const result =
         await generateDocumentEmbedding(
-          chunk.content
+          content,
+          title
         );
 
       embeddedChunks.push({
         ...chunk,
-        embedding: result.embedding,
-        embeddingModel: result.model,
+
+        embedding:
+          result.embedding,
+
+        embeddingModel:
+          result.model,
+
         embeddingDimension:
           result.dimension,
       });
     }
 
+    if (
+      embeddedChunks.length === 0
+    ) {
+      throw new Error(
+        "No valid material chunks were available for embedding"
+      );
+    }
+
     return embeddedChunks;
   };
+
 
 module.exports = {
   generateEmbedding,
   generateDocumentEmbedding,
   generateQueryEmbedding,
   generateDocumentEmbeddings,
+  getEmbeddingModel,
+  getEmbeddingDimension,
 };

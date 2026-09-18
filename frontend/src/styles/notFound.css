@@ -1,40 +1,116 @@
 .not-found-page {
+    --not-found-bg: #09080e;
+    --not-found-surface: #100e16;
+    --not-found-text: #ffffff;
+    --not-found-muted: #938d9a;
+    --not-found-accent: #a66cff;
+    --not-found-accent-light: #c89fff;
+    --not-found-border:
+        rgba(166, 108, 255, 0.24);
+
     min-height: 100vh;
     padding: 25px;
+
     display: grid;
     place-items: center;
-    color: #ffffff;
+
+    color: var(--not-found-text);
+
     background:
         radial-gradient(circle at 50% 40%,
             rgba(166, 108, 255, 0.14),
             transparent 35%),
-        #09080e;
-    font-family: "Inter", sans-serif;
+        var(--not-found-bg);
+
+    font-family:
+        "Inter",
+        sans-serif;
+}
+
+.not-found-page *,
+.not-found-page *::before,
+.not-found-page *::after {
+    box-sizing: border-box;
 }
 
 .not-found-card {
+    position: relative;
+
     width: min(100%, 560px);
+    overflow: hidden;
+
     padding: 50px 35px;
-    border: 1px solid rgba(166, 108, 255, 0.2);
+
+    border:
+        1px solid var(--not-found-border);
+
     border-radius: 23px;
-    background: rgba(16, 14, 23, 0.92);
+
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(166, 108, 255, 0.11),
+            transparent 48%),
+        rgba(16, 14, 22, 0.94);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.32),
+        0 0 45px rgba(166, 108, 255, 0.06);
+
     text-align: center;
+}
+
+.not-found-card::before {
+    position: absolute;
+
+    top: 0;
+    left: 18%;
+
+    width: 64%;
+    height: 1px;
+
+    content: "";
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            var(--not-found-accent-light),
+            transparent);
 }
 
 .not-found-icon {
     width: 68px;
     height: 68px;
+
     margin: 0 auto 25px;
+
     display: grid;
     place-items: center;
-    color: #b889ff;
+
+    color: var(--not-found-accent-light);
+
+    border:
+        1px solid var(--not-found-border);
+
     border-radius: 18px;
-    background: rgba(166, 108, 255, 0.13);
+
+    background:
+        rgba(166, 108, 255, 0.13);
+
+    box-shadow:
+        0 12px 30px rgba(113, 51, 217, 0.2);
+}
+
+.not-found-icon svg {
+    color: currentColor;
+    stroke: currentColor;
 }
 
 .not-found-card p {
     margin: 0 0 10px;
-    color: #b17cff;
+
+    color:
+        var(--not-found-accent-light);
+
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -43,31 +119,220 @@
 
 .not-found-card h1 {
     margin: 0 0 13px;
-    font-family: "Manrope", sans-serif;
-    font-size: clamp(34px, 6vw, 54px);
+
+    color:
+        var(--not-found-text);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size:
+        clamp(34px, 6vw, 54px);
+
+    line-height: 1.1;
     letter-spacing: -0.04em;
 }
 
 .not-found-card>span {
     display: block;
-    color: #928c99;
+
+    max-width: 430px;
+    margin: 0 auto;
+
+    color:
+        var(--not-found-muted);
+
     line-height: 1.7;
 }
 
 .not-found-card a {
     width: fit-content;
     min-height: 47px;
+
     margin: 28px auto 0;
     padding: 0 18px;
-    display: flex;
+
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    color: #09070d;
+
+    color: #ffffff;
+
+    border:
+        1px solid var(--not-found-accent);
+
     border-radius: 10px;
-    background: linear-gradient(135deg,
-            #bd91ff,
-            #8d61ff);
+
+    background:
+        linear-gradient(135deg,
+            #a66cff,
+            #7133d9);
+
+    box-shadow:
+        0 11px 27px rgba(113, 51, 217, 0.28);
+
     font-weight: 700;
     text-decoration: none;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.not-found-card a svg {
+    color: #ffffff;
+    stroke: #ffffff;
+}
+
+.not-found-card a:hover {
+    color: #ffffff;
+
+    background:
+        linear-gradient(135deg,
+            #b77eff,
+            #8245e8);
+
+    box-shadow:
+        0 0 0 4px rgba(166, 108, 255, 0.12),
+        0 14px 30px rgba(113, 51, 217, 0.3);
+
+    transform:
+        translateY(-2px);
+}
+
+/* =========================================
+   LIGHT THEME
+========================================= */
+
+:root[data-theme="light"] .not-found-page {
+    --not-found-bg: #fffafa;
+    --not-found-surface: #ffffff;
+    --not-found-text: #2d2b2e;
+    --not-found-muted: #716a6f;
+    --not-found-accent: #a03f73;
+    --not-found-accent-light: #d85b9b;
+    --not-found-border:
+        rgba(160, 63, 115, 0.3);
+
+    background:
+        radial-gradient(circle at 50% 40%,
+            rgba(216, 91, 155, 0.1),
+            transparent 37%),
+        #fffafa;
+}
+
+:root[data-theme="light"] .not-found-card {
+    border-color:
+        rgba(160, 63, 115, 0.3);
+
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(216, 91, 155, 0.09),
+            transparent 48%),
+        #ffffff;
+
+    box-shadow:
+        0 24px 65px rgba(160, 63, 115, 0.11),
+        0 0 40px rgba(216, 91, 155, 0.05);
+}
+
+:root[data-theme="light"] .not-found-card::before {
+    background:
+        linear-gradient(90deg,
+            transparent,
+            #d85b9b,
+            transparent);
+}
+
+:root[data-theme="light"] .not-found-icon {
+    color: #d85b9b;
+
+    border-color:
+        rgba(216, 91, 155, 0.27);
+
+    background: #fff2f8;
+
+    box-shadow:
+        0 12px 30px rgba(160, 63, 115, 0.11);
+}
+
+:root[data-theme="light"] .not-found-card p {
+    color: #a03f73;
+}
+
+:root[data-theme="light"] .not-found-card h1 {
+    color: #2d2b2e;
+}
+
+:root[data-theme="light"] .not-found-card>span {
+    color: #716a6f;
+}
+
+:root[data-theme="light"] .not-found-card a {
+    color: #ffffff;
+
+    border-color: #d85b9b;
+
+    background:
+        linear-gradient(135deg,
+            #d85b9b,
+            #a03f73);
+
+    box-shadow:
+        0 11px 27px rgba(160, 63, 115, 0.22);
+}
+
+:root[data-theme="light"] .not-found-card a:hover {
+    color: #ffffff;
+
+    border-color: #e979b4;
+
+    background:
+        linear-gradient(135deg,
+            #e46bab,
+            #ad487f);
+
+    box-shadow:
+        0 0 0 4px rgba(216, 91, 155, 0.13),
+        0 14px 30px rgba(160, 63, 115, 0.22);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 550px) {
+    .not-found-page {
+        padding: 16px;
+    }
+
+    .not-found-card {
+        padding: 38px 20px;
+
+        border-radius: 19px;
+    }
+
+    .not-found-icon {
+        width: 60px;
+        height: 60px;
+
+        border-radius: 16px;
+    }
+
+    .not-found-card h1 {
+        font-size: 36px;
+    }
+
+    .not-found-card a {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .not-found-card a {
+        transition: none;
+    }
 }

@@ -10,8 +10,8 @@ import {
 } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
-import api from "../services/api";
 import ThemeSelect from "../components/ThemeSelect";
+import api from "../services/api";
 
 import "../styles/questionAnswerPreparation.css";
 
@@ -33,14 +33,22 @@ const QuestionAnswerPreparation = () => {
   const [loading, setLoading] =
     useState(false);
 
+  const [hasGenerated, setHasGenerated] =
+    useState(false);
+
   const [error, setError] = useState("");
 
   const generateQuestions = async () => {
+    if (!materialId || loading) {
+      return;
+    }
+
     try {
       setLoading(true);
       setError("");
       setQuestions([]);
       setOpenAnswers({});
+      setHasGenerated(false);
 
       const response = await api.post(
         "/preparations/generate",
@@ -50,27 +58,44 @@ const QuestionAnswerPreparation = () => {
           difficulty,
           questionCount:
             Number(questionCount),
-        }
+        },
       );
 
-      setQuestions(
-        response.data.preparation?.content || []
-      );
+      const generatedContent =
+        response.data?.preparation?.content;
+
+      const generatedQuestions =
+        Array.isArray(generatedContent)
+          ? generatedContent
+          : Array.isArray(
+            generatedContent?.questions,
+          )
+            ? generatedContent.questions
+            : [];
+
+      setQuestions(generatedQuestions);
+      setHasGenerated(true);
     } catch (requestError) {
       setError(
         requestError.response?.data?.message ||
-        "Unable to generate questions"
+        "Unable to generate questions",
       );
+
+      setQuestions([]);
+      setHasGenerated(false);
     } finally {
       setLoading(false);
     }
   };
 
   const toggleAnswer = (index) => {
-    setOpenAnswers((previousAnswers) => ({
-      ...previousAnswers,
-      [index]: !previousAnswers[index],
-    }));
+    setOpenAnswers(
+      (previousAnswers) => ({
+        ...previousAnswers,
+        [index]:
+          !previousAnswers[index],
+      }),
+    );
   };
 
   return (
@@ -88,20 +113,26 @@ const QuestionAnswerPreparation = () => {
 
         <header className="qa-heading">
           <p>Study preparation</p>
+
           <h1>Question & Answers</h1>
+
           <span>
             Generate important questions and
             answers from your material.
           </span>
         </header>
 
-        <section className="qa-settings">
+        <section
+          className="qa-settings"
+          aria-label="Question generation settings"
+        >
           <div>
             <label htmlFor="qa-difficulty">
               Difficulty
             </label>
 
             <ThemeSelect
+              id="qa-difficulty"
               value={difficulty}
               onChange={setDifficulty}
               ariaLabel="Select difficulty"
@@ -128,8 +159,13 @@ const QuestionAnswerPreparation = () => {
             </label>
 
             <ThemeSelect
+              id="qa-count"
               value={String(questionCount)}
-              onChange={setQuestionCount}
+              onChange={(value) =>
+                setQuestionCount(
+                  Number(value),
+                )
+              }
               ariaLabel="Select question count"
               options={[
                 {
@@ -155,7 +191,7 @@ const QuestionAnswerPreparation = () => {
           <button
             type="button"
             onClick={generateQuestions}
-            disabled={loading}
+            disabled={loading || !materialId}
           >
             {loading ? (
               <LoaderCircle
@@ -173,55 +209,117 @@ const QuestionAnswerPreparation = () => {
         </section>
 
         {error && (
-          <div className="qa-error">
+          <div
+            className="qa-error"
+            role="alert"
+          >
             {error}
           </div>
         )}
 
+        {!loading &&
+          !error &&
+          hasGenerated &&
+          questions.length === 0 && (
+            <div className="qa-empty">
+              <Sparkles size={22} />
+
+              <div>
+                <strong>
+                  No questions generated
+                </strong>
+
+                <p>
+                  Please try another difficulty
+                  or question count.
+                </p>
+              </div>
+            </div>
+          )}
+
         {questions.length > 0 && (
-          <section className="qa-list">
+          <section
+            className="qa-list"
+            aria-label="Generated questions"
+          >
             {questions.map(
-              (item, index) => (
-                <article
-                  key={index}
-                  className="qa-card"
-                >
-                  <button
-                    type="button"
-                    className="qa-question"
-                    onClick={() =>
-                      toggleAnswer(index)
+              (item, index) => {
+                const answerIsOpen =
+                  Boolean(
+                    openAnswers[index],
+                  );
+
+                const answerId = `qa-answer-${index}`;
+                const questionId = `qa-question-${index}`;
+
+                return (
+                  <article
+                    key={
+                      item._id ||
+                      `${item.question}-${index}`
                     }
+                    className="qa-card"
                   >
-                    <span>
-                      Q{index + 1}
-                    </span>
+                    <button
+                      id={questionId}
+                      type="button"
+                      className="qa-question"
+                      aria-expanded={
+                        answerIsOpen
+                      }
+                      aria-controls={answerId}
+                      onClick={() =>
+                        toggleAnswer(index)
+                      }
+                    >
+                      <span>
+                        Q{index + 1}
+                      </span>
 
-                    <strong>
-                      {item.question}
-                    </strong>
+                      <strong>
+                        {item.question ||
+                          "Question unavailable"}
+                      </strong>
 
-                    <span>
-                      {openAnswers[index]
-                        ? "−"
-                        : "+"}
-                    </span>
-                  </button>
+                      <span
+                        aria-hidden="true"
+                      >
+                        {answerIsOpen
+                          ? "−"
+                          : "+"}
+                      </span>
+                    </button>
 
-                  {openAnswers[index] && (
-                    <div className="qa-answer">
-                      <strong>Answer</strong>
-                      <p>{item.answer}</p>
+                    {answerIsOpen && (
+                      <div
+                        id={answerId}
+                        className="qa-answer"
+                        role="region"
+                        aria-labelledby={
+                          questionId
+                        }
+                      >
+                        <strong>
+                          Answer
+                        </strong>
 
-                      {item.explanation && (
-                        <small>
-                          {item.explanation}
-                        </small>
-                      )}
-                    </div>
-                  )}
-                </article>
-              )
+                        <p>
+                          {item.answer ||
+                            "Answer unavailable"}
+                        </p>
+
+                        {item.explanation && (
+                          <small>
+                            {
+                              item.explanation
+                            }
+                          </small>
+                        )}
+                      </div>
+                    )}
+                  </article>
+                );
+              },
             )}
           </section>
         )}

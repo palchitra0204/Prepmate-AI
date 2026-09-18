@@ -2026,3 +2026,311 @@ html body #root .history-page .history-search input[type="search"]::placeholder 
   color: #a03f73 !important;
   stroke: #a03f73 !important;
 }
+
+/* View button icon fix */
+
+.history-actions .history-view-button svg {
+  width: 16px !important;
+  height: 16px !important;
+  flex: 0 0 16px !important;
+
+  display: block !important;
+
+  color: currentColor !important;
+  stroke: currentColor !important;
+  stroke-width: 2 !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+:root[data-theme="light"] .history-actions .history-view-button:hover:not(:disabled) svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* again icon fix */
+
+:root[data-theme="light"] .history-actions .history-generate-button:hover:not(:disabled) svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* delete icon fix */
+
+:root[data-theme="light"] .history-actions .history-delete-button:hover:not(:disabled) svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* =========================================
+   VIRTUAL INTERVIEW HISTORY
+========================================= */
+
+.history-card-virtual {
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.3);
+
+  background:
+    radial-gradient(circle at 100% 0%,
+      rgba(166,
+        108,
+        255,
+        0.08),
+      transparent 35%),
+    var(--history-surface,
+      #100e16);
+}
+
+.history-card-virtual .history-icon {
+  color: #c89fff;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.25);
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.12);
+}
+
+.history-card-virtual .history-icon svg {
+  color: #c89fff;
+  stroke: #c89fff;
+}
+
+.history-virtual-meta {
+  margin-top: 6px !important;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+
+  color:
+    var(--history-muted,
+      #98919f) !important;
+
+  font-size: 12px !important;
+}
+
+.history-virtual-meta span {
+  display: inline-flex;
+  align-items: center;
+}
+
+
+/* Active virtual interview */
+
+.history-status-active {
+  color: #c89fff;
+
+  border-color:
+    rgba(166,
+      108,
+      255,
+      0.4);
+
+  background:
+    rgba(166,
+      108,
+      255,
+      0.1);
+}
+
+
+/* Cancelled interview */
+
+.history-status-cancelled {
+  color: #ff99aa;
+
+  border-color:
+    rgba(255,
+      82,
+      109,
+      0.4);
+
+  background:
+    rgba(255,
+      72,
+      101,
+      0.08);
+}
+
+
+/* Failed and cancelled remain red */
+
+.history-status-failed,
+.history-status-cancelled {
+  color: #ff9aaa;
+
+  border-color:
+    rgba(255,
+      82,
+      109,
+      0.42);
+
+  background:
+    rgba(255,
+      72,
+      101,
+      0.08);
+}
+
+
+/* Virtual filter space */
+
+.history-filters {
+  flex-wrap: wrap;
+}
+
+
+/* =========================================
+   LIGHT THEME - VIRTUAL HISTORY
+========================================= */
+
+:root[data-theme="light"] .history-card-virtual {
+  border-color:
+    rgba(160,
+      63,
+      115,
+      0.4);
+
+  background:
+    radial-gradient(circle at 100% 0%,
+      rgba(216,
+        91,
+        155,
+        0.08),
+      transparent 35%),
+    #ffffff;
+
+  box-shadow:
+    0 14px 34px rgba(160,
+      63,
+      115,
+      0.07);
+}
+
+:root[data-theme="light"] .history-card-virtual:hover {
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.65);
+
+  box-shadow:
+    0 16px 38px rgba(160,
+      63,
+      115,
+      0.1);
+}
+
+:root[data-theme="light"] .history-card-virtual .history-icon {
+  color: #d85b9b;
+
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.32);
+
+  background:
+    rgba(216,
+      91,
+      155,
+      0.1);
+}
+
+:root[data-theme="light"] .history-card-virtual .history-icon svg {
+  color: #d85b9b;
+  stroke: #d85b9b;
+}
+
+:root[data-theme="light"] .history-virtual-meta {
+  color: #716a6f !important;
+}
+
+
+/* Active status uses pink/maroon */
+
+:root[data-theme="light"] .history-status-active {
+  color: #a03f73;
+
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.42);
+
+  background: #fff1f7;
+}
+
+
+/* Completed remains pink */
+
+:root[data-theme="light"] .history-status-completed {
+  color: #a03f73;
+
+  border-color:
+    rgba(216,
+      91,
+      155,
+      0.42);
+
+  background: #fff1f7;
+}
+
+
+/* Cancelled and failed remain red */
+
+:root[data-theme="light"] .history-status-cancelled,
+:root[data-theme="light"] .history-status-failed {
+  color: #b3233c;
+
+  border-color:
+    rgba(217,
+      54,
+      79,
+      0.42);
+
+  background: #ffe8ec;
+}
+
+
+/* =========================================
+   RESPONSIVE VIRTUAL HISTORY
+========================================= */
+
+@media (max-width: 720px) {
+  .history-filters {
+    width: 100%;
+  }
+
+  .history-filters button {
+    flex:
+      1 1 auto;
+  }
+}
+
+
+@media (max-width: 540px) {
+  .history-virtual-meta {
+    gap: 5px;
+
+    font-size:
+      11px !important;
+  }
+
+  .history-card-virtual .history-icon {
+    width: 43px;
+    height: 43px;
+  }
+}
