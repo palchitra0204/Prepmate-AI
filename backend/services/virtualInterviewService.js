@@ -2,15 +2,23 @@ const {
     GoogleGenAI,
 } = require("@google/genai");
 
+const OpenAI = require("openai");
+
 const {
     generatePreparationContent,
 } = require("./aiService");
+
 
 const allowedVerdicts = [
     "Correct",
     "Partially Correct",
     "Incorrect",
 ];
+
+
+/* =========================================================
+   TEXT HELPERS
+========================================================= */
 
 const cleanText = (value) => {
     return String(value || "")
@@ -20,6 +28,7 @@ const cleanText = (value) => {
         .replace(/\n{3,}/g, "\n\n")
         .trim();
 };
+
 
 const removeMarkdownCodeBlock = (
     value
@@ -31,6 +40,7 @@ const removeMarkdownCodeBlock = (
         .trim();
 };
 
+
 const parseJsonObject = (
     responseText
 ) => {
@@ -41,7 +51,7 @@ const parseJsonObject = (
 
     if (!cleanedResponse) {
         throw new Error(
-            "Gemini returned an empty response"
+            "AI provider returned an empty response"
         );
     }
 
@@ -57,7 +67,7 @@ const parseJsonObject = (
         );
 
         throw new Error(
-            "Gemini returned invalid interview data"
+            "AI provider returned invalid interview data"
         );
     }
 
@@ -67,12 +77,17 @@ const parseJsonObject = (
         typeof parsedResponse !== "object"
     ) {
         throw new Error(
-            "Gemini response must be a JSON object"
+            "AI response must be a JSON object"
         );
     }
 
     return parsedResponse;
 };
+
+
+/* =========================================================
+   AI CLIENTS
+========================================================= */
 
 const getGeminiClient = () => {
     if (!process.env.GEMINI_API_KEY) {
@@ -86,6 +101,195 @@ const getGeminiClient = () => {
             process.env.GEMINI_API_KEY,
     });
 };
+
+
+const getGroqClient = () => {
+    if (!process.env.GROQ_API_KEY) {
+        throw new Error(
+            "GROQ_API_KEY is missing in the .env file"
+        );
+    }
+
+    return new OpenAI({
+        apiKey:
+            process.env.GROQ_API_KEY,
+
+        baseURL:
+            "https://api.groq.com/openai/v1",
+    });
+};
+
+
+/* =========================================================
+   PROVIDER REQUESTS
+========================================================= */
+
+const generateGeminiJsonObject =
+    async ({
+        prompt,
+        temperature,
+    }) => {
+        const ai =
+            getGeminiClient();
+
+        const model =
+            process.env.GEMINI_MODEL ||
+            "gemini-3.6-flash";
+
+        console.log(
+            `[Virtual Interview] Using Gemini model: ${model}`
+        );
+
+        const response =
+            await ai.models.generateContent({
+                model,
+
+                contents: prompt,
+
+                config: {
+                    temperature,
+
+                    responseMimeType:
+                        "application/json",
+                },
+            });
+
+        return parseJsonObject(
+            response.text
+        );
+    };
+
+
+const generateGroqJsonObject =
+    async ({
+        prompt,
+        temperature,
+    }) => {
+        const groq =
+            getGroqClient();
+
+        const model =
+            process.env.GROQ_MODEL ||
+            "openai/gpt-oss-20b";
+
+        console.log(
+            `[Virtual Interview] Using Groq model: ${model}`
+        );
+
+        const response =
+            await groq.chat.completions.create({
+                model,
+
+                messages: [
+                    {
+                        role: "system",
+
+                        content:
+                            "You are PrepMate AI, a professional voice interviewer. Return only a valid JSON object without Markdown.",
+                    },
+
+                    {
+                        role: "user",
+                        content: prompt,
+                    },
+                ],
+
+                temperature,
+
+                response_format: {
+                    type: "json_object",
+                },
+            });
+
+        const responseText =
+            response.choices?.[0]
+                ?.message?.content;
+
+        return parseJsonObject(
+            responseText
+        );
+    };
+
+
+/* =========================================================
+   GEMINI → GROQ FALLBACK
+========================================================= */
+
+const generateInterviewJson =
+    async ({
+        prompt,
+        temperature = 0.4,
+    }) => {
+        const provider =
+            (
+                process.env.AI_PROVIDER ||
+                "gemini"
+            ).toLowerCase();
+
+        /*
+         * Groq can also be selected
+         * as the primary provider.
+         */
+
+        if (provider === "groq") {
+            return generateGroqJsonObject({
+                prompt,
+                temperature,
+            });
+        }
+
+        if (provider !== "gemini") {
+            throw new Error(
+                `Unsupported AI provider: ${provider}`
+            );
+        }
+
+        try {
+            return await generateGeminiJsonObject({
+                prompt,
+                temperature,
+            });
+        } catch (geminiError) {
+            console.error(
+                "[Virtual Interview] Gemini Error:",
+                geminiError.message
+            );
+
+            const groqFallbackEnabled =
+                process.env
+                    .GROQ_FALLBACK_ENABLED !==
+                "false";
+
+            if (!groqFallbackEnabled) {
+                throw geminiError;
+            }
+
+            try {
+                console.warn(
+                    "[Virtual Interview] Gemini unavailable. Trying Groq fallback"
+                );
+
+                return await generateGroqJsonObject({
+                    prompt,
+                    temperature,
+                });
+            } catch (groqError) {
+                console.error(
+                    "[Virtual Interview] Groq Error:",
+                    groqError.message
+                );
+
+                throw new Error(
+                    "Virtual interview AI services are temporarily unavailable"
+                );
+            }
+        }
+    };
+
+
+/* =========================================================
+   INTERVIEW INSTRUCTIONS
+========================================================= */
 
 const getInterviewInstructions = (
     interviewType
@@ -141,6 +345,7 @@ Do not use information that is absent from the uploaded file.
 `;
 };
 
+
 const getPreviousQuestionText = (
     questions = []
 ) => {
@@ -161,22 +366,29 @@ const getPreviousQuestionText = (
         .join("\n");
 };
 
-/*
- * STATIC QUESTIONS
- *
- * All questions are generated together
- * before the interview begins.
- */
+
+/* =========================================================
+   STATIC QUESTIONS
+========================================================= */
+
 const generateStaticQuestions =
     async ({
         materialText,
         difficulty,
         questionCount,
     }) => {
+        /*
+         * aiService already handles:
+         * Gemini → Groq → Demo fallback
+         */
+
         const generatedQuestions =
             await generatePreparationContent({
                 text: materialText,
-                mode: "INTERVIEW",
+
+                mode:
+                    "INTERVIEW",
+
                 difficulty,
                 questionCount,
             });
@@ -203,34 +415,41 @@ const generateStaticQuestions =
                     ),
 
                 topic:
-                    cleanText(item.topic) ||
+                    cleanText(
+                        item.topic
+                    ) ||
                     `Question ${index + 1}`,
 
-                verdict: "Pending",
+                verdict:
+                    "Pending",
             })
         );
     };
 
-/*
- * FIRST DYNAMIC QUESTION
- */
+
+/* =========================================================
+   FIRST DYNAMIC QUESTION
+========================================================= */
+
 const generateInitialDynamicQuestion =
     async ({
         materialText,
         interviewType,
         difficulty,
     }) => {
-        const sourceText = cleanText(
-            materialText
-        ).slice(0, 50000);
+        const sourceText =
+            cleanText(
+                materialText
+            ).slice(
+                0,
+                50000
+            );
 
         if (!sourceText) {
             throw new Error(
                 "Material text is required for virtual interview"
             );
         }
-
-        const ai = getGeminiClient();
 
         const interviewInstructions =
             getInterviewInstructions(
@@ -254,12 +473,13 @@ Rules:
 - Use clear spoken English.
 - Return only valid JSON.
 - Do not include Markdown.
+- Do not add text outside the JSON object.
 
 Required JSON:
 
 {
-  "question": "Interview question",
-  "topic": "Short topic name"
+    "question": "Interview question",
+    "topic": "Short topic name"
 }
 
 UPLOADED FILE CONTENT:
@@ -267,52 +487,39 @@ UPLOADED FILE CONTENT:
 ${sourceText}
 `;
 
-        const response =
-            await ai.models.generateContent({
-                model:
-                    process.env.GEMINI_MODEL ||
-                    "gemini-2.5-flash",
-
-                contents: prompt,
-
-                config: {
-                    temperature: 0.65,
-
-                    responseMimeType:
-                        "application/json",
-                },
+        const result =
+            await generateInterviewJson({
+                prompt,
+                temperature: 0.65,
             });
 
-        const result =
-            parseJsonObject(
-                response.text
+        const question =
+            cleanText(
+                result.question
             );
-
-        const question = cleanText(
-            result.question
-        );
 
         if (!question) {
             throw new Error(
-                "Gemini did not generate an interview question"
+                "AI provider did not generate an interview question"
             );
         }
 
         return {
             question,
+
             topic:
-                cleanText(result.topic) ||
+                cleanText(
+                    result.topic
+                ) ||
                 "General",
         };
     };
 
-/*
- * ANSWER EVALUATION
- *
- * generateNextQuestion:
- * true only for DYNAMIC mode when
- * another question is required.
- */
+
+/* =========================================================
+   ANSWER EVALUATION
+========================================================= */
+
 const evaluateVirtualAnswer =
     async ({
         materialText,
@@ -323,17 +530,28 @@ const evaluateVirtualAnswer =
         previousQuestions,
         generateNextQuestion,
     }) => {
-        const sourceText = cleanText(
-            materialText
-        ).slice(0, 50000);
+        const sourceText =
+            cleanText(
+                materialText
+            ).slice(
+                0,
+                50000
+            );
 
-        const spokenAnswer = cleanText(
-            answerTranscript
-        );
+        const spokenAnswer =
+            cleanText(
+                answerTranscript
+            );
 
         if (!sourceText) {
             throw new Error(
                 "Material text is required"
+            );
+        }
+
+        if (!cleanText(question)) {
+            throw new Error(
+                "Interview question is required"
             );
         }
 
@@ -342,8 +560,6 @@ const evaluateVirtualAnswer =
                 "Answer transcript is required"
             );
         }
-
-        const ai = getGeminiClient();
 
         const interviewInstructions =
             getInterviewInstructions(
@@ -382,22 +598,22 @@ Difficulty: ${difficulty}.
 Evaluate the candidate's answer using the uploaded file as the source of truth.
 
 CURRENT QUESTION:
+
 ${cleanText(question)}
 
 CANDIDATE ANSWER:
+
 ${spokenAnswer}
 
 QUESTIONS ALREADY USED:
+
 ${previousQuestionText}
 
 ${nextQuestionInstructions}
 
 Evaluation rules:
 - Score must be between 0 and 10.
-- verdict must be exactly:
-  "Correct",
-  "Partially Correct",
-  or "Incorrect".
+- verdict must be exactly "Correct", "Partially Correct", or "Incorrect".
 - Do not penalize minor speech-to-text grammar errors.
 - feedback must be short and suitable for speaking aloud.
 - If the answer is incorrect, explain what was wrong.
@@ -405,24 +621,25 @@ Evaluation rules:
 - Do not invent information outside the uploaded file.
 - Return only valid JSON.
 - Do not include Markdown.
+- Do not add text outside the JSON object.
 
 Required JSON:
 
 {
-  "verdict": "Correct",
-  "score": 8,
-  "feedback": "Short spoken feedback",
-  "idealAnswer": "Correct concise answer",
-  "strengths": [
-    "One specific strength"
-  ],
-  "improvements": [
-    "One specific improvement"
-  ],
-  "nextQuestion": {
-    "question": "Next adaptive question",
-    "topic": "Short topic name"
-  }
+    "verdict": "Correct",
+    "score": 8,
+    "feedback": "Short spoken feedback",
+    "idealAnswer": "Correct concise answer",
+    "strengths": [
+        "One specific strength"
+    ],
+    "improvements": [
+        "One specific improvement"
+    ],
+    "nextQuestion": {
+        "question": "Next adaptive question",
+        "topic": "Short topic name"
+    }
 }
 
 When another question is not requested,
@@ -433,26 +650,11 @@ UPLOADED FILE CONTENT:
 ${sourceText}
 `;
 
-        const response =
-            await ai.models.generateContent({
-                model:
-                    process.env.GEMINI_MODEL ||
-                    "gemini-2.5-flash",
-
-                contents: prompt,
-
-                config: {
-                    temperature: 0.4,
-
-                    responseMimeType:
-                        "application/json",
-                },
-            });
-
         const result =
-            parseJsonObject(
-                response.text
-            );
+            await generateInterviewJson({
+                prompt,
+                temperature: 0.4,
+            });
 
         const verdict =
             allowedVerdicts.includes(
@@ -462,7 +664,9 @@ ${sourceText}
                 : "Partially Correct";
 
         const numericScore =
-            Number(result.score);
+            Number(
+                result.score
+            );
 
         const score =
             Number.isFinite(
@@ -485,18 +689,25 @@ ${sourceText}
             generateNextQuestion &&
             result.nextQuestion &&
             cleanText(
-                result.nextQuestion.question
+                result.nextQuestion
+                    .question
             )
         ) {
             nextQuestion = {
-                question: cleanText(
-                    result.nextQuestion.question
-                ),
+                question:
+                    cleanText(
+                        result
+                            .nextQuestion
+                            .question
+                    ),
 
                 topic:
                     cleanText(
-                        result.nextQuestion.topic
-                    ) || "General",
+                        result
+                            .nextQuestion
+                            .topic
+                    ) ||
+                    "General",
             };
         }
 
@@ -505,7 +716,7 @@ ${sourceText}
             !nextQuestion
         ) {
             throw new Error(
-                "Gemini did not generate the next dynamic question"
+                "AI provider did not generate the next dynamic question"
             );
         }
 
@@ -548,6 +759,7 @@ ${sourceText}
             nextQuestion,
         };
     };
+
 
 module.exports = {
     generateStaticQuestions,

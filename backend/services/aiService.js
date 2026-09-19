@@ -1,6 +1,5 @@
-const { GoogleGenAI } = require(
-  "@google/genai"
-);
+const { GoogleGenAI } = require("@google/genai");
+const OpenAI = require("openai");
 
 const stopWords = new Set([
   "this",
@@ -47,76 +46,70 @@ const stopWords = new Set([
   "only",
 ]);
 
-// const generateGeminiContent = async ({
-//   text,
-//   mode,
-//   difficulty,
-//   questionCount,
-// }) => {
-//   if (!process.env.GEMINI_API_KEY) {
-//     throw new Error(
-//       "GEMINI_API_KEY is missing in the .env file"
-//     );
-//   }
+/* =========================================================
+   TEXT HELPERS
+========================================================= */
 
-//   const ai = new GoogleGenAI({
-//     apiKey: process.env.GEMINI_API_KEY,
-//   });
-
-//   const modeInstructions =
-//     getModeInstructions(
-//       mode,
-//       questionCount
-//     );
-
-//   const materialText = cleanText(text).slice(
-//     0,
-//     60000
-//   );
-
-//   const prompt = `
-// Your existing prompt remains here...
-// `;
-
-//   // Add it here, immediately before the API request
-//   console.log(
-//     `Generating with Gemini model: ${process.env.GEMINI_MODEL ||
-//     "gemini-3-flash-preview"
-//     }`
-//   );
-
-//   const response =
-//     await ai.models.generateContent({
-//       model:
-//         process.env.GEMINI_MODEL ||
-//         "gemini-3-flash-preview",
-
-//       contents: prompt,
-
-//       config: {
-//         temperature: 0.4,
-//         responseMimeType:
-//           "application/json",
-//       },
-//     });
-
-//   console.log(
-//     "Gemini generation successful"
-//   );
-
-//   return parseGeneratedContent(
-//     response.text
-//   );
-// };
-
-const cleanText = (text) => {
-  return text
+const cleanText = (value) => {
+  return String(value || "")
     .replace(/\u0000/g, "")
     .replace(/\r/g, " ")
     .replace(/[ \t]+/g, " ")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 };
+
+const removeMarkdownCodeBlock = (value) => {
+  return String(value || "")
+    .replace(/^```json\s*/i, "")
+    .replace(/^```\s*/i, "")
+    .replace(/\s*```$/i, "")
+    .trim();
+};
+
+const parseGeneratedContent = (outputText) => {
+  if (!outputText?.trim()) {
+    throw new Error(
+      "AI provider did not return any content"
+    );
+  }
+
+  const cleanedOutput =
+    removeMarkdownCodeBlock(outputText);
+
+  let parsedContent;
+
+  try {
+    parsedContent = JSON.parse(cleanedOutput);
+  } catch (error) {
+    console.error(
+      "Invalid AI response JSON:",
+      outputText
+    );
+
+    throw new Error(
+      "AI provider returned invalid JSON. Please try again"
+    );
+  }
+
+  if (!Array.isArray(parsedContent)) {
+    throw new Error(
+      "AI response is not a JSON array"
+    );
+  }
+
+  if (parsedContent.length === 0) {
+    throw new Error(
+      "AI provider returned an empty result"
+    );
+  }
+
+  return parsedContent;
+};
+
+/* =========================================================
+   DEMO CONTENT HELPERS
+========================================================= */
 
 const getSentences = (text) => {
   const cleanedText = cleanText(text);
@@ -194,6 +187,10 @@ const findKeyword = (
   );
 };
 
+/* =========================================================
+   DEMO MCQ GENERATOR
+========================================================= */
+
 const generateDemoMCQs = (
   text,
   questionCount
@@ -213,17 +210,29 @@ const generateDemoMCQs = (
     },
     (_, index) => {
       const sentence =
-        sentences[index % sentences.length];
+        sentences[
+        index % sentences.length
+        ];
 
       const correctKeyword =
-        findKeyword(sentence, keywords) ||
-        keywords[index % keywords.length] ||
+        findKeyword(
+          sentence,
+          keywords
+        ) ||
+        keywords[
+        index %
+        Math.max(
+          keywords.length,
+          1
+        )
+        ] ||
         "Content";
 
       const incorrectKeywords =
         keywords.filter(
           (keyword) =>
-            keyword !== correctKeyword
+            keyword !==
+            correctKeyword
         );
 
       const wrongOptions = [];
@@ -241,7 +250,8 @@ const generateDemoMCQs = (
             1
           )
           ] ||
-          `Incorrect option ${offset + 1}`;
+          `Incorrect option ${offset + 1
+          }`;
 
         wrongOptions.push(
           capitalize(wrongOption)
@@ -291,6 +301,10 @@ const generateDemoMCQs = (
   );
 };
 
+/* =========================================================
+   DEMO QUESTION-ANSWER GENERATOR
+========================================================= */
+
 const generateDemoQuestionAnswers = (
   text,
   questionCount
@@ -310,10 +324,15 @@ const generateDemoQuestionAnswers = (
     },
     (_, index) => {
       const sentence =
-        sentences[index % sentences.length];
+        sentences[
+        index % sentences.length
+        ];
 
       const keyword =
-        findKeyword(sentence, keywords) ||
+        findKeyword(
+          sentence,
+          keywords
+        ) ||
         `Topic ${index + 1}`;
 
       return {
@@ -330,6 +349,10 @@ const generateDemoQuestionAnswers = (
     }
   );
 };
+
+/* =========================================================
+   DEMO INTERVIEW GENERATOR
+========================================================= */
 
 const generateDemoInterviewQuestions = (
   text,
@@ -350,10 +373,15 @@ const generateDemoInterviewQuestions = (
     },
     (_, index) => {
       const sentence =
-        sentences[index % sentences.length];
+        sentences[
+        index % sentences.length
+        ];
 
       const keyword =
-        findKeyword(sentence, keywords) ||
+        findKeyword(
+          sentence,
+          keywords
+        ) ||
         `Topic ${index + 1}`;
 
       return {
@@ -402,6 +430,10 @@ const generateDemoContent = ({
   );
 };
 
+/* =========================================================
+   PROMPT INSTRUCTIONS
+========================================================= */
+
 const getModeInstructions = (
   mode,
   questionCount
@@ -411,16 +443,17 @@ const getModeInstructions = (
 Generate exactly ${questionCount} multiple-choice questions.
 
 Each array item must use this structure:
+
 {
-  "question": "Question based on the material",
-  "options": [
-    "Option A",
-    "Option B",
-    "Option C",
-    "Option D"
-  ],
-  "correctAnswer": "Exact text of one option",
-  "explanation": "Short explanation from the material"
+    "question": "Question based on the material",
+    "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+    ],
+    "correctAnswer": "Exact text of one option",
+    "explanation": "Short explanation from the material"
 }
 
 Requirements:
@@ -435,10 +468,11 @@ Requirements:
 Generate exactly ${questionCount} study questions and answers.
 
 Each array item must use this structure:
+
 {
-  "question": "Question based on the material",
-  "answer": "Clear answer based on the material",
-  "explanation": "Short additional explanation"
+    "question": "Question based on the material",
+    "answer": "Clear answer based on the material",
+    "explanation": "Short additional explanation"
 }
 
 Requirements:
@@ -453,10 +487,11 @@ Requirements:
 Generate exactly ${questionCount} interview or viva questions.
 
 Each array item must use this structure:
+
 {
-  "question": "Interview question",
-  "answer": "Suggested answer based on the material",
-  "tip": "Short tip for answering confidently"
+    "question": "Interview question",
+    "answer": "Suggested answer based on the material",
+    "tip": "Short tip for answering confidently"
 }
 
 Requirements:
@@ -471,91 +506,32 @@ Requirements:
   );
 };
 
-const removeMarkdownCodeBlock = (
-  value
-) => {
-  return value
-    .replace(/^```json\s*/i, "")
-    .replace(/^```\s*/i, "")
-    .replace(/\s*```$/i, "")
-    .trim();
-};
-
-const parseGeneratedContent = (
-  outputText
-) => {
-  if (!outputText?.trim()) {
-    throw new Error(
-      "Gemini did not return any content"
-    );
-  }
-
-  const cleanedOutput =
-    removeMarkdownCodeBlock(
-      outputText
-    );
-
-  let parsedContent;
-
-  try {
-    parsedContent =
-      JSON.parse(cleanedOutput);
-  } catch (error) {
-    console.error(
-      "Invalid Gemini JSON:",
-      outputText
-    );
-
-    throw new Error(
-      "Gemini returned invalid JSON. Please try again"
-    );
-  }
-
-  if (!Array.isArray(parsedContent)) {
-    throw new Error(
-      "Gemini response is not a JSON array"
-    );
-  }
-
-  if (parsedContent.length === 0) {
-    throw new Error(
-      "Gemini returned an empty result"
-    );
-  }
-
-  return parsedContent;
-};
-
-const generateGeminiContent = async ({
+const createPreparationPrompt = ({
   text,
   mode,
   difficulty,
   questionCount,
+  maximumCharacters,
 }) => {
-  if (!process.env.GEMINI_API_KEY) {
-    throw new Error(
-      "GEMINI_API_KEY is missing in the .env file"
-    );
-  }
-
-  const ai = new GoogleGenAI({
-    apiKey:
-      process.env.GEMINI_API_KEY,
-  });
-
   const modeInstructions =
     getModeInstructions(
       mode,
       questionCount
     );
 
-  const maximumCharacters = 60000;
+  const materialText =
+    cleanText(text).slice(
+      0,
+      maximumCharacters
+    );
 
-  const materialText = cleanText(
-    text
-  ).slice(0, maximumCharacters);
+  if (!materialText) {
+    throw new Error(
+      "Material does not contain readable text"
+    );
+  }
 
-  const prompt = `
+  return `
 You are PrepMate AI, an educational preparation assistant.
 
 Generate preparation content only from the supplied study material.
@@ -574,13 +550,49 @@ STUDY MATERIAL:
 
 ${materialText}
 `;
+};
+
+/* =========================================================
+   GEMINI GENERATOR
+========================================================= */
+
+const generateGeminiContent = async ({
+  text,
+  mode,
+  difficulty,
+  questionCount,
+}) => {
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error(
+      "GEMINI_API_KEY is missing in the .env file"
+    );
+  }
+
+  const ai = new GoogleGenAI({
+    apiKey:
+      process.env.GEMINI_API_KEY,
+  });
+
+  const prompt =
+    createPreparationPrompt({
+      text,
+      mode,
+      difficulty,
+      questionCount,
+      maximumCharacters: 60000,
+    });
+
+  const model =
+    process.env.GEMINI_MODEL ||
+    "gemini-3.6-flash";
+
+  console.log(
+    `Generating content with Gemini model: ${model}`
+  );
 
   const response =
     await ai.models.generateContent({
-      model:
-        process.env.GEMINI_MODEL ||
-        "gemini-2.5-flash",
-
+      model,
       contents: prompt,
 
       config: {
@@ -595,6 +607,81 @@ ${materialText}
     response.text
   );
 };
+
+/* =========================================================
+   GROQ GENERATOR
+========================================================= */
+
+const generateGroqContent = async ({
+  text,
+  mode,
+  difficulty,
+  questionCount,
+}) => {
+  if (!process.env.GROQ_API_KEY) {
+    throw new Error(
+      "GROQ_API_KEY is missing in the .env file"
+    );
+  }
+
+  const groq = new OpenAI({
+    apiKey:
+      process.env.GROQ_API_KEY,
+
+    baseURL:
+      "https://api.groq.com/openai/v1",
+  });
+
+  const prompt =
+    createPreparationPrompt({
+      text,
+      mode,
+      difficulty,
+      questionCount,
+      maximumCharacters: 50000,
+    });
+
+  const model =
+    process.env.GROQ_MODEL ||
+    "openai/gpt-oss-20b";
+
+  console.log(
+    `Generating content with Groq model: ${model}`
+  );
+
+  const response =
+    await groq.chat.completions.create({
+      model,
+
+      messages: [
+        {
+          role: "system",
+
+          content:
+            "You are PrepMate AI. Return only valid JSON without Markdown.",
+        },
+
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+
+      temperature: 0.4,
+    });
+
+  const outputText =
+    response.choices?.[0]
+      ?.message?.content;
+
+  return parseGeneratedContent(
+    outputText
+  );
+};
+
+/* =========================================================
+   MAIN GENERATION SERVICE
+========================================================= */
 
 const generatePreparationContent =
   async ({
@@ -613,7 +700,9 @@ const generatePreparationContent =
       Number(questionCount);
 
     if (
-      !Number.isInteger(totalQuestions) ||
+      !Number.isInteger(
+        totalQuestions
+      ) ||
       totalQuestions < 1 ||
       totalQuestions > 50
     ) {
@@ -622,8 +711,37 @@ const generatePreparationContent =
       );
     }
 
+    const supportedModes = [
+      "MCQ",
+      "QUESTION_ANSWER",
+      "INTERVIEW",
+    ];
+
+    if (
+      !supportedModes.includes(mode)
+    ) {
+      throw new Error(
+        "Invalid preparation mode"
+      );
+    }
+
     const demoMode =
-      process.env.DEMO_MODE === "true";
+      process.env.DEMO_MODE ===
+      "true";
+
+    if (demoMode) {
+      console.warn(
+        "DEMO_MODE is enabled"
+      );
+
+      return generateDemoContent({
+        text,
+        mode,
+
+        questionCount:
+          totalQuestions,
+      });
+    }
 
     const provider =
       (
@@ -631,54 +749,131 @@ const generatePreparationContent =
         "gemini"
       ).toLowerCase();
 
-    if (demoMode) {
-      return generateDemoContent({
-        text,
-        mode,
-        questionCount:
-          totalQuestions,
-      });
-    }
-
-    if (provider !== "gemini") {
+    if (
+      provider !== "gemini" &&
+      provider !== "groq"
+    ) {
       throw new Error(
         `Unsupported AI provider: ${provider}`
       );
     }
 
+    const generationOptions = {
+      text,
+      mode,
+      difficulty,
+
+      questionCount:
+        totalQuestions,
+    };
+
+    /*
+     * When Groq is selected as the
+     * primary provider.
+     */
+
+    if (provider === "groq") {
+      try {
+        return await generateGroqContent(
+          generationOptions
+        );
+      } catch (groqError) {
+        console.error(
+          "Groq Generation Error:",
+          groqError.message
+        );
+
+        const demoFallbackEnabled =
+          process.env
+            .DEMO_FALLBACK_ENABLED !==
+          "false";
+
+        if (
+          demoFallbackEnabled
+        ) {
+          console.warn(
+            "Groq unavailable. Using demo fallback"
+          );
+
+          return generateDemoContent({
+            text,
+            mode,
+
+            questionCount:
+              totalQuestions,
+          });
+        }
+
+        throw groqError;
+      }
+    }
+
+    /*
+     * Gemini is the primary provider.
+     */
+
     try {
-      return await generateGeminiContent({
-        text,
-        mode,
-        difficulty,
-        questionCount:
-          totalQuestions,
-      });
-    } catch (error) {
+      return await generateGeminiContent(
+        generationOptions
+      );
+    } catch (geminiError) {
       console.error(
         "Gemini Generation Error:",
-        error.message
+        geminiError.message
       );
 
-      const fallbackEnabled =
+      const groqFallbackEnabled =
         process.env
-          .GEMINI_FALLBACK_TO_DEMO !==
+          .GROQ_FALLBACK_ENABLED !==
         "false";
 
-      if (fallbackEnabled) {
+      /*
+       * Gemini failed.
+       * Try Groq.
+       */
+
+      if (groqFallbackEnabled) {
+        try {
+          console.warn(
+            "Gemini unavailable. Trying Groq fallback"
+          );
+
+          return await generateGroqContent(
+            generationOptions
+          );
+        } catch (groqError) {
+          console.error(
+            "Groq Generation Error:",
+            groqError.message
+          );
+        }
+      }
+
+      /*
+       * Both providers failed.
+       * Use local demo generator.
+       */
+
+      const demoFallbackEnabled =
+        process.env
+          .DEMO_FALLBACK_ENABLED !==
+        "false";
+
+      if (demoFallbackEnabled) {
         console.warn(
-          "Gemini unavailable. Using demo fallback"
+          "AI providers unavailable. Using demo fallback"
         );
 
         return generateDemoContent({
           text,
           mode,
+
           questionCount:
             totalQuestions,
         });
       }
 
-      throw error;
+      throw geminiError;
     }
   };
 

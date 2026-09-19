@@ -12,6 +12,7 @@ import {
   File,
   FileQuestion,
   FileText,
+  MessageCircle,
   GraduationCap,
   MoreHorizontal,
   Search,
@@ -626,6 +627,16 @@ const Materials = () => {
                     </div>
 
                     <div className="material-card-actions">
+                      {material.status === "Ready" && (
+                        <Link
+                          to={`/chat/${material._id}`}
+                          className="material-chat-action"
+                        >
+                          <MessageCircle size={17} />
+                          Chat with AI
+                        </Link>
+                      )}
+
                       <button
                         type="button"
                         className="prepare-material-button"

@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard";
 import UploadMaterial from "./pages/UploadMaterial";
 import Materials from "./pages/Materials";
 import PrepareMaterial from "./pages/PrepareMaterial";
+import MaterialChat from "./pages/MaterialChat";
 import PreparationResult from "./pages/PreparationResult";
 import VirtualInterviewResult from "./pages/VirtualInterviewResult";
 import MCQPreparation from "./pages/MCQPreparation";
@@ -127,6 +128,16 @@ const App = () => {
                     element={
                         <PrepareMaterial />
                     }
+                />
+
+                <Route
+                    path="/chat"
+                    element={<MaterialChat />}
+                />
+
+                <Route
+                    path="/chat/:materialId"
+                    element={<MaterialChat />}
                 />
 
                 <Route

@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   BrainCircuit,
   History,
+  MessageCircle,
   LayoutDashboard,
   Library,
   LogOut,
@@ -12,6 +13,7 @@ import {
   Upload,
   Users,
   X,
+  
 } from "lucide-react";
 
 import {
@@ -148,6 +150,18 @@ const Sidebar = () => {
             <BrainCircuit size={29} />
 
             <span>PrepMate AI</span>
+          </NavLink>
+
+          <NavLink
+            to="/chat"
+            className={({ isActive }) =>
+              isActive
+                ? "sidebar-link active"
+                : "sidebar-link"
+            }
+          >
+            <MessageCircle size={20} />
+            <span>AI Chat</span>
           </NavLink>
 
           <button
