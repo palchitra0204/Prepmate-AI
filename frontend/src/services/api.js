@@ -1,14 +1,10 @@
 import axios from "axios";
 
+
 const api = axios.create({
     baseURL:
         import.meta.env.VITE_API_URL ||
         "http://localhost:5000/api",
-
-    headers: {
-        "Content-Type":
-            "application/json",
-    },
 
     /*
      * Multi-Agent workflow ko
@@ -17,10 +13,17 @@ const api = axios.create({
     timeout: 180000,
 });
 
+
+/* =========================================================
+   REQUEST INTERCEPTOR
+========================================================= */
+
 api.interceptors.request.use(
     (config) => {
         const token =
-            localStorage.getItem("token");
+            localStorage.getItem(
+                "token"
+            );
 
         if (token) {
             config.headers.Authorization =
@@ -31,9 +34,16 @@ api.interceptors.request.use(
     },
 
     (error) => {
-        return Promise.reject(error);
+        return Promise.reject(
+            error
+        );
     }
 );
+
+
+/* =========================================================
+   RESPONSE INTERCEPTOR
+========================================================= */
 
 api.interceptors.response.use(
     (response) => response,
@@ -48,11 +58,14 @@ api.interceptors.response.use(
         }
 
         if (
-            error.response?.status === 401
+            error.response?.status ===
+            401
         ) {
             const message =
-                error.response?.data?.message
-                    ?.toLowerCase() || "";
+                String(
+                    error.response?.data
+                        ?.message || ""
+                ).toLowerCase();
 
             const authenticationFailed =
                 message.includes(
@@ -63,9 +76,14 @@ api.interceptors.response.use(
                 ) ||
                 message.includes(
                     "authentication required"
+                ) ||
+                message.includes(
+                    "not authorized"
                 );
 
-            if (authenticationFailed) {
+            if (
+                authenticationFailed
+            ) {
                 localStorage.removeItem(
                     "token"
                 );
@@ -78,14 +96,18 @@ api.interceptors.response.use(
                     window.location.pathname !==
                     "/login"
                 ) {
-                    window.location.href =
-                        "/login";
+                    window.location.replace(
+                        "/login"
+                    );
                 }
             }
         }
 
-        return Promise.reject(error);
+        return Promise.reject(
+            error
+        );
     }
 );
+
 
 export default api;
