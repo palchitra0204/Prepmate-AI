@@ -1,41 +1,35 @@
-const nodemailer = require("nodemailer");
-
-
 /* =========================================================
-   TRANSPORTER
+   BREVO EMAIL CONFIGURATION
 ========================================================= */
 
-const createTransporter = () => {
-    const emailUser =
+const getEmailConfiguration = () => {
+    const apiKey =
+        process.env.BREVO_API_KEY;
+
+    const senderEmail =
         process.env.EMAIL_USER;
 
-    const emailPassword =
-        process.env.EMAIL_APP_PASSWORD;
+    const senderName =
+        process.env.EMAIL_FROM ||
+        "PrepMate AI";
 
-
-    if (!emailUser || !emailPassword) {
+    if (!apiKey) {
         throw new Error(
-            "EMAIL_USER or EMAIL_APP_PASSWORD is missing in the .env file"
+            "BREVO_API_KEY is missing in environment variables"
         );
     }
 
+    if (!senderEmail) {
+        throw new Error(
+            "EMAIL_USER is missing in environment variables"
+        );
+    }
 
-    return nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
-        requireTLS: true,
-        family: 4,
-
-        auth: {
-            user: emailUser,
-            pass: emailPassword,
-        },
-
-        connectionTimeout: 20000,
-        greetingTimeout: 20000,
-        socketTimeout: 30000,
-    });
+    return {
+        apiKey,
+        senderEmail,
+        senderName,
+    };
 };
 
 
@@ -137,6 +131,92 @@ const createOtpEmailTemplate = ({
 
 
 /* =========================================================
+   SEND EMAIL USING BREVO HTTPS API
+========================================================= */
+
+const sendEmail = async ({
+    email,
+    name,
+    subject,
+    text,
+    html,
+}) => {
+    const {
+        apiKey,
+        senderEmail,
+        senderName,
+    } = getEmailConfiguration();
+
+    const response =
+        await fetch(
+            "https://api.brevo.com/v3/smtp/email",
+            {
+                method: "POST",
+
+                headers: {
+                    accept:
+                        "application/json",
+
+                    "content-type":
+                        "application/json",
+
+                    "api-key":
+                        apiKey,
+                },
+
+                body: JSON.stringify({
+                    sender: {
+                        name:
+                            senderName,
+
+                        email:
+                            senderEmail,
+                    },
+
+                    to: [
+                        {
+                            email,
+
+                            name:
+                                name ||
+                                email,
+                        },
+                    ],
+
+                    subject,
+
+                    textContent:
+                        text,
+
+                    htmlContent:
+                        html,
+                }),
+            }
+        );
+
+    const responseData =
+        await response
+            .json()
+            .catch(() => ({}));
+
+    if (!response.ok) {
+        console.error(
+            "Brevo Email Error:",
+            response.status,
+            responseData
+        );
+
+        throw new Error(
+            responseData.message ||
+            "Unable to send email"
+        );
+    }
+
+    return responseData;
+};
+
+
+/* =========================================================
    SEND REGISTRATION OTP
 ========================================================= */
 
@@ -146,32 +226,13 @@ const sendRegistrationOtp =
         name,
         otp,
     }) => {
-        const transporter =
-            createTransporter();
-
-
-        const senderName =
-            process.env.EMAIL_FROM ||
-            "PrepMate AI";
-
-
         const expiryMinutes =
             Number(
-                process.env.OTP_EXPIRES_MINUTES
+                process.env
+                    .OTP_EXPIRES_MINUTES
             ) || 10;
 
-
-        await transporter.sendMail({
-            from:
-                `"${senderName}" ` +
-                `<${process.env.EMAIL_USER}>`,
-
-            to: email,
-
-            subject:
-                "Verify your PrepMate account",
-
-            text: `
+        const text = `
 Hello ${name},
 
 Your PrepMate account verification code is: ${otp}
@@ -179,22 +240,32 @@ Your PrepMate account verification code is: ${otp}
 This code will expire in ${expiryMinutes} minutes.
 
 If you did not create this account, ignore this email.
-      `.trim(),
+        `.trim();
 
-            html:
-                createOtpEmailTemplate({
-                    name,
+        const html =
+            createOtpEmailTemplate({
+                name,
 
-                    heading:
-                        "Verify your email",
+                heading:
+                    "Verify your email",
 
-                    description:
-                        "use the verification code below to complete your PrepMate registration.",
+                description:
+                    "use the verification code below to complete your PrepMate registration.",
 
-                    otp,
+                otp,
 
-                    expiryMinutes,
-                }),
+                expiryMinutes,
+            });
+
+        return sendEmail({
+            email,
+            name,
+
+            subject:
+                "Verify your PrepMate account",
+
+            text,
+            html,
         });
     };
 
@@ -209,32 +280,13 @@ const sendPasswordResetOtp =
         name,
         otp,
     }) => {
-        const transporter =
-            createTransporter();
-
-
-        const senderName =
-            process.env.EMAIL_FROM ||
-            "PrepMate AI";
-
-
         const expiryMinutes =
             Number(
-                process.env.OTP_EXPIRES_MINUTES
+                process.env
+                    .OTP_EXPIRES_MINUTES
             ) || 10;
 
-
-        await transporter.sendMail({
-            from:
-                `"${senderName}" ` +
-                `<${process.env.EMAIL_USER}>`,
-
-            to: email,
-
-            subject:
-                "Reset your PrepMate password",
-
-            text: `
+        const text = `
 Hello ${name},
 
 Your PrepMate password-reset code is: ${otp}
@@ -242,22 +294,32 @@ Your PrepMate password-reset code is: ${otp}
 This code will expire in ${expiryMinutes} minutes.
 
 If you did not request a password reset, ignore this email.
-      `.trim(),
+        `.trim();
 
-            html:
-                createOtpEmailTemplate({
-                    name,
+        const html =
+            createOtpEmailTemplate({
+                name,
 
-                    heading:
-                        "Reset your password",
+                heading:
+                    "Reset your password",
 
-                    description:
-                        "use the verification code below to reset your PrepMate password.",
+                description:
+                    "use the verification code below to reset your PrepMate password.",
 
-                    otp,
+                otp,
 
-                    expiryMinutes,
-                }),
+                expiryMinutes,
+            });
+
+        return sendEmail({
+            email,
+            name,
+
+            subject:
+                "Reset your PrepMate password",
+
+            text,
+            html,
         });
     };
 
