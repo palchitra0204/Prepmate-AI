@@ -99,11 +99,12 @@ const corsOptions = {
             );
         }
 
-        if (
-            allowedOrigins.includes(
-                requestOrigin
-            )
-        ) {
+        const isAllowed =
+            allowedOrigins.includes(requestOrigin) ||
+            requestOrigin.endsWith(".vercel.app") ||
+            /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(requestOrigin);
+
+        if (isAllowed) {
             return callback(
                 null,
                 true

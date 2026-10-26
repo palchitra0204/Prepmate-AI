@@ -466,6 +466,8 @@ const UploadMaterial = () => {
         null;
 
 
+      let lastUploadError = "";
+
       for (
         const selectedFile of
         selectedFiles
@@ -570,6 +572,14 @@ const UploadMaterial = () => {
         } catch (
         uploadRequestError
         ) {
+          const detailedError =
+            uploadRequestError.response?.data?.error ||
+            uploadRequestError.response?.data?.message ||
+            uploadRequestError.message ||
+            "Upload failed";
+
+          lastUploadError = detailedError;
+
           updateFile(
             selectedFile.id,
             {
@@ -577,11 +587,7 @@ const UploadMaterial = () => {
                 "Failed",
 
               uploadError:
-                uploadRequestError
-                  .response?.data
-                  ?.message ||
-
-                "Upload failed",
+                detailedError,
             }
           );
         }
@@ -629,7 +635,7 @@ const UploadMaterial = () => {
 
       } else {
         setError(
-          "Files could not be uploaded. Please try again."
+          lastUploadError || "Files could not be uploaded. Please try again."
         );
       }
 

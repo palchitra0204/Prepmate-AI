@@ -95,14 +95,18 @@ const storage =
 
 const allowedMimeTypes = [
     "application/pdf",
-
+    "application/x-pdf",
+    "application/acrobat",
+    "applications/vnd.pdf",
+    "text/pdf",
+    "text/x-pdf",
     "application/msword",
-
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-
     "text/plain",
-
     "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    "application/octet-stream",
+    "application/zip",
+    "application/x-zip-compressed",
 ];
 
 
@@ -146,21 +150,21 @@ const fileFilter = (
     }
 
 
-    const validMimeType =
-        allowedMimeTypes.includes(
-            file.mimetype
-        );
-
-
     const validExtension =
         allowedExtensions.includes(
             extension
         );
 
+    const validMimeType =
+        !file.mimetype ||
+        allowedMimeTypes.includes(
+            file.mimetype
+        );
+
 
     if (
-        validMimeType &&
-        validExtension
+        validExtension &&
+        validMimeType
     ) {
         callback(
             null,
